@@ -1,0 +1,9 @@
+main参数读取功能。使用boost。（完成）
+
+基于参数读取lua脚本目录，分析已经下载的网页文件（包括html和jsp等），输出XML。
+用统一的lua函数分析任何URL。这个函数能根据URL和脚本，分析出URL属于哪个网站的哪类页面，并调用正确的luastate进行分析。
+lua脚本作为IFComicDownloader的一个部分，保存在script文件夹中（script/sites/和script/api/）。
+
+lua脚本调用C函数进行下载时，要注意对下载过的URL进行cache，避免重复下载。
+
+UrlHandler这个类的名字好像有点词不达意。

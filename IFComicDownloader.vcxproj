@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugGoogleTest|Win32">
+      <Configuration>DebugGoogleTest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8E33E268-19AD-4721-B94A-60109F5FA9AE}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>IFComicDownloader</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGoogleTest|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugGoogleTest|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\</OutDir>
+    <IncludePath>src;$(IncludePath);</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGoogleTest|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin_gtest\</OutDir>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>src;$(IncludePath);</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>zlibd.lib;lua_d.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugGoogleTest|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_GTEST_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>gtestd.lib;lua_d.lib;Shlwapi.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\CacheManager.cpp" />
+    <ClCompile Include="src\CFunctionForLuaLib.cpp" />
+    <ClCompile Include="src\IFCurlAdaptor\DataPackage.cpp" />
+    <ClCompile Include="src\IFCurlAdaptor\HeaderPackage.cpp" />
+    <ClCompile Include="src\IFCurlAdaptor\UrlDownloader.cpp" />
+    <ClCompile Include="src\IFCurlAdaptor\UrlDownloaderFactory.cpp" />
+    <ClCompile Include="src\IFDataType\DataHolder.cpp" />
+    <ClCompile Include="src\IFDataType\DirectoryTree.cpp" />
+    <ClCompile Include="src\IFDataType\FileHolder.cpp" />
+    <ClCompile Include="src\IFDataType\Locker.cpp" />
+    <ClCompile Include="src\IFDataType\TestTstring.cpp" />
+    <ClCompile Include="src\IFDataType\Tstring.cpp" />
+    <ClCompile Include="src\IFLuaHandler\LuaStateFactoryImpl.cpp" />
+    <ClCompile Include="src\IFLuaHandler\LuaStateImpl.cpp" />
+    <ClCompile Include="src\IFLuaHandler\TestLuaStateImpl.cpp" />
+    <ClCompile Include="src\IFOperator\Base64.cpp" />
+    <ClCompile Include="src\IFOperator\CodeTransformer.cpp" />
+    <ClCompile Include="src\IFOperator\DirectoryTreeLoader.cpp" />
+    <ClCompile Include="src\IFOperator\JavascriptTool.cpp" />
+    <ClCompile Include="src\IFOperator\PathHandler.cpp" />
+    <ClCompile Include="src\IFOperator\TestJavascriptTool.cpp" />
+    <ClCompile Include="src\IFZlibAdaptor\CentralDirectoryStructure.cpp" />
+    <ClCompile Include="src\IFZlibAdaptor\FileHeaderStructure.cpp" />
+    <ClCompile Include="src\IFZlibAdaptor\GzipTool.cpp" />
+    <ClCompile Include="src\IFZlibAdaptor\TestZipTool.cpp" />
+    <ClCompile Include="src\IFZlibAdaptor\ZipTool.cpp" />
+    <ClCompile Include="src\LuaStateInterface.cpp" />
+    <ClCompile Include="src\LuaStateManager.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\MainGoogleTest.cpp" />
+    <ClCompile Include="src\ProgramArguments.cpp" />
+    <ClCompile Include="src\System.cpp" />
+    <ClCompile Include="src\TestCacheManager.cpp" />
+    <ClCompile Include="src\TestProgramArguments.cpp" />
+    <ClCompile Include="src\UrlDownloaderFactoryWithCache.cpp" />
+    <ClCompile Include="src\UrlDownloaderWithCache.cpp" />
+    <ClCompile Include="src\UrlHandler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="doc\argument_design.txt" />
+    <Text Include="doc\cache_design.txt" />
+    <Text Include="doc\lua_design.txt" />
+    <Text Include="doc\readme.txt" />
+    <Text Include="doc\todo-list.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\CacheManager.h" />
+    <ClInclude Include="src\CFunctionForLuaLib.h" />
+    <ClInclude Include="src\exception\UrlAnalyseFailedException.h" />
+    <ClInclude Include="src\exception\NoSuchCacheException.h" />
+    <ClInclude Include="src\GlobalEnum.h" />
+    <ClInclude Include="src\IFCurlAdaptor\CurlFunctionPointers.h" />
+    <ClInclude Include="src\IFCurlAdaptor\DataPackage.h" />
+    <ClInclude Include="src\IFCurlAdaptor\HeaderPackage.h" />
+    <ClInclude Include="src\IFCurlAdaptor\IFCurlCouldNotConnectException.h" />
+    <ClInclude Include="src\IFCurlAdaptor\IFCurlNeedRedirectionException.h" />
+    <ClInclude Include="src\IFCurlAdaptor\LoadLibraryFailedException.h" />
+    <ClInclude Include="src\IFCurlAdaptor\UrlDownloader.h" />
+    <ClInclude Include="src\IFCurlAdaptor\UrlDownloaderFactory.h" />
+    <ClInclude Include="src\IFDataType\DataHolder.h" />
+    <ClInclude Include="src\IFDataType\DirectoryTree.h" />
+    <ClInclude Include="src\IFDataType\FileHolder.h" />
+    <ClInclude Include="src\IFDataType\IFException.h" />
+    <ClInclude Include="src\IFDataType\IFStackTraceInfo.h" />
+    <ClInclude Include="src\IFDataType\IFThrowable.h" />
+    <ClInclude Include="src\IFDataType\Locker.h" />
+    <ClInclude Include="src\IFDataType\PathTypes.h" />
+    <ClInclude Include="src\IFDataType\Tstring.h" />
+    <ClInclude Include="src\IFLuaHandler\LuaState.h" />
+    <ClInclude Include="src\IFLuaHandler\LuaStateFactory.h" />
+    <ClInclude Include="src\IFLuaHandler\LuaStateFactoryImpl.h" />
+    <ClInclude Include="src\IFLuaHandler\LuaStateImpl.h" />
+    <ClInclude Include="src\IFMacros\BasicMacro.h" />
+    <ClInclude Include="src\IFMacros\BasicOperateMacro.h" />
+    <ClInclude Include="src\IFMacros\BasicProcessMacro.h" />
+    <ClInclude Include="src\IFMacros\DevelopMacros.h" />
+    <ClInclude Include="src\IFMacros\SleepMacro.h" />
+    <ClInclude Include="src\IFOperator\Base64.h" />
+    <ClInclude Include="src\IFOperator\CodeTransformer.h" />
+    <ClInclude Include="src\IFOperator\DirectoryTreeLoader.h" />
+    <ClInclude Include="src\IFOperator\IFExceptionFileNotExist.h" />
+    <ClInclude Include="src\IFOperator\JavascriptTool.h" />
+    <ClInclude Include="src\IFOperator\PathHandler.h" />
+    <ClInclude Include="src\IFZlibAdaptor\CentralDirectoryStructure.h" />
+    <ClInclude Include="src\IFZlibAdaptor\FileHeaderStructure.h" />
+    <ClInclude Include="src\IFZlibAdaptor\GzipTool.h" />
+    <ClInclude Include="src\IFZlibAdaptor\ZipTool.h" />
+    <ClInclude Include="src\LuaStateInterface.h" />
+    <ClInclude Include="src\LuaStateManager.h" />
+    <ClInclude Include="src\PauseWhenDestruct.h" />
+    <ClInclude Include="src\ProgramArguments.h" />
+    <ClInclude Include="src\System.h" />
+    <ClInclude Include="src\UrlDownloaderFactoryWithCache.h" />
+    <ClInclude Include="src\UrlDownloaderWithCache.h" />
+    <ClInclude Include="src\UrlHandler.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

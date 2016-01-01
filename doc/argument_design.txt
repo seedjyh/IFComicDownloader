@@ -1,0 +1,24 @@
+First check "-h".
+If there's no "-h", check "-v".
+If there's no "-v", check "-a".
+If there's no "-a", download.
+
+-h [ --help ]           print this message
+
+-v [ --version ]        print version of VXI
+
+-a [ --analyse ]        just analyse the page
+
+If there's no "-h", "-v" or "-a", program would download all.
+
+-u [ --url ]            target URL to download and analyse.
+    Compulsory.
+
+-d [ --download-path ]  the root path for saving downloaded files
+    Optional. If there's no "-d", the root path for saving downloaded files would be a "download" directory in the current directory.
+
+-s [ --script-path ]    the root path of lua script
+    Optional. If there's no "-s", the root path to load LUA scripts would be a "script" directory in the current directory.
+
+-c [ --cache-path ]     the root path of cache system, including cache list file and all temporary files.
+    Optional. If there's no "-c", the root path to cache would be a "cache" directory in the current directory.
