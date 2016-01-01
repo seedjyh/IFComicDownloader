@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="doc">
+      <UniqueIdentifier>{534a1d8a-99ae-48d5-9b9c-a5406e215c74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IFDataType">
+      <UniqueIdentifier>{2d03d6c4-1340-4dab-a812-3f7d76f198b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IFMacros">
+      <UniqueIdentifier>{3a47030b-bf07-43c0-87a9-6c438f1c499f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IFOperator">
+      <UniqueIdentifier>{277b76a4-dca9-4a16-b969-d4d0e79b5134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IFLuaHandler">
+      <UniqueIdentifier>{42607737-3f7e-4e1a-bf45-650a56ae87f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IFCurlAdaptor">
+      <UniqueIdentifier>{65fef8f2-32d7-4591-ae5a-1c3b029acf45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IFZlibAdaptor">
+      <UniqueIdentifier>{b6b3119f-93fc-492e-a9d5-665ba99a0155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\exception">
+      <UniqueIdentifier>{b58ddf49-a95c-4b15-add9-95906a59678e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFDataType\Tstring.cpp">
+      <Filter>src\IFDataType</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFDataType\TestTstring.cpp">
+      <Filter>src\IFDataType</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\CodeTransformer.cpp">
+      <Filter>src\IFOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProgramArguments.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MainGoogleTest.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TestProgramArguments.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LuaStateManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\PathHandler.cpp">
+      <Filter>src\IFOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFLuaHandler\TestLuaStateImpl.cpp">
+      <Filter>src\IFLuaHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFLuaHandler\LuaStateFactoryImpl.cpp">
+      <Filter>src\IFLuaHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFLuaHandler\LuaStateImpl.cpp">
+      <Filter>src\IFLuaHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\DirectoryTreeLoader.cpp">
+      <Filter>src\IFOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LuaStateInterface.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CFunctionForLuaLib.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFDataType\Locker.cpp">
+      <Filter>src\IFDataType</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\Base64.cpp">
+      <Filter>src\IFOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFCurlAdaptor\DataPackage.cpp">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFCurlAdaptor\HeaderPackage.cpp">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFDataType\DataHolder.cpp">
+      <Filter>src\IFDataType</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFZlibAdaptor\GzipTool.cpp">
+      <Filter>src\IFZlibAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFZlibAdaptor\TestZipTool.cpp">
+      <Filter>src\IFZlibAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFZlibAdaptor\ZipTool.cpp">
+      <Filter>src\IFZlibAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFZlibAdaptor\CentralDirectoryStructure.cpp">
+      <Filter>src\IFZlibAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFZlibAdaptor\FileHeaderStructure.cpp">
+      <Filter>src\IFZlibAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFDataType\DirectoryTree.cpp">
+      <Filter>src\IFDataType</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFDataType\FileHolder.cpp">
+      <Filter>src\IFDataType</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TestCacheManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CacheManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UrlHandler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFCurlAdaptor\UrlDownloaderFactory.cpp">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFCurlAdaptor\UrlDownloader.cpp">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UrlDownloaderFactoryWithCache.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UrlDownloaderWithCache.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\JavascriptTool.cpp">
+      <Filter>src\IFOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\TestJavascriptTool.cpp">
+      <Filter>src\IFOperator</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="doc\todo-list.txt">
+      <Filter>doc</Filter>
+    </Text>
+    <Text Include="doc\argument_design.txt">
+      <Filter>doc</Filter>
+    </Text>
+    <Text Include="doc\readme.txt">
+      <Filter>doc</Filter>
+    </Text>
+    <Text Include="doc\lua_design.txt">
+      <Filter>doc</Filter>
+    </Text>
+    <Text Include="doc\cache_design.txt">
+      <Filter>doc</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\IFDataType\Tstring.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFMacros\DevelopMacros.h">
+      <Filter>src\IFMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFMacros\BasicOperateMacro.h">
+      <Filter>src\IFMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFOperator\CodeTransformer.h">
+      <Filter>src\IFOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFMacros\BasicMacro.h">
+      <Filter>src\IFMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFMacros\BasicProcessMacro.h">
+      <Filter>src\IFMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GlobalEnum.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ProgramArguments.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PauseWhenDestruct.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LuaStateManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFDataType\PathTypes.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFOperator\PathHandler.h">
+      <Filter>src\IFOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFLuaHandler\LuaStateImpl.h">
+      <Filter>src\IFLuaHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFLuaHandler\LuaState.h">
+      <Filter>src\IFLuaHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFLuaHandler\LuaStateFactory.h">
+      <Filter>src\IFLuaHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFLuaHandler\LuaStateFactoryImpl.h">
+      <Filter>src\IFLuaHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFOperator\DirectoryTreeLoader.h">
+      <Filter>src\IFOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFDataType\DirectoryTree.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFDataType\FileHolder.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LuaStateInterface.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CFunctionForLuaLib.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFOperator\IFExceptionFileNotExist.h">
+      <Filter>src\IFOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFDataType\IFException.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFDataType\IFThrowable.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFDataType\IFStackTraceInfo.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFDataType\Locker.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFOperator\Base64.h">
+      <Filter>src\IFOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFCurlAdaptor\IFCurlNeedRedirectionException.h">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFCurlAdaptor\LoadLibraryFailedException.h">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFCurlAdaptor\UrlDownloader.h">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFCurlAdaptor\CurlFunctionPointers.h">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFCurlAdaptor\DataPackage.h">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFCurlAdaptor\HeaderPackage.h">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFCurlAdaptor\IFCurlCouldNotConnectException.h">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFDataType\DataHolder.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFZlibAdaptor\FileHeaderStructure.h">
+      <Filter>src\IFZlibAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFZlibAdaptor\GzipTool.h">
+      <Filter>src\IFZlibAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFZlibAdaptor\ZipTool.h">
+      <Filter>src\IFZlibAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFZlibAdaptor\CentralDirectoryStructure.h">
+      <Filter>src\IFZlibAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFMacros\SleepMacro.h">
+      <Filter>src\IFMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CacheManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UrlHandler.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\exception\NoSuchCacheException.h">
+      <Filter>src\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\exception\UrlAnalyseFailedException.h">
+      <Filter>src\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFCurlAdaptor\UrlDownloaderFactory.h">
+      <Filter>src\IFCurlAdaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UrlDownloaderFactoryWithCache.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UrlDownloaderWithCache.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFOperator\JavascriptTool.h">
+      <Filter>src\IFOperator</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
