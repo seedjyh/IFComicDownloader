@@ -1,3 +1,6 @@
+编译方式：
+使用Visual Studio 2013。本项目使用lua、libcurl、gzip库，编译时需要它们的lib，运行时需要它们的dll。
+
 调试时要注意的点：
 在Visual Studio 2013中运行时，“当前路径”是sln所在路径。
 而在命令行（cmd）中运行时，“当前路径”是cmd所在路径。
