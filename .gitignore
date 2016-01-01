@@ -26,3 +26,16 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio
+*.ncb
+*.suo
+*.user
+*.xml
+*.sln
+/DebugGoogleTest/
+/Debug/
+
+# No Binary
+/bin/IFComicDownloader.*
+/bin_gtest/IFComicDownloader.*
