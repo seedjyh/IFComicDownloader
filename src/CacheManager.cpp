@@ -82,6 +82,10 @@ CacheManager::CacheManager(const Tstring &kCacheDirectoryPath)
 :   kCacheDirectoryPath_(kCacheDirectoryPath),
     kCacheListFilePath_(kCacheDirectoryPath + _T("cache.index"))
 {
+    if (!PathHandler::CreatePath(kCacheDirectoryPath_))
+    {
+        throw 1;
+    }
     LoadCacheListFile();
 }
 
@@ -123,7 +127,7 @@ void CacheManager::AppendCacheItemToList(const std::string &kURL, const Tstring 
     {
         throw - 1; // FileIOException?
     }
-    int written_count = fprintf(fp, "%s,%S\n", kURL.c_str(), kPath.c_str());
+    int written_count = fprintf(fp, "%s %S\n", kURL.c_str(), kPath.c_str());
     if (written_count <= 0)
     {
         MY_FCLOSE(fp);

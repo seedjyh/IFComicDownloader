@@ -41,3 +41,5 @@
 # No Binary
 /bin/IFComicDownloader.*
 /bin_gtest/IFComicDownloader.*
+*.cache
+*.index
