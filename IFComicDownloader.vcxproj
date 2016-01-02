@@ -166,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="src\CacheManager.h" />
     <ClInclude Include="src\CFunctionForLuaLib.h" />
+    <ClInclude Include="src\exception\UnsupportedSiteException.h" />
     <ClInclude Include="src\exception\UrlAnalyseFailedException.h" />
     <ClInclude Include="src\exception\NoSuchCacheException.h" />
     <ClInclude Include="src\GlobalEnum.h" />

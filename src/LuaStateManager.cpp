@@ -32,6 +32,7 @@
 // Headers of current project
 #include "LuaStateInterface.h"
 #include "CFunctionForLuaLib.h"
+#include "exception/UnsupportedSiteException.h"
 
 LuaStateManager::LuaStateManager(const Tstring &kRootPath)
 :   root_path_(kRootPath),
@@ -300,7 +301,7 @@ std::string LuaStateManager::GetSiteNameByURL(const std::string &kURL)
         }
     }
 
-    throw 1;
+    throw UnsupportedSiteException(kURL);
 }
 
 LUA_STATE_PTR LuaStateManager::GetStateBySiteName(const std::string &kSiteName) const

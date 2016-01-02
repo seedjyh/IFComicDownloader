@@ -311,5 +311,8 @@
     <ClInclude Include="src\IFDataType\DirectoryHolder.h">
       <Filter>src\IFDataType</Filter>
     </ClInclude>
+    <ClInclude Include="src\exception\UnsupportedSiteException.h">
+      <Filter>src\exception</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
