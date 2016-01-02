@@ -213,6 +213,7 @@ void LuaStateManager::LoadCFunctionLib(LUA_STATE_PTR state)
 	LoadCFunction(state, CFunctionForLuaLib::SleepMilliSecond, std::string("SleepMilliSecond") );
     LoadCFunction(state, CFunctionForLuaLib::DownloadURL, std::string("DownloadURL"));
     LoadCFunction(state, CFunctionForLuaLib::JavascriptEval, std::string("JavascriptEval"));
+    LoadCFunction(state, CFunctionForLuaLib::Print, std::string("Print"));
     return;
 }
 

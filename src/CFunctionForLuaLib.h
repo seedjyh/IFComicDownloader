@@ -38,6 +38,7 @@ public:
 	static int FormatUrltoUtf8(lua_State *state);
     static int SleepMilliSecond(lua_State *state);
     static int JavascriptEval(lua_State *state);
+    static int Print(lua_State *state);
 protected:
 private:
     CFunctionForLuaLib(){};

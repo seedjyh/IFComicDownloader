@@ -259,3 +259,17 @@ int CFunctionForLuaLib::JavascriptEval(lua_State *state)
     lua_pushstring(state, eval_result.c_str());
     return 1;
 }
+
+int CFunctionForLuaLib::Print(lua_State *state)
+{
+    const char *text = lua_tostring(state, -1);
+    if (NULL == text)
+    {
+        lua_pushnil(state);
+        lua_pushstring(state, "Request a string parameter.");
+        return 2;
+    }
+
+    std::cout << text << std::endl;
+    return 0;
+}
