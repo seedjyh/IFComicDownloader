@@ -19,6 +19,7 @@
 
 // Headers from other projects
 #include "IFOperator/CodeTransformer.h"
+#include "IFMacros/BasicOperateMacro.h"
 
 // Headers of current project
 #include "LoadLibraryFailedException.h"
@@ -32,10 +33,17 @@ UrlDownloaderFactory::UrlDownloaderFactory(const Tstring &kDLLPath)
     HINSTANCE Hint = LoadLibrary(kDLLPath.c_str());
     if (NULL == Hint)
     {
-        DWORD error_code = GetLastError();
-        std::string temp_dll_uri;
-        CodeTransformer::TransTstringToString(kDLLPath, temp_dll_uri);
-        throw LoadLibraryFailedException(temp_dll_uri, error_code);
+        TCHAR reason[1024];
+        FormatMessage(
+            FORMAT_MESSAGE_FROM_SYSTEM,
+            NULL,
+            GetLastError(),
+            0,
+            (LPTSTR)&reason,
+            MY_SIZE_OF_ARRAY(reason),
+            NULL);
+
+        throw LoadLibraryFailedException(kDLLPath, CodeTransformer::TransTstringToString(Tstring(reason)));
     }
 
     my_curl_easy_init_ = (CurlEasyInit)GetProcAddress(Hint, "curl_easy_init");

@@ -2,7 +2,10 @@
 ---manhua.dmzj.com
 ------------------------------------------------------------
 function Analyse(url)
-    local pagestr = DownloadURL(url, "", "")
+    local pagestr, err = DownloadURL(url, "", "")
+	if type(pagestr) ~= "string" then
+		return nil, "DownloadURL " .. url .. " failed\nbecasuse " .. err
+	end
 
     local page_type = GetPageType(url)
     if type(page_type) ~= "string" then
