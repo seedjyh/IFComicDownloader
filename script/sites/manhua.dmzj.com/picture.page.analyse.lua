@@ -14,13 +14,9 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
         return nil, "error when call JumpStr var g_current_page = "
     end
     
-    local picture_index_str = GetStr(pagestr, start_index, ";")
-    if type(picture_index_str) ~= "string" then
-        return nil, "error when trying to get current index"
-    end
-    local picture_index_num = tonumber(picture_index_str)
+    local picture_index_num, err = GetPageIndexFromURL(picture_page_url)
     if type(picture_index_num) ~= "number" then
-        return nil, "error when transforming picture index from string to number, string form is: " .. picture_index_str
+        return nil, "error when GetPageIndexFromURL\nbecause: " .. err
     end
 
     start_index = JumpStr(pagestr, 1, "eval(", 1)
@@ -38,7 +34,7 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
     end
 	
 	-- KEY CODE HERE!
-	local url_start_index = JumpStr(eval_str_content, (picture_index_num - 1) * 2 + 1, "\"", 1)
+	local url_start_index = JumpStr(eval_str_content, 1, "\"", (picture_index_num - 1) * 2 + 1)
 	local relative_url = GetStr(eval_str_content, url_start_index, "\"")
 	local formated_relative_url = string.gsub(relative_url, "\\", "") -- Remove "\\"(0x5c) from URL.
 	local file_url = "http://images.dmzj.com" .. "/" .. formated_relative_url
@@ -55,6 +51,24 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
     result = result .. "</result>"
     
     return result
+end
+
+function GetPageIndexFromURL(url)
+	local index = GetLastPos(url, "-")
+	if type(index) ~= "number" then
+		return nil, "Can\'t find \'-\' from url " .. url
+	end
+	local page_index_str = GetStr(url, index + 1, ".")
+	if type(page_index_str) ~= "string" then
+		return nil, "Can\'t get page-index until \'.\' in url " .. url
+	end
+	
+	local page_index_num = tonumber(page_index_str)
+	if type(page_index_num) ~= "number" then
+		return nil, "Can\'t tranform page index string \"" .. page_index_str .. "\" to number"
+	end
+	
+	return page_index_num
 end
 
 function FindFileUrl(analyse_result)
