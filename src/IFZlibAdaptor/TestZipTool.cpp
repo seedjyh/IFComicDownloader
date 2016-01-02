@@ -24,6 +24,7 @@
 #include "IFDataType/Tstring.h"
 #include "IFMacros/BasicOperateMacro.h"
 #include "IFOperator/PathHandler.h"
+#include "IFDataType/DirectoryHolder.h"
 
 // Headers of current project
 // ...
@@ -89,6 +90,7 @@ TEST(ZipTool, Unzip)
     int ret_code = 0;
 
     Tstring test_path(TEXT(".\\testtemp\\") );
+    DirectoryHolder directory_holder(test_path);
     Tstring zip_file_path_name = test_path + (TEXT("testzip.zip") );
     Tstring target_path        = test_path + (TEXT("") );
 

@@ -178,6 +178,7 @@
     <ClInclude Include="src\IFCurlAdaptor\UrlDownloader.h" />
     <ClInclude Include="src\IFCurlAdaptor\UrlDownloaderFactory.h" />
     <ClInclude Include="src\IFDataType\DataHolder.h" />
+    <ClInclude Include="src\IFDataType\DirectoryHolder.h" />
     <ClInclude Include="src\IFDataType\DirectoryTree.h" />
     <ClInclude Include="src\IFDataType\FileHolder.h" />
     <ClInclude Include="src\IFDataType\IFException.h" />

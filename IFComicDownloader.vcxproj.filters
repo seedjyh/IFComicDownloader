@@ -308,5 +308,8 @@
     <ClInclude Include="src\IFOperator\JavascriptTool.h">
       <Filter>src\IFOperator</Filter>
     </ClInclude>
+    <ClInclude Include="src\IFDataType\DirectoryHolder.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

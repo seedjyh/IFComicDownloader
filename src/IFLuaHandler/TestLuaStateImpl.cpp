@@ -67,7 +67,8 @@ static void RemoveFiles()
 {
     DeleteFile(TEXT(FILE_1) );
     DeleteFile(TEXT(FILE_2) );
-    DeleteFile(TEXT(FILE_3) );
+    DeleteFile(TEXT(FILE_3));
+    DeleteFile(TEXT(FILE_4));
     return;
 }
 
@@ -130,6 +131,7 @@ TEST(LuaStateImpl, LoadFiles_CallFunction_SiteCheck)
     int result = -1;
     ASSERT_TRUE(state.CallFunction("SiteCheck", "s>i", "http://www.kyo.cn/manhua/kexuedechaodiancipao.html", &result) );
     ASSERT_EQ(1, result);
+    RemoveFiles();
 }
 
 TEST(LuaStateImpl, LoadBuffer)

@@ -29,26 +29,7 @@
 #include "IFDataType/DataHolder.h"
 #include "IFDataType/FileHolder.h"
 #include "IFMacros/BasicOperateMacro.h"
-
-class DirectoryHolder
-{
-    Tstring kPath_;
-public:
-    DirectoryHolder(const Tstring &kPath)
-        : kPath_(kPath)
-    {
-        if (!PathHandler::CreatePathRecursive(kPath_))
-        {
-            throw - 1;
-        }
-    }
-    ~DirectoryHolder()
-    {
-        PathHandler::Remove(kPath_);
-    }
-protected:
-private:
-};
+#include "IFDataType/DirectoryHolder.h"
 
 static bool SameContent(const FileHolder &kFile, const DataHolder &kData)
 {
