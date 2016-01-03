@@ -23,6 +23,7 @@
 #include "IFOperator/CodeTransformer.h"
 #include "IFCurlAdaptor/UrlDownloaderFactory.h"
 #include "IFMacros/BasicOperateMacro.h"
+#include "IFOperator/PathHandler.h"
 
 // Headers of current project
 #include "exception/UrlAnalyseFailedException.h"
@@ -54,6 +55,10 @@ void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownlo
 
     // generate file path
     const Tstring kFilePath = kDownloadRootPath + NumberOperator::ItoA(file_index, Tstring(_T("%06u"))) + CodeTransformer::TransStringToTString(std::string(strrchr(kFileURL.c_str(), '.')));
+    if (PathHandler::CheckFileExistance(kFilePath))
+    {
+        return;
+    }
 
     // download file
     UrlDownloaderFactory downloader_factory(ProgramArguments::Instance().curl_dll_path());
