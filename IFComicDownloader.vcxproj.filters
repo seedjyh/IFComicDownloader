@@ -142,6 +142,21 @@
     <ClCompile Include="src\IFOperator\TestJavascriptTool.cpp">
       <Filter>src\IFOperator</Filter>
     </ClCompile>
+    <ClCompile Include="src\ComicDownloader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VolumeDownloader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PictureDownloader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\TestCodeTransformer.cpp">
+      <Filter>src\IFOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\NumberOperator.cpp">
+      <Filter>src\IFOperator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="doc\todo-list.txt">
@@ -313,6 +328,21 @@
     </ClInclude>
     <ClInclude Include="src\exception\UnsupportedSiteException.h">
       <Filter>src\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ComicDownloader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VolumeDownloader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\exception\LoadLuaFileFailedException.h">
+      <Filter>src\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PictureDownloader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFOperator\NumberOperator.h">
+      <Filter>src\IFOperator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

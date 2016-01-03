@@ -65,6 +65,7 @@ public:
     static int TransCharToTchar(size_t char_len, const char kCharStr[], size_t tchar_buf_size, TCHAR tchar_buf[]);
     static int TransCharToTchar(const string &kCharStr, size_t tchar_buf_size, TCHAR tchar_buf[]);
     static int TransStringToTString(const string &kSrc, Tstring &ret_dst);
+    static Tstring TransStringToTString(const string &kSrc);
 
     static int TransTcharToChar(size_t tchar_len, const TCHAR kTcharBuf[], size_t char_buf_size, char char_buf[]);
 

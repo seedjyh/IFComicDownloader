@@ -33,6 +33,7 @@
 #include "LuaStateInterface.h"
 #include "CFunctionForLuaLib.h"
 #include "exception/UnsupportedSiteException.h"
+#include "exception/LoadLuaFileFailedException.h"
 
 LuaStateManager::LuaStateManager(const Tstring &kRootPath)
 :   root_path_(kRootPath),
@@ -136,7 +137,7 @@ void LuaStateManager::LoadDirectoryTree(LUA_STATE_PTR state, const DirectoryTree
         std::string file_content(kScriptFile->content(), kScriptFile->size() );
         if (!state->LoadBuffer(file_content.c_str()))
         {
-            throw 1;
+            throw LoadLuaFileFailedException(kScriptFile->name());
         }
     }
 

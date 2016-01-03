@@ -43,3 +43,4 @@
 /bin_gtest/IFComicDownloader.*
 *.cache
 *.index
+*.jpg

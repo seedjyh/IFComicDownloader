@@ -1,3 +1,11 @@
+function PictureUrlAnalyse(url)
+    local pagestr, err = DownloadURL(url, "", "")
+	if type(pagestr) ~= "string" then
+		return nil, "DownloadURL " .. url .. " failed\nbecasuse " .. err
+	end
+	return PicturePageAnalyse(url, pagestr, "")
+end
+
 function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
     local result = "<result>"
 

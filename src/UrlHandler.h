@@ -40,10 +40,7 @@ public:
 
     XML Analyse(const std::string &kURL);
 
-    void HandleRecursively(const std::string &kURL, const Tstring &kDownloadRootPath, UrlDownloaderFactory &downloader_factory)
-    {
-        return;
-    }
+    void HandleRecursively(const std::string &kURL, const Tstring &kDownloadRootPath);
 protected:
 private:
 };

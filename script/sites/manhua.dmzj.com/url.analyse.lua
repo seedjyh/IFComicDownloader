@@ -2,24 +2,19 @@
 ---manhua.dmzj.com
 ------------------------------------------------------------
 function Analyse(url)
-    local pagestr, err = DownloadURL(url, "", "")
-	if type(pagestr) ~= "string" then
-		return nil, "DownloadURL " .. url .. " failed\nbecasuse " .. err
-	end
-
     local page_type = GetPageType(url)
     if type(page_type) ~= "string" then
         return nil, "GetPageType failed for url:" .. url
     end
     -- guess the type of page
     if "comic" == page_type then
-        return ComicPageAnalyse(url, pagestr, "")
+        return ComicUrlAnalyse(url, pagestr, "")
     end
     if "volume" == page_type then
-        return VolumePageAnalyse(url, pagestr, "")
+        return VolumeUrlAnalyse(url, pagestr, "")
     end
     if "picture" == page_type then
-        return PicturePageAnalyse(url, pagestr, "")
+        return PictureUrlAnalyse(url, pagestr, "")
     end
     return nil, "Unknown page type:" .. page_type .. " for url:" .. url
 end

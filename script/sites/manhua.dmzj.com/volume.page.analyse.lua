@@ -1,3 +1,11 @@
+function VolumeUrlAnalyse(url)
+    local pagestr, err = DownloadURL(url, "", "")
+	if type(pagestr) ~= "string" then
+		return nil, "DownloadURL " .. url .. " failed\nbecasuse " .. err
+	end
+	return VolumePageAnalyse(url, pagestr, "")
+end
+
 function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
     local function_name = "VolumePageAnalyse(\"" .. volume_page_url .."\")"
     local result = "<result>"
@@ -12,7 +20,7 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
         return nil, function_name .. "failed when getting volume title"
     end
     
-    result = result .. "<volumetitle>" .. TransUtf8ToAnsi(volume_title) .. "</volumetitle>"
+    result = result .. "<volumetitle>" .. volume_title .. "</volumetitle>"
  
     ----------------------------------------------------------   
     result = result .. "<pictureinfolist>"
@@ -48,6 +56,15 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
     return result
 end
 
+function VolumePageGetVolumeTitle(analyse_result)
+    local result_end_index=JumpStr(analyse_result, 1, "<volumetitle>", 1)
+    if type(result_end_index) ~= "number" then
+        return nil
+    end
+
+    return TransUtf8ToAnsi(GetStr(analyse_result, result_end_index, "<"))
+end
+
 function VolumePageGetPictureCount(analyse_result)
     local volume_info_count = 0
     local start_index = JumpStr(analyse_result, 1, "<pictureinfolist>", 1)
@@ -66,18 +83,18 @@ function VolumePageGetPictureCount(analyse_result)
     return volume_info_count
 end
 
-function VolumePageGetPictureURL(analyse_result, index)
-    if index < 0 then
-        return nil
+function VolumePageGetPictureURL(analyse_result, index) -- index starts from 1
+    if index <= 0 then
+        return nil, "Invalid index: " .. tostring(index)
     end
     local start_index = JumpStr(analyse_result, 1, "<pictureinfolist>", 1)
     if type(start_index) ~= "number" then
-        return nil
+        return nil, "Getting <pictureinfolist> failed"
     end
 
-    start_index = JumpStr(analyse_result, start_index, "<pictureurl>", index + 1) --这里+1是因为连自己前面那个<pictureurl>也要跳过。
+    start_index = JumpStr(analyse_result, start_index, "<pictureurl>", index)
     if type(start_index) ~= "number" then
-        return nil
+        return nil, "Jumping " .. tostring(index) .. " <pictureurl> failed"
     end
 
     return GetStr(analyse_result, start_index, "<")

@@ -29,10 +29,8 @@
 class UrlAnalyseFailedException: public IFException
 {
 public:
-    UrlAnalyseFailedException(const char kReason[])
-        : IFException(std::string(kReason)){}
-    UrlAnalyseFailedException(const std::string &kReason)
-        : IFException(kReason){}
+    UrlAnalyseFailedException(const std::string &kURL, const std::string &kReason)
+    :   IFException(std::string("Analyse URL failed, url=") + kURL + ", reason=kReason"){}
     virtual ~UrlAnalyseFailedException(){}
 protected:
 private:

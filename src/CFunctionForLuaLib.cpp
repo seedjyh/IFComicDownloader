@@ -49,7 +49,7 @@ int CFunctionForLuaLib::Base64Decode(lua_State *state)
     if (!ret_code)
     {
         lua_pushnil(state);
-        lua_pushstring(state, "C/C++ function returns false.");
+        lua_pushstring(state, "C/C++ function Base64::Decode returns false.");
         return 2;
     }
 
@@ -77,7 +77,7 @@ int CFunctionForLuaLib::TransUtf8ToAnsi(lua_State *state)
     if (!ret_code)
     {
         lua_pushnil(state);
-        lua_pushstring(state, "C/C++ function returns false.");
+        lua_pushstring(state, "C/C++ function CodeTransformer::TransUtf8ToAnsi returns false.");
         return 2;
     }
 
@@ -104,7 +104,7 @@ int CFunctionForLuaLib::TransBigEndianUnicodeToAnsi(lua_State *state)
     if (!ret_code)
     {
         lua_pushnil(state);
-        lua_pushstring(state, "C/C++ function returns false.");
+        lua_pushstring(state, "C/C++ function CodeTransformer::TransBigEndianUnicodeToAnsi returns false.");
         return 2;
     }
 
@@ -136,7 +136,7 @@ int CFunctionForLuaLib::TransCode(lua_State *state)
 	if (!ret_code)
 	{
 		lua_pushnil(state);
-		lua_pushstring(state, "C/C++ function returns false.");
+		lua_pushstring(state, "C/C++ function CodeTransformer::TransCode returns false.");
 		return 2;
 	}
 

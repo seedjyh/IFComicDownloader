@@ -31,6 +31,7 @@ static const std::string s_kVersion("0.0.0.1");
 
 int main(int argc, char **argv)
 {
+    setlocale(LC_ALL, "chs");
     try
     {
         ProgramArguments::Instance().Initialize(argc, argv);

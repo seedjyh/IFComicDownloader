@@ -303,6 +303,12 @@ Exit0:
     return nResult;
 }
 
+Tstring CodeTransformer::TransStringToTString(const string &kSrc)
+{
+    Tstring result;
+    assert(TransStringToTString(kSrc, result));
+    return result;
+}
 
 int CodeTransformer::TransTcharToChar(size_t tchar_len, const TCHAR kTcharBuf[], size_t char_buf_size, char char_buf[])
 {

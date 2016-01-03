@@ -18,7 +18,7 @@
 #include <iostream>
 
 // Headers from other projects
-#include "IFCurlAdaptor/UrlDownloaderFactory.h"
+// ...
 
 // Headers of current project
 #include "CacheManager.h"
@@ -38,8 +38,7 @@ void System::Run()
     }
     else if (eProgramActionType_Download == ProgramArguments::Instance().action_type())
     {
-        UrlDownloaderFactory image_downloader(ProgramArguments::Instance().curl_dll_path());
-        handler.HandleRecursively(ProgramArguments::Instance().target_url(), ProgramArguments::Instance().download_path(), image_downloader);
+        handler.HandleRecursively(ProgramArguments::Instance().target_url(), ProgramArguments::Instance().download_path());
     }
     return;
 }

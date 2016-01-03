@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClCompile Include="src\CacheManager.cpp" />
     <ClCompile Include="src\CFunctionForLuaLib.cpp" />
+    <ClCompile Include="src\ComicDownloader.cpp" />
     <ClCompile Include="src\IFCurlAdaptor\DataPackage.cpp" />
     <ClCompile Include="src\IFCurlAdaptor\HeaderPackage.cpp" />
     <ClCompile Include="src\IFCurlAdaptor\UrlDownloader.cpp" />
@@ -137,7 +138,9 @@
     <ClCompile Include="src\IFOperator\CodeTransformer.cpp" />
     <ClCompile Include="src\IFOperator\DirectoryTreeLoader.cpp" />
     <ClCompile Include="src\IFOperator\JavascriptTool.cpp" />
+    <ClCompile Include="src\IFOperator\NumberOperator.cpp" />
     <ClCompile Include="src\IFOperator\PathHandler.cpp" />
+    <ClCompile Include="src\IFOperator\TestCodeTransformer.cpp" />
     <ClCompile Include="src\IFOperator\TestJavascriptTool.cpp" />
     <ClCompile Include="src\IFZlibAdaptor\CentralDirectoryStructure.cpp" />
     <ClCompile Include="src\IFZlibAdaptor\FileHeaderStructure.cpp" />
@@ -148,6 +151,7 @@
     <ClCompile Include="src\LuaStateManager.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MainGoogleTest.cpp" />
+    <ClCompile Include="src\PictureDownloader.cpp" />
     <ClCompile Include="src\ProgramArguments.cpp" />
     <ClCompile Include="src\System.cpp" />
     <ClCompile Include="src\TestCacheManager.cpp" />
@@ -155,6 +159,7 @@
     <ClCompile Include="src\UrlDownloaderFactoryWithCache.cpp" />
     <ClCompile Include="src\UrlDownloaderWithCache.cpp" />
     <ClCompile Include="src\UrlHandler.cpp" />
+    <ClCompile Include="src\VolumeDownloader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="doc\argument_design.txt" />
@@ -166,6 +171,8 @@
   <ItemGroup>
     <ClInclude Include="src\CacheManager.h" />
     <ClInclude Include="src\CFunctionForLuaLib.h" />
+    <ClInclude Include="src\ComicDownloader.h" />
+    <ClInclude Include="src\exception\LoadLuaFileFailedException.h" />
     <ClInclude Include="src\exception\UnsupportedSiteException.h" />
     <ClInclude Include="src\exception\UrlAnalyseFailedException.h" />
     <ClInclude Include="src\exception\NoSuchCacheException.h" />
@@ -202,6 +209,7 @@
     <ClInclude Include="src\IFOperator\DirectoryTreeLoader.h" />
     <ClInclude Include="src\IFOperator\IFExceptionFileNotExist.h" />
     <ClInclude Include="src\IFOperator\JavascriptTool.h" />
+    <ClInclude Include="src\IFOperator\NumberOperator.h" />
     <ClInclude Include="src\IFOperator\PathHandler.h" />
     <ClInclude Include="src\IFZlibAdaptor\CentralDirectoryStructure.h" />
     <ClInclude Include="src\IFZlibAdaptor\FileHeaderStructure.h" />
@@ -210,11 +218,13 @@
     <ClInclude Include="src\LuaStateInterface.h" />
     <ClInclude Include="src\LuaStateManager.h" />
     <ClInclude Include="src\PauseWhenDestruct.h" />
+    <ClInclude Include="src\PictureDownloader.h" />
     <ClInclude Include="src\ProgramArguments.h" />
     <ClInclude Include="src\System.h" />
     <ClInclude Include="src\UrlDownloaderFactoryWithCache.h" />
     <ClInclude Include="src\UrlDownloaderWithCache.h" />
     <ClInclude Include="src\UrlHandler.h" />
+    <ClInclude Include="src\VolumeDownloader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

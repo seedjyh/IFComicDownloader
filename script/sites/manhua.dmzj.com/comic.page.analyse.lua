@@ -1,6 +1,14 @@
 ------------------------------------------------------------
 ---manhua.dmzj.com
 ------------------------------------------------------------
+function ComicUrlAnalyse(url)
+    local pagestr, err = DownloadURL(url, "", "")
+	if type(pagestr) ~= "string" then
+		return nil, "DownloadURL " .. url .. " failed\nbecasuse " .. err
+	end
+	return ComicPageAnalyse(url, pagestr, "")
+end
+
 function ComicPageAnalyse(comic_page_url, pagestr, extra_info)
     local result = "<result>"
 
@@ -86,7 +94,7 @@ function ComicPageGetComicTitle(analyse_result)
         return nil
     end
 
-    return GetStr(analyse_result, result_end_index, "<")
+    return TransUtf8ToAnsi(GetStr(analyse_result, result_end_index, "<"))
 end
 
 function ComicPageGetVolumeCount(analyse_result)
@@ -107,13 +115,13 @@ function ComicPageGetVolumeCount(analyse_result)
 	return volume_count
 end
 
-function ComicPageGetVolumeTitle(analyse_result, index)
+function ComicPageGetVolumeTitle(analyse_result, index)	
 	local start_index = JumpStr(analyse_result, 1, "<volumeinfolist>",  1)
 	local temp_start_index = start_index
 	for i = 1, index do
 	    local temp_end_index = JumpStr(analyse_result, temp_start_index, "<volumeinfo>", 1)
 	    if type(temp_end_index) ~= "number" then
-	        return nil
+	        return nil, "No enough <volumeinfo>"
 	    end
 	    temp_start_index = temp_end_index
 	end
@@ -121,7 +129,7 @@ function ComicPageGetVolumeTitle(analyse_result, index)
 	temp_start_index = JumpStr(analyse_result, temp_start_index, "<volumetitle>", 1)
 
 	if type(temp_start_index) ~= "number" then
-	    return nil
+	    return nil, "Can\'t find <volumetitle>"
 	end
 	return GetStr(analyse_result, temp_start_index, "<")
 end
@@ -132,7 +140,7 @@ function ComicPageGetVolumeURL(analyse_result, index)
 	for i = 1, index do
 	    local temp_end_index = JumpStr(analyse_result, temp_start_index, "<volumeinfo>", 1)
 	    if type(temp_end_index) ~= "number" then
-	        return nil
+	        return nil, "No enough <volumeinfo>"
 	    end
 	    temp_start_index = temp_end_index
 	end
@@ -140,7 +148,7 @@ function ComicPageGetVolumeURL(analyse_result, index)
 	temp_start_index = JumpStr(analyse_result, temp_start_index, "<volumeurl>", 1)
 
 	if type(temp_start_index) ~= "number" then
-	    return nil
+	    return nil, "Can\'t find <volumeurl>"
 	end
 	return GetStr(analyse_result, temp_start_index, "<")
 end
