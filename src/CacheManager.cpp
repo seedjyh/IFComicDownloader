@@ -15,7 +15,7 @@
 #include <time.h>
 
 // C++ system headers
-// ...
+#include <sstream>
 
 // Headers from other projects
 #include "exception/NoSuchCacheException.h"
@@ -43,7 +43,7 @@ CacheManager& CacheManager::Instance()
 
 void CacheManager::set_cache_directory_path(const Tstring &kCacheDirectoryPath)
 {
-    assert(NULL == s_instance_); // When the instance has been called, argument would become useless.
+    MY_DELETE(s_instance_);
     s_cache_directory_path_ = kCacheDirectoryPath;
     return;
 }
@@ -56,14 +56,14 @@ DATAHOLDER_PTR CacheManager::Find(const std::string &kURL) const
         throw NoSuchCacheException(kURL);
     }
 
-    boost::shared_ptr<FileHolder> file_data(DirectoryTreeLoader::ReadFile(TransformCacheValueToFilePath(ite->second)));
+    boost::shared_ptr<FileHolder> file_data(DirectoryTreeLoader::ReadFile(TransformCacheValueToCacheFilePath(ite->second)));
     return DATAHOLDER_PTR(new DataHolder(file_data->size(), file_data->content()));
 }
 
 void CacheManager::Add(const std::string &kURL, const DataHolder &kPageData)
 {
-    Tstring file_path_as_cache_value = GetUnusedCacheFilePath();
-    FILE *fp = _tfopen((TransformCacheValueToFilePath(file_path_as_cache_value)).c_str(), _T("wb"));
+    CACHE_VALUE new_cache_value = GetUnusedCacheValue();
+    FILE *fp = _tfopen((TransformCacheValueToCacheFilePath(new_cache_value)).c_str(), _T("wb"));
     if (NULL == fp)
     {
         throw - 1;
@@ -74,7 +74,7 @@ void CacheManager::Add(const std::string &kURL, const DataHolder &kPageData)
         throw -1;
     }
     MY_FCLOSE(fp);
-    AppendCacheItemToList(kURL, file_path_as_cache_value);
+    AppendCacheItemToRAM(kURL, new_cache_value);
     return;
 }
 
@@ -97,59 +97,56 @@ void CacheManager::LoadCacheListFile()
         return; // No cache list file means there's no any cache items yet.
     }
     char url[1024] = { '\0' };
-    TCHAR t_cache_file_path[1024] = { '\0' };
-    while (2 == fscanf(fp, "%s %S", url, t_cache_file_path))
+    char cache_value[1024] = { '\0' };
+    while (2 == fscanf(fp, "%s %s", url, cache_value))
     {
-        cache_items_[std::string(url)] = Tstring(t_cache_file_path);
+        cache_items_[CACHE_KEY(url)] = CACHE_VALUE(cache_value);
+        cache_value_set_.insert(std::string(cache_value));
     }
     MY_FCLOSE(fp);
     return;
 }
 
-Tstring CacheManager::GetUnusedCacheFilePath() const
+CACHE_VALUE CacheManager::GetUnusedCacheValue() const
 {
-    Tstring file_path;
     time_t time_number = time(NULL);
     for (int i = 0;;i++)
     {
-        file_path = GenerateCacheFilePath(time_number, i);
-        if (!PathHandler::CheckFileExistance(file_path))
+        CACHE_VALUE new_value = GenerateCacheValue(time_number, i);
+        if (cache_value_set_.end() == cache_value_set_.find(new_value) )
         {
-            return file_path;
+            return new_value;
         }
     }
 }
 
-void CacheManager::AppendCacheItemToList(const std::string &kURL, const Tstring &kPath)
+void CacheManager::AppendCacheItemToRAM(const std::string &kURL, const CACHE_VALUE &kValue)
 {
     FILE *fp = _tfopen(kCacheListFilePath_.c_str(), _T("ab"));
     if (NULL == fp)
     {
         throw - 1; // FileIOException?
     }
-    int written_count = fprintf(fp, "%s %S\n", kURL.c_str(), kPath.c_str());
+    int written_count = fprintf(fp, "%s %s\n", kURL.c_str(), kValue.c_str());
     if (written_count <= 0)
     {
         MY_FCLOSE(fp);
         throw -1; // FileIOException?
     }
     MY_FCLOSE(fp);
-    cache_items_.insert(std::pair<std::string, Tstring>(kURL, kPath));
+    cache_items_.insert(std::pair<CACHE_KEY, CACHE_VALUE>(kURL, kValue));
+    cache_value_set_.insert(kValue);
     return;
 }
 
-Tstring CacheManager::GenerateCacheFilePath(time_t value_1, int value_2) const
+CACHE_VALUE CacheManager::GenerateCacheValue(time_t value_1, int value_2) const
 {
-    TCHAR buffer[128] = {'\0' };
-    int written_count = _stprintf(buffer, _T("%u_%d.cache"), static_cast<unsigned int>(value_1), value_2);
-    if (written_count <= 0)
-    {
-        throw -1;
-    }
-    return Tstring(buffer);
+    std::stringstream ss;
+    ss << value_1 << "_" << value_2 << ".cache";
+    return ss.str();
 }
 
-Tstring CacheManager::TransformCacheValueToFilePath(const Tstring &kCacheValue) const
+Tstring CacheManager::TransformCacheValueToCacheFilePath(const CACHE_VALUE &kCacheValue) const
 {
-    return kCacheDirectoryPath_ + kCacheValue;
+    return kCacheDirectoryPath_ + CodeTransformer::TransStringToTString(kCacheValue);
 }

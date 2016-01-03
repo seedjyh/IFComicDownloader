@@ -107,4 +107,40 @@ TEST(CacheManager, LoadCacheIndexFile_Find_Add)
     ASSERT_TRUE(kCachedData_2 == *(CacheManager::Instance().Find(kCachedURL_2)));
 }
 
+static bool SameData(const DataHolder &kData1, const DataHolder &kData2)
+{
+    if (kData1.size() != kData2.size())
+    {
+        return false;
+    }
+
+    if (memcmp(kData1.content(), kData2.content(), kData1.size()) != 0)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+TEST(CacheManager, Fast_Add)
+{
+    const Tstring kTestDirectoryPath(_T("test\\"));
+    DirectoryHolder test_directory_holder(kTestDirectoryPath);
+    CacheManager::set_cache_directory_path(kTestDirectoryPath);
+    const DataHolder kCacheData_1(std::string("test1"));
+    const DataHolder kCacheData_2(std::string("test2"));
+    const DataHolder kCacheData_3(std::string("test3"));
+
+    const std::string url_1("http://1");
+    const std::string url_2("http://2");
+    const std::string url_3("http://3");
+    CacheManager::Instance().Add(url_1, kCacheData_1);
+    CacheManager::Instance().Add(url_2, kCacheData_2);
+    CacheManager::Instance().Add(url_3, kCacheData_3);
+
+    ASSERT_TRUE(SameData(kCacheData_1, *CacheManager::Instance().Find(url_1)));
+    ASSERT_TRUE(SameData(kCacheData_2, *CacheManager::Instance().Find(url_2)));
+    ASSERT_TRUE(SameData(kCacheData_3, *CacheManager::Instance().Find(url_3)));
+}
+
 #endif

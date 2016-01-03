@@ -19,6 +19,7 @@
 
 // C++ system headers
 #include <map>
+#include <set>
 
 // Headers from other projects
 // ...
@@ -31,7 +32,10 @@
 //      file.
 
 class DataHolder;
-typedef std::map<std::string, Tstring> CACHE_MAP;
+typedef std::string CACHE_KEY;
+typedef std::string CACHE_VALUE;
+typedef std::map<CACHE_KEY, CACHE_VALUE> CACHE_MAP;
+typedef std::set<CACHE_VALUE> CACHE_VALUE_SET;
 
 // First call set_cache_directory_path(...), and then use Instance().
 
@@ -46,6 +50,9 @@ class CacheManager
     //  The key is the URL.
     //  The value is the relative path in the cache directory.
     CACHE_MAP cache_items_;
+
+    // set of all cache values in c-string form.
+    CACHE_VALUE_SET cache_value_set_;
 public:
     static CacheManager& Instance();
     static void set_cache_directory_path(const Tstring &kCacheDirectoryPath);
@@ -69,19 +76,19 @@ private:
     //  If the file didn't exist, nothing would happen.
     void LoadCacheListFile();
 
-    Tstring GetUnusedCacheFilePath() const;
+    CACHE_VALUE GetUnusedCacheValue() const;
 
     //  Append a cache item (url, cache-file-path) to match-list, both in RAM
     //      and in hard disk.
-    void AppendCacheItemToList(const std::string &kURL, const Tstring &kPath);
+    void AppendCacheItemToRAM(const std::string &kURL, const CACHE_VALUE &kValue);
 
     //  generate a new available cache-data-file path.
     //  Only relative path in the cache-directory.
-    Tstring GenerateCacheFilePath(time_t value_1, int value_2) const;
+    CACHE_VALUE GenerateCacheValue(time_t value_1, int value_2) const;
 
     //  "cache value" is the value in cache-index file.
     //  "file path" is a path for fopen(...) to read and write.
-    Tstring TransformCacheValueToFilePath(const Tstring &kCacheValue) const;
+    Tstring TransformCacheValueToCacheFilePath(const CACHE_VALUE &kCacheValue) const;
 };
 
 #endif
