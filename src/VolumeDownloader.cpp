@@ -43,7 +43,7 @@ void VolumeDownloader::Download(const std::string &kURL, const Tstring &kDownloa
     }
     const std::string kVolumeTitle(kResult);
 
-    const Tstring kVolumePath = kDownloadRootPath + CodeTransformer::TransStringToTString(std::string(kVolumeTitle)) + _T("\\");
+    const Tstring kVolumePath = kDownloadRootPath + PathHandler::ValidateName(CodeTransformer::TransStringToTString(std::string(kVolumeTitle))) + _T("\\");
     if (!PathHandler::CreatePath(kVolumePath))
     {
         throw IFException(std::string("Creating volume path failed: volume title is ") + kVolumeTitle);

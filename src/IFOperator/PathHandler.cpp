@@ -258,6 +258,13 @@ void PathHandler::Validate(Tstring &path)
 	return;
 }
 
+Tstring PathHandler::ValidateName(const Tstring &kOriginalName)
+{
+    Tstring result(kOriginalName);
+    Validate(result);
+    return result;
+}
+
 int PathHandler::CreatePath(const Tstring &kPath)
 {
     int nResult  = false;

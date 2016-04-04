@@ -37,7 +37,8 @@ public:
 
     static void Validate(std::string &path);
     static int IsValidate(const Tstring &kPath);
-	static void Validate(Tstring &path);
+    static void Validate(Tstring &path);
+    static Tstring ValidateName(const Tstring &kOriginalName);
     static int CreatePath(const Tstring &kPath);
     static void GetSearchModal(const TCHAR kRootPath[], TCHAR ret_search_modal[]);
 

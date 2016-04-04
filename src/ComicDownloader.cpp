@@ -42,7 +42,7 @@ void ComicDownloader::Download(const std::string &kURL, const Tstring &kDownload
     }
     const std::string kComicTitle(kResult);
 
-    const Tstring kComicPath = kDownloadRootPath + CodeTransformer::TransStringToTString(kComicTitle) + _T("\\");
+    const Tstring kComicPath = kDownloadRootPath + PathHandler::ValidateName(CodeTransformer::TransStringToTString(kComicTitle)) + _T("\\");
     if (!PathHandler::CreatePath(kComicPath))
     {
         throw IFException(std::string("Creating comic path failed: comic title is ") + kComicTitle);
