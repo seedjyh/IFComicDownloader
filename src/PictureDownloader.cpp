@@ -54,7 +54,11 @@ void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownlo
     }
 
     // generate file path
-    const Tstring kFilePath = kDownloadRootPath + NumberOperator::ItoA(file_index, Tstring(_T("%06u"))) + CodeTransformer::TransStringToTString(std::string(strrchr(kFileURL.c_str(), '.')));
+    const Tstring kFilePath =
+        kDownloadRootPath +
+        PathHandler::ValidateName(CodeTransformer::TransStringToTString(comic_title_ + "_" + volume_title_ + "_")) +
+        NumberOperator::ItoA(file_index, Tstring(_T("%06u"))) +
+        CodeTransformer::TransStringToTString(std::string(strrchr(kFileURL.c_str(), '.')));
     if (PathHandler::CheckFileExistance(kFilePath))
     {
         return;

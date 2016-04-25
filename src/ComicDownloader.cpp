@@ -63,6 +63,7 @@ void ComicDownloader::Download(const std::string &kURL, const Tstring &kDownload
         const std::string kVolumeURL(kResult);
 
         VolumeDownloader volume_downloader(lua_state_);
+        volume_downloader.set_comic_title(kComicTitle);
         volume_downloader.Download(std::string(kVolumeURL), kComicPath);
     }
     return;

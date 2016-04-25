@@ -64,6 +64,8 @@ void VolumeDownloader::Download(const std::string &kURL, const Tstring &kDownloa
         const std::string kVolumeURL(kResult);
 
         PictureDownloader picture_downloader(lua_state_);
+        picture_downloader.set_comic_title(comic_title_);
+        picture_downloader.set_volume_title(kVolumeTitle);
         picture_downloader.Download(kVolumeURL, kVolumePath);
     }
     return;

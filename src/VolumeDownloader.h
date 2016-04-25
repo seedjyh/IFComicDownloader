@@ -31,11 +31,13 @@ class Tstring;
 class VolumeDownloader
 {
     LUA_STATE_PTR lua_state_;
+    std::string comic_title_;
 public:
     VolumeDownloader(LUA_STATE_PTR lua_state)
     :   lua_state_(lua_state){}
     ~VolumeDownloader(){}
 
+    void set_comic_title(const std::string &kTitle) { comic_title_ = kTitle; return; }
     void Download(const std::string &kURL, const Tstring &kDownloadRootPath);
 protected:
 private:
