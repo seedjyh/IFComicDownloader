@@ -172,6 +172,7 @@
     <ClInclude Include="src\CacheManager.h" />
     <ClInclude Include="src\CFunctionForLuaLib.h" />
     <ClInclude Include="src\ComicDownloader.h" />
+    <ClInclude Include="src\exception\DownloadFailedException.h" />
     <ClInclude Include="src\exception\LoadLuaFileFailedException.h" />
     <ClInclude Include="src\exception\UnsupportedSiteException.h" />
     <ClInclude Include="src\exception\UrlAnalyseFailedException.h" />

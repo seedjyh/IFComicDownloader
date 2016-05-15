@@ -56,7 +56,9 @@ DATAHOLDER_PTR CacheManager::Find(const std::string &kURL) const
         throw NoSuchCacheException(kURL);
     }
 
-    boost::shared_ptr<FileHolder> file_data(DirectoryTreeLoader::ReadFile(TransformCacheValueToCacheFilePath(ite->second)));
+    CACHE_VALUE cache_value = ite->second;
+    Tstring  cache_file_path = TransformCacheValueToCacheFilePath(cache_value);
+    boost::shared_ptr<FileHolder> file_data(DirectoryTreeLoader::ReadFile(cache_file_path));
     return DATAHOLDER_PTR(new DataHolder(file_data->size(), file_data->content()));
 }
 

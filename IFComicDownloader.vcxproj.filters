@@ -344,5 +344,8 @@
     <ClInclude Include="src\IFOperator\NumberOperator.h">
       <Filter>src\IFOperator</Filter>
     </ClInclude>
+    <ClInclude Include="src\exception\DownloadFailedException.h">
+      <Filter>src\exception</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

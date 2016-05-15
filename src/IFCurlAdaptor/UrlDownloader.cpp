@@ -19,6 +19,7 @@
 
 // Headers from other projects
 #include "IFOperator/CodeTransformer.h"
+#include "exception/DownloadFailedException.h"
 
 // Headers of current project
 #include "DataPackage.h"
@@ -52,7 +53,7 @@ DATAHOLDER_PTR UrlDownloader::Download(const string &kURL, const string &kRefere
     CURL *curl = my_curl_easy_init_();
     if (NULL == curl)
     {
-        throw 1;
+        throw DownloadFailedException(kURL, std::string("my_curl_easy_init_ returned NULL"));
     }
 
     my_curl_easy_setopt_(curl, CURLOPT_URL, kURL.c_str());
@@ -75,7 +76,7 @@ DATAHOLDER_PTR UrlDownloader::Download(const string &kURL, const string &kRefere
 
     if (my_curl_easy_perform_(curl) != CURLE_OK)
     {
-        throw 1;
+        throw DownloadFailedException(kURL, std::string("my_curl_easy_perform_ returned something else but not CURLE_OK"));
     }
 
     my_curl_easy_cleanup_(curl);

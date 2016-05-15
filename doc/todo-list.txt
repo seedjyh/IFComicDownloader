@@ -9,3 +9,23 @@ lua脚本调用C函数进行下载时，要注意对下载过的URL进行cache，避免重复下载。
 UrlHandler这个类的名字好像有点词不达意。
 
 lua的CallFunction取消返回值，而是使用抛出异常的方式（LuaFunctionErrorException(function_name, details)）。
+
+【1】下载失败时的DownloadFailedException需要处理。
+当前（2016-4-10 22:06:00）运行样例：
+M:\GitHubRepositories\IFComicDownloader>bin\IFComicDownloader.exe -uhttp://manhua.dmzj.com/lanqiufeiren/
+http://manhua.dmzj.com/lanqiufeiren/
+        http://manhua.dmzj.com/lanqiufeiren/3391.shtml
+        http://manhua.dmzj.com/lanqiufeiren/3392.shtml
+        http://manhua.dmzj.com/lanqiufeiren/3393.shtml
+        http://manhua.dmzj.com/lanqiufeiren/3394.shtml
+        http://manhua.dmzj.com/lanqiufeiren/3395.shtml
+        http://manhua.dmzj.com/lanqiufeiren/3396.shtml
+        http://manhua.dmzj.com/lanqiufeiren/3397.shtml
+        http://manhua.dmzj.com/lanqiufeiren/3398.shtml
+        http://manhua.dmzj.com/lanqiufeiren/3399.shtml
+        http://manhua.dmzj.com/lanqiufeiren/3400.shtml
+Analyse URL failed, url=http://manhua.dmzj.com/lanqiufeiren/3400-194.shtml, reason: DownloadURL http://manhua.dmzj.com/lanqiufeiren/3400-194.shtml failed
+becasuse Failed in downloading url = http://manhua.dmzj.com/lanqiufeiren/3400-194.shtml because my_curl_easy_perform_ returned something else but CURLE_OK
+
+M:\GitHubRepositories\IFComicDownloader>
+
