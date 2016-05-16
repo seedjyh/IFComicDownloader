@@ -192,13 +192,23 @@ int LuaStateImpl::CallFunction(const char kFunctionName[], const char kArgumentT
 Exit0:
 	if (!nResult)
 	{
-		if (
-			(lua_isnil(state_, 1) ) &&
-			(lua_isstring(state_, 2) )
-		)
+        if (lua_isstring(state_, 1)) // 系统抛出的错误
+        {
+            va_arg(vl, void**); // 跳过一个参数
+            *va_arg(vl, const char**) = lua_tostring(state_, 1);
+        }
+		else if (lua_isnil(state_, 1) ) // 自定义的错误
 		{
-			// const char *kErrorLogContent = lua_tostring(state_, 2);
+            if (lua_isstring(state_, 2))
+            {
+                // const char *kErrorLogContent = lua_tostring(state_, 2);
+            }
 		}
+        else
+        {
+            // 这里还可能有其他情况。
+        }
+        lua_pop(state_, out_argument_number + 1); // 这一行有必要吗？
 	}
     va_end(vl);
     return nResult;

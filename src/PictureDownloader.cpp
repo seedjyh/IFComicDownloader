@@ -36,7 +36,7 @@ void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownlo
     const char *kErrorMessage = NULL;
     if (!lua_state_->CallFunction("PictureUrlAnalyse", "s>s", kURL.c_str(), &kResult, &kErrorMessage))
     {
-        throw UrlAnalyseFailedException(kURL, std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
+         throw UrlAnalyseFailedException(kURL, std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
     }
     const std::string kAnalyseResult(kResult);
 
