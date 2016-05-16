@@ -124,7 +124,7 @@ function BindURL(absoluted_url, related_url)
     return prefix .. suffix
 end
 
---取得一个字符串从开头到最后一个目标串的子串
+--取得一个URL从开头到最后一个'/'的前缀URL。
 function GetLongestHost(url)
     local _, end_index = GetLastPos(url, "/")
     return string.sub(url, 1, end_index)

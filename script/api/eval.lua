@@ -1,10 +1,26 @@
 --计算eval脚本的函数
 function eval(evalstr)
     local use_letter_as_module_index = UseLetterAsModuleIndex(evalstr)
-    local module_str = GetModuleString(evalstr)
-    local data_str   = GetDataString(evalstr)
-    local data_spliter = GetSpliterString(evalstr)
-    local data_list, data_size = Split(data_str, data_spliter)
+    
+    local module_str, err = GetModuleString(evalstr)
+    if type(module_str) ~= "string" then
+        return nil, "GetModuleString failed, because:\n" .. err
+    end
+    
+    local data_str, err   = GetDataString(evalstr)
+    if type(data_str) ~= "string" then
+        return nil, "GetDataString failed, because:\n" .. err
+    end
+    
+    local data_spliter, err = GetSpliterString(evalstr)
+    if type(data_spliter) ~= "string" then
+        return nil, "GetSpliterString failed, because:\n" .. err
+    end
+
+    local data_list, data_size, err = Split(data_str, data_spliter)
+    if type(data_list) ~= "table" then
+        return "Split failed, because:\n" .. err
+    end
     local result = ReplaceValue(module_str, data_list, use_letter_as_module_index)
     return result
 end
@@ -22,13 +38,19 @@ end
 --从eval字符串里取得模式字符串
 function GetModuleString(evalstr)
     local start_index = JumpStr(evalstr, 1, "return p;}", 1)
-    if type(start_index) ~= "number" then return nil end
+    if type(start_index) ~= "number" then
+        return nil, "JumpStr failed when jumping return p;}. the cyphertext is: " .. evalstr .. ", length is " .. string.len(evalstr)
+    end
     
     start_index = JumpStr(evalstr, start_index, "\'", 1)
-    if type(start_index) ~= "number" then return nil end
+    if type(start_index) ~= "number" then
+        return nil, "JumpStr failed when jumping \'"
+    end
     
     local result = GetStr(evalstr, start_index, "\'")
-    if type(result) ~= "string" then return nil end
+    if type(result) ~= "string" then
+        return nil, "GetStr failed when getting until \'"
+    end
     
     return result
 end
@@ -60,6 +82,13 @@ end
 
 --将数据串按照分隔符号分隔成数组（带有长度）
 function Split(src_string, spliter_string)
+    if type(src_string) ~= "string" then
+        return nil, nil, "src_string is not string but " .. type(src_string)
+    end
+    if type(spliter_string) ~= "string" then
+        return nil, nil, "spliter_string is not string but " .. type(spliter_string)
+    end
+
     local pattern_string = "[" .. spliter_string .. "]"
     local result_list = {}
     local result_size = 0
