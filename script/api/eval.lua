@@ -6,12 +6,12 @@ function eval(evalstr)
     if type(module_str) ~= "string" then
         return nil, "GetModuleString failed, because:\n" .. err
     end
-    
+
     local data_str, err   = GetDataString(evalstr)
     if type(data_str) ~= "string" then
         return nil, "GetDataString failed, because:\n" .. err
     end
-    
+
     local data_spliter, err = GetSpliterString(evalstr)
     if type(data_spliter) ~= "string" then
         return nil, "GetSpliterString failed, because:\n" .. err
@@ -21,7 +21,11 @@ function eval(evalstr)
     if type(data_list) ~= "table" then
         return "Split failed, because:\n" .. err
     end
-    local result = ReplaceValue(module_str, data_list, use_letter_as_module_index)
+
+    local result, err = ReplaceValue(module_str, data_list, use_letter_as_module_index)
+    if type(result) ~= "string" then
+        return nil, "ReplaceValue failed, because:\n" .. err
+    end
     return result
 end
 
@@ -37,22 +41,26 @@ end
 
 --从eval字符串里取得模式字符串
 function GetModuleString(evalstr)
+    if type(evalstr) ~= "string" then
+        return nil, "evalstr is not a string, its type is " .. type(evalstr)
+    end
     local start_index = JumpStr(evalstr, 1, "return p;}", 1)
     if type(start_index) ~= "number" then
         return nil, "JumpStr failed when jumping return p;}. the cyphertext is: " .. evalstr .. ", length is " .. string.len(evalstr)
     end
-    
+
+    -- 要获取一对单引号引起的字符串。此时要排除转义单引号的影响。
     start_index = JumpStr(evalstr, start_index, "\'", 1)
     if type(start_index) ~= "number" then
         return nil, "JumpStr failed when jumping \'"
     end
     
-    local result = GetStr(evalstr, start_index, "\'")
-    if type(result) ~= "string" then
-        return nil, "GetStr failed when getting until \'"
+    end_index = JumpStr(evalstr, start_index, "\'", 1, "\\'")
+    if type(end_index) ~= "number" then
+        return nil, "JumpStr failed when jumping \' and ignore \\'"
     end
-    
-    return result
+
+    return string.sub(evalstr, start_index, end_index)
 end
 
 --从eval字符串里取得数据字符串
@@ -60,7 +68,7 @@ function GetDataString(evalstr)
     local start_index = JumpStr(evalstr, 1, "return p;}", 1)
     if type(start_index) ~= "number" then return nil end
     
-    start_index = JumpStr(evalstr, start_index, "\'", 3)
+    start_index = JumpStr(evalstr, start_index, "\'", 3, "\\'")
     if type(start_index) ~= "number" then return nil end
     
     local result = GetStr(evalstr, start_index, "\'")
@@ -112,6 +120,16 @@ end
 
 --将模式字符串的模式替换为数据
 function ReplaceValue(module_str, value_list, use_letter_as_module_index)
+    if type(module_str) ~= "string" then
+        return nil, "ReplaceValue failed because module_str is not a string. Its type is " .. type(module_str)
+    end
+    if type(value_list) ~= "table" then
+        return nil, "ReplaceValue failed because value_list is not a table. Its type is " .. type(value_list)
+    end
+    if type(use_letter_as_module_index) ~= "number" then
+        return nil, "ReplaceValue failed because use_letter_as_module_index is not a number. Its type is " .. type(use_letter_as_module_index)
+    end
+
     local number_part_list     = {}
     local number_part_size     = 0
     local non_number_part_list = {}
@@ -142,11 +160,20 @@ function ReplaceValue(module_str, value_list, use_letter_as_module_index)
     if first_str ~= 1 then
         i = -1
     end
+
     while true do
         if i >= number_part_size and j >= non_number_part_size then break end
         
         if i < number_part_size and i >= 0 then
-            local str_to_append = value_list[TransStringToEvalStyleNumber(number_part_list[i], use_letter_as_module_index)]
+            local value_index, err = TransStringToEvalStyleNumber(number_part_list[i], use_letter_as_module_index)
+            if type(value_index) ~= "number" then
+                return nil, "TransStringToEvalStyleNumber failed, because:\n" .. err
+            end
+
+            local str_to_append = value_list[value_index]
+            if type(str_to_append) ~= "string" then
+                return nil, "value_list[value_index] is not a string. Its type is " .. type(str_to_append) .. ", value_index = " .. value_index
+            end
             if 0 == string.len(str_to_append) then
                 str_to_append = number_part_list[i]
             end
@@ -165,6 +192,10 @@ function ReplaceValue(module_str, value_list, use_letter_as_module_index)
 end
 
 function TransStringToEvalStyleNumber(str, use_letter_as_module_index)
+    if type(str) ~= "string" then
+        return nil, "type of str is not string. its type is " .. type(str)
+    end
+
     local result = 0
     local mode_str = "0123456789"
     if 1 == use_letter_as_module_index then

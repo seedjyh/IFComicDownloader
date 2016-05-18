@@ -1,12 +1,27 @@
-function JumpStr(pagestr, start_index, str_to_jump, jump_count)
+function JumpStr(pagestr, start_index, str_to_jump, jump_count, str_to_ignore) -- 如果先遇到str_to_ignore，则跳过ignore_str再进行下一步搜索
     local search_start_index = start_index
 
     for i=1, jump_count do
-        local _, result_end_index = string.find(pagestr, str_to_jump, search_start_index, true)
-        if type(result_end_index) ~= "number" then
-            return nil
+        while true do -- 可能要跳过一个或多个ignore_str，每轮while都跳过一个ignore_str
+            local result_start_index, result_end_index = string.find(pagestr, str_to_jump, search_start_index, true)
+            if type(result_end_index) ~= "number" then
+                return nil
+            end
+            
+            if type(str_to_ignore) == "string" then -- 进入ignore字符串搜索流程
+                local ignore_start_index, ignore_end_index = string.find(pagestr, str_to_ignore, search_start_index, true)
+                if type(ignore_start_index) ~= "number" or  -- 没有找到ignore字符串
+                   ignore_start_index > result_start_index then -- ignore字符串在目标字符串之后
+                    search_start_index = result_end_index + 1
+                    break
+                else
+                    search_start_index = ignore_end_index + 1
+                end
+            else
+                search_start_index = result_end_index + 1
+                break
+            end
         end
-        search_start_index = result_end_index + 1
     end
 
     return search_start_index
@@ -14,8 +29,12 @@ end
 
 
 function GetStr(pagestr, start_index, char_to_end)
-    if pagestr == nil then return nil end
-    if start_index == nil then return nil end
+    if type(pagestr) ~= "string" then
+        return nil, "GetStr failed because pagestr is not a string. Its type is " .. type(pagestr)
+    end
+    if type(start_index) ~= "number" then
+        return nil, "GetStr failed because start_index is not a number. Its type is " .. type(start_index)
+    end
     
     local _, end_index = string.find(pagestr, "[" .. char_to_end .. "]", start_index)
     if type(end_index) ~= "number" then
@@ -27,6 +46,9 @@ function GetStr(pagestr, start_index, char_to_end)
 end
 
 function GetURLHost(url)
+    if type(url) ~= "string" then
+        return nil, "GeURLHost failed because url is not a string. Its type is " .. type(url)
+    end
     prefix_length = string.len("http://")
     if string.len(url) > prefix_length then
         slash_index, _ = string.find(url, "/", prefix_length + 1, true)
@@ -93,6 +115,12 @@ end
 
 --组装一个绝对URL和一个相对URL
 function BindURL(absoluted_url, related_url)
+    if type(absoluted_url) ~= "string" then
+        return nil, "BindURL failed because absoluted_url is not a string. Its type is " .. type(absoluted_url)
+    end
+    if type(related_url) ~= "string" then
+        return nil, "BindURL failed because related_url is not a string. Its type is " .. type(related_url)
+    end
     local prefix = absoluted_url
     local suffix = related_url
     local keep_loop = true
