@@ -38,7 +38,7 @@ ProgramArguments& ProgramArguments::Instance()
 
 void ProgramArguments::Initialize(int argc, const char * const *argv)
 {
-    Tstring current_path = GetCurrentPath();
+    Tstring root_path = GetRootPath();
 
     boost::program_options::variables_map option_map;
 
@@ -91,7 +91,7 @@ void ProgramArguments::Initialize(int argc, const char * const *argv)
     }
     else
     {
-        download_path_ = current_path + TEXT("download\\");
+        download_path_ = root_path + TEXT("download\\");
     }
 
     if (option_map.count("script-path"))
@@ -103,7 +103,7 @@ void ProgramArguments::Initialize(int argc, const char * const *argv)
     }
     else
     {
-        script_path_ = current_path + TEXT("script\\");
+        script_path_ = root_path + TEXT("script\\");
     }
 
     if (option_map.count("cache-path"))
@@ -115,7 +115,7 @@ void ProgramArguments::Initialize(int argc, const char * const *argv)
     }
     else
     {
-        cache_path_ = current_path + TEXT("cache\\");
+        cache_path_ = root_path + TEXT("cache\\");
     }
     return;
 }
@@ -142,14 +142,27 @@ ProgramArguments::ProgramArguments()
         ;
 }
 
-Tstring ProgramArguments::GetCurrentPath()
+Tstring ProgramArguments::GetRootPath()
 {
     TCHAR buffer[MAX_PATH];
-    if (0 == GetCurrentDirectory(MY_SIZE_OF_ARRAY(buffer), buffer))
+    if (0 == GetModuleFileName(NULL, buffer, MY_SIZE_OF_ARRAY(buffer)))
     {
-        throw std::string("Get current path failed.");
+        throw std::string("Get module(exe) path failed.");
     }
 
+    // 现在buffer里保存着.exe文件的全路径。
+    TCHAR *loc = _tcsrchr(buffer, '\\');
+    if (loc != NULL)
+    {
+        *(loc) = '\0';
+    }
+    // 现在buffer里保存着.exe所在目录的路径（末尾没有'\\'）。这个路径应该是一个名字为“bin”的文件夹。
+    loc = _tcsrchr(buffer, '\\');
+    if (loc != NULL)
+    {
+        *(loc) = '\0';
+    }
+    // 现在buffer里保存着.exe所在路径再上一级的路径。这个路径下有两个目录：“bin”和“script”。
     _tcscat(buffer, _T("\\"));
     return Tstring(buffer);
 }

@@ -58,7 +58,7 @@ protected:
 private:
     ProgramArguments();
     ~ProgramArguments(){}
-    static Tstring GetCurrentPath();
+    static Tstring GetRootPath();
 };
 
 #endif

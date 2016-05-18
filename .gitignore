@@ -22,7 +22,6 @@
 *.lib
 
 # Executables
-*.exe
 *.out
 *.app
 
@@ -33,12 +32,13 @@
 *.xml
 *.sln
 *.sdf
+*.pdb
+*.ilk
 *.opensdf
 /DebugGoogleTest/
 /Debug/
 
 # No Binary
-/bin/IFComicDownloader.*
 /bin_gtest/IFComicDownloader.*
 *.cache
 *.index
