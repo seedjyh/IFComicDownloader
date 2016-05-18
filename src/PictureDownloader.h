@@ -43,6 +43,7 @@ public:
 protected:
 private:
     static void WriteFile(const Tstring &kPath, DATAHOLDER_PTR data);
+    static std::string GetFileNameExtentionFromFileURL(const std::string &kURL);
 };
 
 #endif

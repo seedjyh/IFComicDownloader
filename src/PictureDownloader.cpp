@@ -58,7 +58,7 @@ void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownlo
         kDownloadRootPath +
         PathHandler::ValidateName(CodeTransformer::TransStringToTString(comic_title_ + "_" + volume_title_ + "_")) +
         NumberOperator::ItoA(file_index, Tstring(_T("%06u"))) +
-        CodeTransformer::TransStringToTString(std::string(strrchr(kFileURL.c_str(), '.')));
+        CodeTransformer::TransStringToTString(GetFileNameExtentionFromFileURL(kFileURL));
     if (PathHandler::CheckFileExistance(kFilePath))
     {
         return;
@@ -84,4 +84,18 @@ void PictureDownloader::WriteFile(const Tstring &kPath, DATAHOLDER_PTR data)
     }
     MY_FCLOSE(fp);
     return;
+}
+
+std::string PictureDownloader::GetFileNameExtentionFromFileURL(const std::string &kURL)
+{
+    std::string result(strrchr(kURL.c_str(), '.'));
+
+    // 有些URL后面还带上一个类似动态页面的参数，例如：http://manhua1025.61-174-50-141.cdndm5.com/20/19620/245859/1_9128.jpg?cid=245859&key=eca7f3ed56d8b4c2872ab88c33bddd81
+    // 所以要去掉问号后面的部分。
+    const char *kQuestionMark = strchr(result.c_str(), '?');
+    if (kQuestionMark != NULL)
+    {
+        result.resize(kQuestionMark - result.c_str());
+    }
+    return result;
 }
