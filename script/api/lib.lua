@@ -157,3 +157,45 @@ function GetLongestHost(url)
     local _, end_index = GetLastPos(url, "/")
     return string.sub(url, 1, end_index)
 end
+
+-- 删除一个字符串开头和结尾的所有不可见字符（' ', '\t', '\r', '\n'）
+function Strip(str)
+    while true do
+        begin_char = string.sub(str, 1, 1)
+        if begin_char == ' ' or begin_char == '\t' or begin_char == '\r' or begin_char == '\n' then
+            str = string.sub(str, 2)
+        else
+            break
+        end
+    end
+    
+    while true do
+        end_char = string.sub(str, string.len(str) )
+        if end_char == ' ' or end_char == '\t' or end_char == '\r' or end_char == '\n' then
+            str = string.sub(str, 1, -2)
+        else
+            break
+        end
+    end
+    return str
+end
+
+-- 将字符串str用字符串k划分，将结果以table方式传回。
+-- table中key是从1开始的证书，value是str中被划分后的子串。
+function StringSplit(str, k)
+    local now_count = 0
+    local now_index = 1
+    result = {}
+    while now_index <= string.len(str) do
+        match_begin, match_end = string.find(str, k, now_index)
+        now_count = now_count + 1
+        if type(match_begin) ~= "number" then -- not found more seperator
+            result[now_count] = string.sub(str, now_index, string.len(str))
+            break
+        else
+            result[now_count] = string.sub(str, now_index, match_begin - 1)
+            now_index = match_end + 1
+        end
+    end
+    return result
+end

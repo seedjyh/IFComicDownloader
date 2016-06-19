@@ -112,6 +112,52 @@ int CFunctionForLuaLib::TransBigEndianUnicodeToAnsi(lua_State *state)
     return 1;
 }
 
+int CFunctionForLuaLib::TransBigEndianUnicodeHexToAnsi(lua_State *state)
+{
+    int ret_code = false;
+
+    const char *kCipherText = lua_tostring(state, -1);
+    if (NULL == kCipherText)
+    {
+        lua_pushnil(state);
+        lua_pushstring(state, "Parameter error.");
+        return 2;
+    }
+    const std::string kUCS2Hex(kCipherText);
+    if (kUCS2Hex.size() % 2 != 0)
+    {
+        lua_pushnil(state);
+        lua_pushstring(state, "Parameter requires even length.");
+        return 2;
+    }
+
+    std::string ucs2_text("");
+    for (int i = 0; i < kUCS2Hex.size(); i += 2)
+    {
+        char now_char_hex[4] = { '\0' };
+        memcpy(now_char_hex, kUCS2Hex.c_str() + i, 2); // Hex form has 2 characters such as "FF" for 1 byte.
+        unsigned int new_char = 0;
+        if (sscanf(now_char_hex, "%x", &new_char) < 0)
+        {
+            lua_pushnil(state);
+            lua_pushstring(state, "Parameter is not valid Hex string.");
+            return 2;
+        }
+        ucs2_text += (char)new_char;
+    }
+    std::string plain_text("");
+    ret_code = CodeTransformer::TransBigEndianUnicodeToAnsi(ucs2_text.size(), ucs2_text.c_str(), plain_text);
+    if (!ret_code)
+    {
+        lua_pushnil(state);
+        lua_pushstring(state, "C/C++ function CodeTransformer::TransBigEndianUnicodeHexToAnsi returns false.");
+        return 2;
+    }
+
+    lua_pushstring(state, plain_text.c_str());
+    return 1;
+}
+
 int CFunctionForLuaLib::TransCode(lua_State *state)
 {
 	int ret_code = false;

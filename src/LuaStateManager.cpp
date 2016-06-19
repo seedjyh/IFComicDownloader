@@ -209,6 +209,7 @@ void LuaStateManager::LoadCFunctionLib(LUA_STATE_PTR state)
     LoadCFunction(state, CFunctionForLuaLib::Base64Decode, std::string("Base64Decode") );
     LoadCFunction(state, CFunctionForLuaLib::TransUtf8ToAnsi, std::string("TransUtf8ToAnsi") );
     LoadCFunction(state, CFunctionForLuaLib::TransBigEndianUnicodeToAnsi, std::string("TransBigEndianUnicodeToAnsi") );
+    LoadCFunction(state, CFunctionForLuaLib::TransBigEndianUnicodeHexToAnsi, std::string("TransBigEndianUnicodeHexToAnsi"));
 	LoadCFunction(state, CFunctionForLuaLib::WriteLog, std::string("WriteLog") );
 	LoadCFunction(state, CFunctionForLuaLib::FormatUrltoUtf8, std::string("FormatUrltoUtf8") );
 	LoadCFunction(state, CFunctionForLuaLib::TransCode, std::string("TransCode") );

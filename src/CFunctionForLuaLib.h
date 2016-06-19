@@ -32,6 +32,7 @@ public:
     static int Base64Decode(lua_State *state);
     static int TransUtf8ToAnsi(lua_State *state);
     static int TransBigEndianUnicodeToAnsi(lua_State *state);
+    static int TransBigEndianUnicodeHexToAnsi(lua_State *state);
 	static int TransCode(lua_State *state);
 	static int DownloadURL(lua_State *state);
 	static int WriteLog(lua_State *state);
