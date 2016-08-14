@@ -27,6 +27,7 @@
 
 // Headers of current project
 #include "exception/UrlAnalyseFailedException.h"
+#include "exception/DownloadFailedException.h"
 #include "ProgramArguments.h"
 
 void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownloadRootPath)
@@ -64,13 +65,23 @@ void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownlo
         return;
     }
 
-    // download file
-    UrlDownloaderFactory downloader_factory(ProgramArguments::Instance().curl_dll_path());
-    URLDOWNLOADER_PTR downloader = downloader_factory.Create();
-    DATAHOLDER_PTR data = downloader->Download(kFileURL, kURL, std::string(""));
-
-    // write data to hard disk
-    WriteFile(kFilePath.c_str(), data);
+    while (1)
+    {
+        // download file
+        UrlDownloaderFactory downloader_factory(ProgramArguments::Instance().curl_dll_path());
+        URLDOWNLOADER_PTR downloader = downloader_factory.Create();
+        try
+        {
+            DATAHOLDER_PTR data = downloader->Download(kFileURL, kURL, std::string(""));
+            WriteFile(kFilePath.c_str(), data);
+            break;
+        }
+        catch (DownloadFailedException &e)
+        {
+            printf("%s\n", e.message().c_str());
+            printf("Download failed, retry... ");
+        }
+    }
     
     return;
 }
