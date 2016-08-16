@@ -29,6 +29,7 @@
 #include "UrlDownloaderFactoryWithCache.h"
 #include "CacheManager.h"
 #include "ProgramArguments.h"
+#include "exception/DownloadFailedException.h"
 
 int CFunctionForLuaLib::Base64Decode(lua_State *state)
 {
@@ -208,18 +209,27 @@ int CFunctionForLuaLib::DownloadURL(lua_State *state)
 		cookie.assign(kCookie);
 	}
 
-    try
+    while (1)
     {
-        static UrlDownloaderFactoryWithCache downloader_factory(ProgramArguments::Instance().curl_dll_path(), CacheManager::Instance());
-        URLDOWNLOADER_PTR downloader = downloader_factory.Create();
-        DATAHOLDER_PTR page_data = downloader->Download(url, referer_url, cookie);
-        pagestr.assign(page_data->content(), page_data->size());
-    }
-    catch (IFException &e)
-    {
-        lua_pushnil(state);
-        lua_pushstring(state, e.message().c_str());
-        return 2;
+        try
+        {
+            static UrlDownloaderFactoryWithCache downloader_factory(ProgramArguments::Instance().curl_dll_path(), CacheManager::Instance());
+            URLDOWNLOADER_PTR downloader = downloader_factory.Create();
+            DATAHOLDER_PTR page_data = downloader->Download(url, referer_url, cookie);
+            pagestr.assign(page_data->content(), page_data->size());
+            break;
+        }
+        catch (DownloadFailedException &e)
+        {
+            printf("%s\n", e.message().c_str());
+            printf("Download failed, retry...\n");
+        }
+        catch (IFException &e)
+        {
+            lua_pushnil(state);
+            lua_pushstring(state, e.message().c_str());
+            return 2;
+        }
     }
 
 	lua_pushstring(state, pagestr.c_str() );
