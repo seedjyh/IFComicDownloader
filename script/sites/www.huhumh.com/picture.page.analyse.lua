@@ -63,24 +63,7 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
     end
     
     -- step 2.2: 读取server_url_list
-    local server_url_list = {}
-    server_url_list[0]="http://104.237.55.123:9393/dm01/"
-    server_url_list[1]="http://104.237.55.122:9393/dm02/"
-    server_url_list[2]="http://104.237.55.122:9393/dm03/"
-    server_url_list[3]="http://104.237.55.123:9393/dm04/"
-    server_url_list[4]="http://104.237.55.122:9393/dm05/"
-    server_url_list[5]="http://104.237.55.123:9393/dm06/"
-    server_url_list[6]="http://104.237.55.122:9393/dm07/"
-    server_url_list[7]="http://104.237.55.123:9393/dm08/"
-    server_url_list[8]="http://104.237.55.122:9393/dm09/"
-    server_url_list[9]="http://104.237.55.122:9393/dm10/"
-    server_url_list[10]="http://104.237.55.123:9393/dm11/"
-    server_url_list[11]="http://104.237.55.123:9393/dm12/"
-    server_url_list[12]="http://104.237.55.123:9393/dm13/"
-    server_url_list[13]="http://8.8.8.8:99/dm14/"
-    server_url_list[14]="http://104.237.55.123:9393/dm15/"
-    server_url_list[15]="http://104.237.55.123:9393/dm16/"
-    -- 上述数据来自http://www.huhumh.com/hh/ai.js
+    local server_url_list = LoadServerList('www.huhumh.com/hh/ai.js')
     
     -- step 2.3：获取当前使用的server_url
     local server_url = server_url_list[server_index - 1]
