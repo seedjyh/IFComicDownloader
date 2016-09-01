@@ -121,6 +121,8 @@
     <ClCompile Include="src\CacheManager.cpp" />
     <ClCompile Include="src\CFunctionForLuaLib.cpp" />
     <ClCompile Include="src\ComicDownloader.cpp" />
+    <ClCompile Include="src\DownloadInfo.cpp" />
+    <ClCompile Include="src\DownloadRecordFile.cpp" />
     <ClCompile Include="src\IFCurlAdaptor\DataPackage.cpp" />
     <ClCompile Include="src\IFCurlAdaptor\HeaderPackage.cpp" />
     <ClCompile Include="src\IFCurlAdaptor\UrlDownloader.cpp" />
@@ -129,6 +131,8 @@
     <ClCompile Include="src\IFDataType\DirectoryTree.cpp" />
     <ClCompile Include="src\IFDataType\FileHolder.cpp" />
     <ClCompile Include="src\IFDataType\Locker.cpp" />
+    <ClCompile Include="src\IFDataType\SystemTime.cpp" />
+    <ClCompile Include="src\IFDataType\SystemTimeFactory.cpp" />
     <ClCompile Include="src\IFDataType\TestTstring.cpp" />
     <ClCompile Include="src\IFDataType\Tstring.cpp" />
     <ClCompile Include="src\IFLuaHandler\LuaStateFactoryImpl.cpp" />
@@ -155,6 +159,7 @@
     <ClCompile Include="src\ProgramArguments.cpp" />
     <ClCompile Include="src\System.cpp" />
     <ClCompile Include="src\TestCacheManager.cpp" />
+    <ClCompile Include="src\TestDownloadInfo.cpp" />
     <ClCompile Include="src\TestProgramArguments.cpp" />
     <ClCompile Include="src\UrlDownloaderFactoryWithCache.cpp" />
     <ClCompile Include="src\UrlDownloaderWithCache.cpp" />
@@ -172,6 +177,8 @@
     <ClInclude Include="src\CacheManager.h" />
     <ClInclude Include="src\CFunctionForLuaLib.h" />
     <ClInclude Include="src\ComicDownloader.h" />
+    <ClInclude Include="src\DownloadInfo.h" />
+    <ClInclude Include="src\DownloadRecordFile.h" />
     <ClInclude Include="src\exception\DownloadFailedException.h" />
     <ClInclude Include="src\exception\LoadLuaFileFailedException.h" />
     <ClInclude Include="src\exception\UnsupportedSiteException.h" />
@@ -195,6 +202,8 @@
     <ClInclude Include="src\IFDataType\IFThrowable.h" />
     <ClInclude Include="src\IFDataType\Locker.h" />
     <ClInclude Include="src\IFDataType\PathTypes.h" />
+    <ClInclude Include="src\IFDataType\SystemTime.h" />
+    <ClInclude Include="src\IFDataType\SystemTimeFactory.h" />
     <ClInclude Include="src\IFDataType\Tstring.h" />
     <ClInclude Include="src\IFLuaHandler\LuaState.h" />
     <ClInclude Include="src\IFLuaHandler\LuaStateFactory.h" />

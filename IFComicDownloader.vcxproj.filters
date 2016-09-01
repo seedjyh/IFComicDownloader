@@ -29,6 +29,9 @@
     <Filter Include="src\exception">
       <UniqueIdentifier>{b58ddf49-a95c-4b15-add9-95906a59678e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\download_info_recorder">
+      <UniqueIdentifier>{ae1e8353-da6e-4ac5-a77c-ba946353bb2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -156,6 +159,21 @@
     </ClCompile>
     <ClCompile Include="src\IFOperator\NumberOperator.cpp">
       <Filter>src\IFOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DownloadRecordFile.cpp">
+      <Filter>src\download_info_recorder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DownloadInfo.cpp">
+      <Filter>src\download_info_recorder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFDataType\SystemTimeFactory.cpp">
+      <Filter>src\IFDataType</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFDataType\SystemTime.cpp">
+      <Filter>src\IFDataType</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TestDownloadInfo.cpp">
+      <Filter>src\download_info_recorder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +364,18 @@
     </ClInclude>
     <ClInclude Include="src\exception\DownloadFailedException.h">
       <Filter>src\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DownloadInfo.h">
+      <Filter>src\download_info_recorder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DownloadRecordFile.h">
+      <Filter>src\download_info_recorder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFDataType\SystemTimeFactory.h">
+      <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFDataType\SystemTime.h">
+      <Filter>src\IFDataType</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
