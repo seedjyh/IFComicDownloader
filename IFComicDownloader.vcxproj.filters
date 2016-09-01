@@ -29,6 +29,9 @@
     <Filter Include="src\exception">
       <UniqueIdentifier>{b58ddf49-a95c-4b15-add9-95906a59678e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\IFOperator\des">
+      <UniqueIdentifier>{9b13ac3b-1d74-47cc-aadb-228014ccf11e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -156,6 +159,18 @@
     </ClCompile>
     <ClCompile Include="src\IFOperator\NumberOperator.cpp">
       <Filter>src\IFOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\des\des.c">
+      <Filter>src\IFOperator\des</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\des\DesEncrypter.cpp">
+      <Filter>src\IFOperator\des</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\des\DesDecrypter.cpp">
+      <Filter>src\IFOperator\des</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFOperator\des\Testdes.cpp">
+      <Filter>src\IFOperator\des</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +361,15 @@
     </ClInclude>
     <ClInclude Include="src\exception\DownloadFailedException.h">
       <Filter>src\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFOperator\des\des.h">
+      <Filter>src\IFOperator\des</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFOperator\des\DesEncrypter.h">
+      <Filter>src\IFOperator\des</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFOperator\des\DesDecrypter.h">
+      <Filter>src\IFOperator\des</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
