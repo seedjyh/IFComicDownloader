@@ -46,3 +46,6 @@
 *.jpg
 *.png
 *.rar
+
+# No Download Result
+/download/*

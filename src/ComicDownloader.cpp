@@ -24,6 +24,7 @@
 // Headers of current project
 #include "exception/UrlAnalyseFailedException.h"
 #include "VolumeDownloader.h"
+#include "DownloadRecordFile.h"
 
 void ComicDownloader::Download(const std::string &kURL, const Tstring &kDownloadRootPath)
 {
@@ -47,6 +48,9 @@ void ComicDownloader::Download(const std::string &kURL, const Tstring &kDownload
     {
         throw IFException(std::string("Creating comic path failed: comic title is ") + kComicTitle);
     }
+
+    DownloadRecordFile record_file(DownloadInfo(kComicTitle, kURL));
+    record_file.Write(kComicPath);
 
     int volume_count = 0;
     if (!lua_state_->CallFunction("ComicPageGetVolumeCount", "s>i", kAnalyseResult.c_str(), &volume_count, &kErrorMessage))
