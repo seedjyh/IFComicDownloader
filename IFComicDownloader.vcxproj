@@ -140,10 +140,6 @@
     <ClCompile Include="src\IFLuaHandler\TestLuaStateImpl.cpp" />
     <ClCompile Include="src\IFOperator\Base64.cpp" />
     <ClCompile Include="src\IFOperator\CodeTransformer.cpp" />
-    <ClCompile Include="src\IFOperator\des\des.c" />
-    <ClCompile Include="src\IFOperator\des\DesDecrypter.cpp" />
-    <ClCompile Include="src\IFOperator\des\DesEncrypter.cpp" />
-    <ClCompile Include="src\IFOperator\des\Testdes.cpp" />
     <ClCompile Include="src\IFOperator\DirectoryTreeLoader.cpp" />
     <ClCompile Include="src\IFOperator\JavascriptTool.cpp" />
     <ClCompile Include="src\IFOperator\NumberOperator.cpp" />
@@ -220,9 +216,6 @@
     <ClInclude Include="src\IFMacros\SleepMacro.h" />
     <ClInclude Include="src\IFOperator\Base64.h" />
     <ClInclude Include="src\IFOperator\CodeTransformer.h" />
-    <ClInclude Include="src\IFOperator\des\des.h" />
-    <ClInclude Include="src\IFOperator\des\DesDecrypter.h" />
-    <ClInclude Include="src\IFOperator\des\DesEncrypter.h" />
     <ClInclude Include="src\IFOperator\DirectoryTreeLoader.h" />
     <ClInclude Include="src\IFOperator\IFExceptionFileNotExist.h" />
     <ClInclude Include="src\IFOperator\JavascriptTool.h" />

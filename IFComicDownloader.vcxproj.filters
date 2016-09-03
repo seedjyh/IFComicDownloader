@@ -29,9 +29,6 @@
     <Filter Include="src\exception">
       <UniqueIdentifier>{b58ddf49-a95c-4b15-add9-95906a59678e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\IFOperator\des">
-      <UniqueIdentifier>{9b13ac3b-1d74-47cc-aadb-228014ccf11e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\download_info_recorder">
       <UniqueIdentifier>{ae1e8353-da6e-4ac5-a77c-ba946353bb2c}</UniqueIdentifier>
     </Filter>
@@ -162,21 +159,6 @@
     </ClCompile>
     <ClCompile Include="src\IFOperator\NumberOperator.cpp">
       <Filter>src\IFOperator</Filter>
-    </ClCompile>
-
-
-
-    <ClCompile Include="src\IFOperator\des\des.c">
-      <Filter>src\IFOperator\des</Filter>
-    </ClCompile>
-    <ClCompile Include="src\IFOperator\des\DesEncrypter.cpp">
-      <Filter>src\IFOperator\des</Filter>
-    </ClCompile>
-    <ClCompile Include="src\IFOperator\des\DesDecrypter.cpp">
-      <Filter>src\IFOperator\des</Filter>
-    </ClCompile>
-    <ClCompile Include="src\IFOperator\des\Testdes.cpp">
-      <Filter>src\IFOperator\des</Filter>
     </ClCompile>
     <ClCompile Include="src\DownloadRecordFile.cpp">
       <Filter>src\download_info_recorder</Filter>
@@ -382,15 +364,6 @@
     </ClInclude>
     <ClInclude Include="src\exception\DownloadFailedException.h">
       <Filter>src\exception</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IFOperator\des\des.h">
-      <Filter>src\IFOperator\des</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IFOperator\des\DesEncrypter.h">
-      <Filter>src\IFOperator\des</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IFOperator\des\DesDecrypter.h">
-      <Filter>src\IFOperator\des</Filter>
     </ClInclude>
     <ClInclude Include="src\DownloadInfo.h">
       <Filter>src\download_info_recorder</Filter>
