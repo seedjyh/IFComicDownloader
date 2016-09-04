@@ -26,10 +26,13 @@
 // Headers of current project
 // ...
 
+class DataHolder;
+
 class PythonFunction
 {
 public:
     static int Add(int a, int b);
+    static void DES_Decrypt_ECB_PKCS5(const DataHolder &kCiphertext, DataHolder &kKey, DataHolder &ret_plaintext);
 protected:
 private:
     PythonFunction(){}

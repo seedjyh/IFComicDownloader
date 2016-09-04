@@ -25,11 +25,13 @@
 #include "UrlHandler.h"
 #include "LuaStateManager.h"
 #include "ProgramArguments.h"
+#include "PythonInterface.h"
 
 void System::Run()
 {
     CacheManager::set_cache_directory_path(ProgramArguments::Instance().cache_path());
     LuaStateManager lua_state_manager(ProgramArguments::Instance().script_path());
+    PythonInterface python_interface;
 
     UrlHandler handler(lua_state_manager);
     if (eProgramActionType_JustAnalyse == ProgramArguments::Instance().action_type())

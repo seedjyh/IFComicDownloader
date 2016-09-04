@@ -30,6 +30,7 @@
 #include "CacheManager.h"
 #include "ProgramArguments.h"
 #include "exception/DownloadFailedException.h"
+#include "PythonFunction.h"
 
 int CFunctionForLuaLib::Base64Decode(lua_State *state)
 {
@@ -54,7 +55,7 @@ int CFunctionForLuaLib::Base64Decode(lua_State *state)
         return 2;
     }
 
-    lua_pushstring(state, plain_text.c_str() );
+    lua_pushlstring(state, plain_text.c_str(), plain_text.size());
     return 1;
 }
 
@@ -328,4 +329,22 @@ int CFunctionForLuaLib::Print(lua_State *state)
 
     std::cout << text << std::endl;
     return 0;
+}
+
+int CFunctionForLuaLib::DES_Decrypt_ECB_PKCS5(lua_State *state)
+{
+    int ret_code = false;
+    int ciphertext_len = lua_tointeger(state, 1);
+    const char *kCipherTextBuffer = lua_tostring(state, 2);
+    DataHolder ciphertext(ciphertext_len, kCipherTextBuffer);
+
+    int key_len = lua_tointeger(state, 3);
+    const char *kKeyBuffer = lua_tostring(state, 4);
+    DataHolder key(key_len, kKeyBuffer);
+
+    DataHolder plaintext;
+
+    PythonFunction::DES_Decrypt_ECB_PKCS5(ciphertext, key, plaintext);
+    lua_pushlstring(state, plaintext.content(), plaintext.size());
+    return 1;
 }

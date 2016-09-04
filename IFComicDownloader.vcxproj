@@ -55,8 +55,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>bin\</OutDir>
-    <IncludePath>src;$(IncludePath);</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>src;C:\Python27\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Python27\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGoogleTest|Win32'">
     <LinkIncremental>true</LinkIncremental>

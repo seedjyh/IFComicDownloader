@@ -217,6 +217,7 @@ void LuaStateManager::LoadCFunctionLib(LUA_STATE_PTR state)
     LoadCFunction(state, CFunctionForLuaLib::DownloadURL, std::string("DownloadURL"));
     LoadCFunction(state, CFunctionForLuaLib::JavascriptEval, std::string("JavascriptEval"));
     LoadCFunction(state, CFunctionForLuaLib::Print, std::string("Print"));
+    LoadCFunction(state, CFunctionForLuaLib::DES_Decrypt_ECB_PKCS5, std::string("DES_Decrypt_ECB_PKCS5"));
     return;
 }
 

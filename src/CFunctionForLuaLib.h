@@ -40,6 +40,7 @@ public:
     static int SleepMilliSecond(lua_State *state);
     static int JavascriptEval(lua_State *state);
     static int Print(lua_State *state);
+    static int DES_Decrypt_ECB_PKCS5(lua_State *state);
 protected:
 private:
     CFunctionForLuaLib(){};
