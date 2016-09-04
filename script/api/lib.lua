@@ -35,7 +35,10 @@ function GetStr(pagestr, start_index, char_to_end)
     if type(start_index) ~= "number" then
         return nil, "GetStr failed because start_index is not a number. Its type is " .. type(start_index)
     end
-    
+
+    if 0 == string.len(char_to_end) then
+        return string.sub(pagestr, start_index)
+    end
     local _, end_index = string.find(pagestr, "[" .. char_to_end .. "]", start_index)
     if type(end_index) ~= "number" then
         end_index = string.len(pagestr)
