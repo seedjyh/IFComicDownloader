@@ -21,13 +21,17 @@
 
 // Headers from other projects
 #include <gtest/gtest.h>
+#include <Python.h>
 
 // Headers of current project
 #include "PauseWhenDestruct.h"
+#include "PythonInterface.h"
 
 int main(int arg_count, char **arg_list)
 {
     PauseWhenDestruct pauser;
+    PythonInterface python_interface;
+    Py_Initialize();
     testing::InitGoogleTest(&arg_count, arg_list);
     return RUN_ALL_TESTS();
 }

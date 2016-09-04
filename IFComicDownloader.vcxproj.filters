@@ -175,6 +175,15 @@
     <ClCompile Include="src\TestDownloadInfo.cpp">
       <Filter>src\download_info_recorder</Filter>
     </ClCompile>
+    <ClCompile Include="src\TestPythonFunction.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PythonFunction.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PythonInterface.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="doc\todo-list.txt">
@@ -376,6 +385,12 @@
     </ClInclude>
     <ClInclude Include="src\IFDataType\SystemTime.h">
       <Filter>src\IFDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PythonFunction.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PythonInterface.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

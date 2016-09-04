@@ -61,8 +61,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGoogleTest|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>bin_gtest\</OutDir>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
-    <IncludePath>src;$(IncludePath);</IncludePath>
+    <LibraryPath>C:\Python27\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>src;C:\Python27\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -80,7 +80,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zlibd.lib;lua_d.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;lua_d.lib;Shlwapi.lib;python27_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugGoogleTest|Win32'">
@@ -92,11 +92,12 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_GTEST_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>gtestd.lib;lua_d.lib;Shlwapi.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gtestd.lib;lua_d.lib;Shlwapi.lib;zlibd.lib;python27_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -157,10 +158,13 @@
     <ClCompile Include="src\MainGoogleTest.cpp" />
     <ClCompile Include="src\PictureDownloader.cpp" />
     <ClCompile Include="src\ProgramArguments.cpp" />
+    <ClCompile Include="src\PythonFunction.cpp" />
+    <ClCompile Include="src\PythonInterface.cpp" />
     <ClCompile Include="src\System.cpp" />
     <ClCompile Include="src\TestCacheManager.cpp" />
     <ClCompile Include="src\TestDownloadInfo.cpp" />
     <ClCompile Include="src\TestProgramArguments.cpp" />
+    <ClCompile Include="src\TestPythonFunction.cpp" />
     <ClCompile Include="src\UrlDownloaderFactoryWithCache.cpp" />
     <ClCompile Include="src\UrlDownloaderWithCache.cpp" />
     <ClCompile Include="src\UrlHandler.cpp" />
@@ -230,6 +234,8 @@
     <ClInclude Include="src\PauseWhenDestruct.h" />
     <ClInclude Include="src\PictureDownloader.h" />
     <ClInclude Include="src\ProgramArguments.h" />
+    <ClInclude Include="src\PythonFunction.h" />
+    <ClInclude Include="src\PythonInterface.h" />
     <ClInclude Include="src\System.h" />
     <ClInclude Include="src\UrlDownloaderFactoryWithCache.h" />
     <ClInclude Include="src\UrlDownloaderWithCache.h" />
