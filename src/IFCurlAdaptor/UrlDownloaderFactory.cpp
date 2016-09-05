@@ -23,6 +23,7 @@
 
 // Headers of current project
 #include "LoadLibraryFailedException.h"
+#include "UrlDownloaderSimple.h"
 
 UrlDownloaderFactory::UrlDownloaderFactory(const Tstring &kDLLPath)
 :   my_curl_easy_init_(NULL),
@@ -55,7 +56,7 @@ UrlDownloaderFactory::UrlDownloaderFactory(const Tstring &kDLLPath)
 URLDOWNLOADER_PTR UrlDownloaderFactory::Create()
 {
     return URLDOWNLOADER_PTR(
-        new UrlDownloader(
+        new UrlDownloaderSimple(
             my_curl_easy_init_,
             my_curl_easy_setopt_,
             my_curl_easy_perform_,

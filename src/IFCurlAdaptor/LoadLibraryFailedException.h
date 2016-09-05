@@ -25,7 +25,7 @@
 #include "IFDataType/Tstring.h"
 
 // Headers of current project
-// ...
+#include "IFOperator/CodeTransformer.h"
 
 class LoadLibraryFailedException: public IFException
 {

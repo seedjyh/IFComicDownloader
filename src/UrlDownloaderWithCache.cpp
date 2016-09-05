@@ -30,7 +30,7 @@ UrlDownloaderWithCache::UrlDownloaderWithCache(
     CurlEasyPerform my_curl_easy_perform,
     CurlEasyCleanUp my_curl_easy_cleanup,
     CacheManager &cache_manager
-) : UrlDownloader(
+) : UrlDownloaderSimple(
         my_curl_easy_init,
         my_curl_easy_setopt,
         my_curl_easy_perform,
@@ -38,7 +38,7 @@ UrlDownloaderWithCache::UrlDownloaderWithCache(
     ),
     cache_manager_(cache_manager){}
 
-DATAHOLDER_PTR UrlDownloaderWithCache::Download(const string &kURL, const string &kRefererURL, const string &kCookie)
+DATAHOLDER_PTR UrlDownloaderWithCache::Download(const std::string &kURL, const std::string &kRefererURL, const std::string &kCookie)
 {
     try
     {
@@ -46,7 +46,7 @@ DATAHOLDER_PTR UrlDownloaderWithCache::Download(const string &kURL, const string
     }
     catch (NoSuchCacheException &)
     {
-        DATAHOLDER_PTR result = UrlDownloader::Download(kURL, kRefererURL, kCookie);
+        DATAHOLDER_PTR result = UrlDownloaderSimple::Download(kURL, kRefererURL, kCookie);
         cache_manager_.Add(kURL, *result);
         return result;
     }

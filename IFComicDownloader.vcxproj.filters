@@ -130,9 +130,6 @@
     <ClCompile Include="src\IFCurlAdaptor\UrlDownloaderFactory.cpp">
       <Filter>src\IFCurlAdaptor</Filter>
     </ClCompile>
-    <ClCompile Include="src\IFCurlAdaptor\UrlDownloader.cpp">
-      <Filter>src\IFCurlAdaptor</Filter>
-    </ClCompile>
     <ClCompile Include="src\UrlDownloaderFactoryWithCache.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -183,6 +180,9 @@
     </ClCompile>
     <ClCompile Include="src\PythonInterface.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IFCurlAdaptor\UrlDownloaderSimple.cpp">
+      <Filter>src\IFCurlAdaptor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -391,6 +391,9 @@
     </ClInclude>
     <ClInclude Include="src\PythonInterface.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IFCurlAdaptor\UrlDownloaderSimple.h">
+      <Filter>src\IFCurlAdaptor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

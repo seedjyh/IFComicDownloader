@@ -368,6 +368,12 @@ int CodeTransformer::FormatUrltoUtf8(const string &kOriginalURL, string &ret_URL
     char   szUTF8Str[1024];
     size_t uUTF8StrLen = 0;
 
+    if (kOriginalURL.empty())
+    {
+        ret_URL.clear();
+        MY_PROCESS_SUCCESS(true);
+    }
+
     nRetCode = MultiByteToWideChar(
         CP_ACP,
         MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,
@@ -415,7 +421,7 @@ int CodeTransformer::FormatUrltoUtf8(const string &kOriginalURL, string &ret_URL
         ret_URL += szUTF8Str[i];
     }
 
-// Exit1:
+Exit1:
     nResult = true;
 Exit0:
     return nResult;

@@ -126,8 +126,8 @@
     <ClCompile Include="src\DownloadRecordFile.cpp" />
     <ClCompile Include="src\IFCurlAdaptor\DataPackage.cpp" />
     <ClCompile Include="src\IFCurlAdaptor\HeaderPackage.cpp" />
-    <ClCompile Include="src\IFCurlAdaptor\UrlDownloader.cpp" />
     <ClCompile Include="src\IFCurlAdaptor\UrlDownloaderFactory.cpp" />
+    <ClCompile Include="src\IFCurlAdaptor\UrlDownloaderSimple.cpp" />
     <ClCompile Include="src\IFDataType\DataHolder.cpp" />
     <ClCompile Include="src\IFDataType\DirectoryTree.cpp" />
     <ClCompile Include="src\IFDataType\FileHolder.cpp" />
@@ -197,6 +197,7 @@
     <ClInclude Include="src\IFCurlAdaptor\LoadLibraryFailedException.h" />
     <ClInclude Include="src\IFCurlAdaptor\UrlDownloader.h" />
     <ClInclude Include="src\IFCurlAdaptor\UrlDownloaderFactory.h" />
+    <ClInclude Include="src\IFCurlAdaptor\UrlDownloaderSimple.h" />
     <ClInclude Include="src\IFDataType\DataHolder.h" />
     <ClInclude Include="src\IFDataType\DirectoryHolder.h" />
     <ClInclude Include="src\IFDataType\DirectoryTree.h" />

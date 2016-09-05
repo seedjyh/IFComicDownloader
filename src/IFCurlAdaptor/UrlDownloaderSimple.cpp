@@ -1,5 +1,5 @@
 //
-//   File name      : UrlDownloader.cpp
+//   File name      : UrlDownloaderSimple.cpp
 //
 //   Author         : Yonghang Jiang(seedjyh@gmail.com)
 //
@@ -9,7 +9,7 @@
 //
 
 // Implemented header
-#include "UrlDownloader.h"
+#include "UrlDownloaderSimple.h"
 
 // C system headers
 // ...
@@ -28,7 +28,7 @@
 static const string s_kUserAgent("Mozilla/5.0 (Windows NT 5.1) LIBCURL/7.19.7.0");
 static size_t s_kDownloadWaitSecond = 60;
 
-UrlDownloader::UrlDownloader(
+UrlDownloaderSimple::UrlDownloaderSimple(
     CurlEasyInit    my_curl_easy_init,
     CurlEasySetOpt  my_curl_easy_setopt,
     CurlEasyPerform my_curl_easy_perform,
@@ -39,7 +39,7 @@ UrlDownloader::UrlDownloader(
     my_curl_easy_cleanup_(my_curl_easy_cleanup),
     page_total_len_(0){}
 
-DATAHOLDER_PTR UrlDownloader::Download(const string &kURL, const string &kRefererURL, const string &kCookie)
+DATAHOLDER_PTR UrlDownloaderSimple::Download(const string &kURL, const string &kRefererURL, const string &kCookie)
 {
     DataPackage data_package;
     HeaderPackage header_package;
@@ -62,6 +62,7 @@ DATAHOLDER_PTR UrlDownloader::Download(const string &kURL, const string &kRefere
     my_curl_easy_setopt_(curl, CURLOPT_HEADERFUNCTION, &HeaderPackage::process_header);
     my_curl_easy_setopt_(curl, CURLOPT_HEADERDATA, &header_package);
     my_curl_easy_setopt_(curl, CURLOPT_TIMEOUT, s_kDownloadWaitSecond);
+    my_curl_easy_setopt_(curl, CURLOPT_ACCEPT_ENCODING, "gzip, deflate, sdch");
     if (kRefererURL.size() > 0)
     {
         my_curl_easy_setopt_(curl, CURLOPT_REFERER, kRefererURL.c_str());

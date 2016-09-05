@@ -12,7 +12,7 @@
 #define _URLDOWNLOADERWITHCACHE_H_ 1
 
 // Inherite header
-#include "IFCurlAdaptor/UrlDownloader.h"
+#include "IFCurlAdaptor/UrlDownloaderSimple.h"
 
 // C system headers
 // ...
@@ -26,7 +26,9 @@
 // Headers of current project
 // ...
 
-class UrlDownloaderWithCache : public UrlDownloader
+class CacheManager;
+
+class UrlDownloaderWithCache : public UrlDownloaderSimple
 {
     CacheManager &cache_manager_;
 public:
@@ -41,7 +43,7 @@ public:
 
     // If URL is cached, return cached file.
     // If not cached, download it and add data into cache.
-    virtual DATAHOLDER_PTR Download(const string &kURL, const string &kRefererURL, const string &kCookie);
+    virtual DATAHOLDER_PTR Download(const std::string &kURL, const std::string &kRefererURL, const std::string &kCookie);
 protected:
 private:
 };
