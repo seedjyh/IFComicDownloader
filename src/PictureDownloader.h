@@ -40,10 +40,25 @@ public:
     void set_volume_title(const std::string &kTitle) { volume_title_ = kTitle; return; }
 
     void Download(const std::string &kURL, const Tstring &kDownloadRootPath);
+
 protected:
 private:
     static void WriteFile(const Tstring &kPath, DATAHOLDER_PTR data);
     static std::string GetFileNameExtentionFromFileURL(const std::string &kURL);
+    static Tstring GenerateLocalFilePath_FullImageFileName(
+        const Tstring &kDownloadPath,
+        const std::string &kComicTitle,
+        const std::string &kVolumeTitle,
+        int picture_index,
+        const Tstring &kExtensionName // 扩展名前面有点（.）
+    );
+    static Tstring GenerateLocalFilePath_NoComicTitleInImageFileName(
+        const Tstring &kDownloadPath,
+        const std::string &kComicTitle,
+        const std::string &kVolumeTitle,
+        int picture_index,
+        const Tstring &kExtensionName // 扩展名前面有点（.）
+    );
 };
 
 #endif

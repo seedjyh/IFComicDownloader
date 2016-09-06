@@ -336,3 +336,26 @@ bool PathHandler::CheckFileExistance(const Tstring &kFilePath)
 {
     return (0 == _taccess(kFilePath.c_str(), 0));
 }
+
+int PathHandler::isTooLongToWrite(const Tstring &kPath)
+{
+    // 如果文件已经存在，则必然是可以打开和写入的长度。
+    FILE *fp = _tfopen(kPath.c_str(), __T("r"));
+    if (fp != NULL)
+    {
+        MY_FCLOSE(fp);
+        return false;
+    }
+
+    // 如果文件不存在，则尝试着以写入为目标打开。
+    // 但什么都不写并直接关闭文件。
+    fp = _tfopen(kPath.c_str(), __T("wb"));
+    if (NULL == fp)
+    {
+        printf("%s\n", strerror(errno));
+        return true;
+    }
+    MY_FCLOSE(fp);
+    DeleteFile(kPath.c_str());
+    return false;
+}

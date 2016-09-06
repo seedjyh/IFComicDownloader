@@ -54,13 +54,33 @@ void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownlo
         throw UrlAnalyseFailedException(kURL, std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
     }
 
+    //////////////////////////////////////////////////////////////////////////
     // generate file path
-    const Tstring kFilePath =
-        kDownloadRootPath +
-        PathHandler::ValidateName(CodeTransformer::TransStringToTString(comic_title_ + "_" + volume_title_ + "_")) +
-        NumberOperator::ItoA(file_index, Tstring(_T("%06u"))) +
-        CodeTransformer::TransStringToTString(GetFileNameExtentionFromFileURL(kFileURL));
-    if (PathHandler::CheckFileExistance(kFilePath))
+    Tstring file_path = GenerateLocalFilePath_FullImageFileName(
+        kDownloadRootPath,
+        comic_title_,
+        volume_title_,
+        file_index,
+        CodeTransformer::TransStringToTString(GetFileNameExtentionFromFileURL(kFileURL))
+    );
+    if (PathHandler::isTooLongToWrite(file_path))
+    {
+        file_path = GenerateLocalFilePath_NoComicTitleInImageFileName(
+            kDownloadRootPath,
+            comic_title_,
+            volume_title_,
+            file_index,
+            CodeTransformer::TransStringToTString(GetFileNameExtentionFromFileURL(kFileURL))
+            );
+    }
+    if (PathHandler::isTooLongToWrite(file_path))
+    {
+        printf("ERROR! Image path is too long to write.\n");
+        return;
+    }
+    //////////////////////////////////////////////////////////////////////////
+
+    if (PathHandler::CheckFileExistance(file_path))
     {
         return;
     }
@@ -73,7 +93,7 @@ void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownlo
         try
         {
             DATAHOLDER_PTR data = downloader->Download(kFileURL, kURL, std::string(""));
-            WriteFile(kFilePath.c_str(), data);
+            WriteFile(file_path.c_str(), data);
             break;
         }
         catch (DownloadFailedException &e)
@@ -109,4 +129,36 @@ std::string PictureDownloader::GetFileNameExtentionFromFileURL(const std::string
         result.resize(kQuestionMark - result.c_str());
     }
     return result;
+}
+
+Tstring PictureDownloader::GenerateLocalFilePath_FullImageFileName(
+    const Tstring &kDownloadPath,
+    const std::string &kComicTitle,
+    const std::string &kVolumeTitle,
+    int picture_index,
+    const Tstring &kExtensionName // 扩展名前面有点（.）
+    )
+{
+    const Tstring kFilePath =
+        kDownloadPath +
+        PathHandler::ValidateName(CodeTransformer::TransStringToTString(kComicTitle + "_" + kVolumeTitle + "_")) +
+        NumberOperator::ItoA(picture_index, Tstring(_T("%06u"))) +
+        kExtensionName;
+    return kFilePath;
+}
+
+Tstring PictureDownloader::GenerateLocalFilePath_NoComicTitleInImageFileName(
+    const Tstring &kDownloadPath,
+    const std::string &kComicTitle,
+    const std::string &kVolumeTitle,
+    int picture_index,
+    const Tstring &kExtensionName // 扩展名前面有点（.）
+    )
+{
+    const Tstring kFilePath =
+        kDownloadPath +
+        PathHandler::ValidateName(CodeTransformer::TransStringToTString(kVolumeTitle + "_")) +
+        NumberOperator::ItoA(picture_index, Tstring(_T("%06u"))) +
+        kExtensionName;
+    return kFilePath;
 }

@@ -44,6 +44,8 @@ public:
 
     static void TransSlashToBackslash(Tstring &kPath);
     static bool CheckFileExistance(const Tstring &kFilePath);
+
+    static int isTooLongToWrite(const Tstring &kPath);
 protected:
 private:
     PathHandler(){};

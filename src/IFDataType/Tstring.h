@@ -33,7 +33,7 @@ class Tstring // 可以用new数组而不是定长数组
     int content_length_;
 public:
     Tstring();
-    Tstring(const TCHAR kStr[]);
+    Tstring(const TCHAR kStr[]); // 注：TCHAR字符串常量可以用__T("abc")方式来表示。
     Tstring(const Tstring &kStr);
     ~Tstring();
 
