@@ -13,9 +13,9 @@ dofile("M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\test_tool.lua")
 ------------------------------------------------------------------
 -- 预测参数
 -- 待测试的网站目录名（位于script/sites/下），例如'www.ikanman.com'
-local site_dir = 'g.e-hentai.org'
+local site_dir = 'www.dm5.com'
 -- 待分析的网页文件名（已经被下载到本地硬盘）
-local web_file_path = "M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\picture_page.html"
+local web_file_path = "M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\comic_page.html"
 -- 待分析的网页URL
 local web_page_url = "http://g.e-hentai.org/s/5ea57e66ac/523011-1"
 ------------------------------------------------------------------
@@ -30,7 +30,7 @@ pagestr = ReadFile(web_file_path)
 
 -- Step 3：调用欲测试的函数。
 --print(GetPageIndexFromURL(web_page_url))
-print(PicturePageAnalyse(web_page_url, pagestr, ""))
+print(ComicPageAnalyse(web_page_url, pagestr, ""))
 
 -- END.
 

@@ -20,9 +20,12 @@ function ComicPageAnalyse(comic_page_url, pagestr, extra_info)
         return nil, "JumpStr mhinfo failed"
     end
 
-    result_end_index=JumpStr(pagestr, 1, "<h1 class=\"inbt_title_h2\">", 1)
+    result_end_index = JumpStr(pagestr, 1, "<h1 class=\"inbt_title_h2\">", 1)
     if type(result_end_index) ~= "number" then
-        return nil, "JumpStr <h1 class=\"inbt_title_h2\"> failed"
+        result_end_index = JumpStr(pagestr, 1, "<h1 class=\"new_h2\">", 1)
+        if type(result_end_index) ~= "number" then
+            return nil, "JumpStr before comic title failed"
+        end
     end
 
     local comic_title = GetStr(pagestr, result_end_index, "<")
@@ -84,7 +87,7 @@ function ComicPageAnalyse(comic_page_url, pagestr, extra_info)
         end
         
         result = result .. "<volumeinfo>"
-        result = result .. "<volumetitle>" .. TransUtf8ToAnsi(volume_title) .. "</volumetitle>"
+        result = result .. "<volumetitle>" .. volume_title .. "</volumetitle>"
         result = result .. "<volumeurl>" .. GetURLHost(comic_page_url) .. volume_relative_url .. "</volumeurl>"
         result = result .. "</volumeinfo>"
     end
@@ -140,7 +143,7 @@ function ComicPageGetVolumeTitle(analyse_result, index)
 	if type(temp_start_index) ~= "number" then
 	    return nil, "Can\'t find <volumetitle>"
 	end
-	return GetStr(analyse_result, temp_start_index, "<")
+	return TransUtf8ToAnsi(GetStr(analyse_result, temp_start_index, "<"))
 end
 
 function ComicPageGetVolumeURL(analyse_result, index)
