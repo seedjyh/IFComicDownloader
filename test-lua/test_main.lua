@@ -21,13 +21,17 @@ dofile("M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\www.mh160.com\\prof
 -- Step 2£∫÷¥––≤‚ ‘
 for case_name, case_data in pairs(test_case_list) do
     print('Starting test case: ' .. case_name)
-    local analyse_result = case_data.function_to_test(case_data.url, ReadFile(case_data.page), "")
     print('expected:')
     print(ReadFile(case_data.expected_analyse_result))
     print('actual:')
-    print(analyse_result)
+    local analyse_result, errmsg = case_data.function_to_test(case_data.url, ReadFile(case_data.page), "")
+    if not analyse_result then
+        print("Error! " .. errmsg)
+    else
+        print(analyse_result)
+    end
+    print('------------------------------------------------------------------------------------------')
 end
-pagestr = ReadFile(web_file_path)
 
 -- END.
 
