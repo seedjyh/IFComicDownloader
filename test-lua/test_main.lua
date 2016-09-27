@@ -14,9 +14,9 @@
 dofile("M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\test_tool.lua")
 -- Step 1.2£∫º”‘ÿ¥˝≤‚ ‘µƒΩ≈±æ
 LoadLuaFileList(GetAllLuaFilesInPath("M:\\GitHubRepositories\\IFComicDownloader\\script\\api\\"))
-LoadLuaFileList(GetAllLuaFilesInPath("M:\\GitHubRepositories\\IFComicDownloader\\script\\sites\\www.mh160.com\\"))
+LoadLuaFileList(GetAllLuaFilesInPath("M:\\GitHubRepositories\\IFComicDownloader\\script\\sites\\www.huhumh.com\\"))
 -- Step 1.3£∫º”‘ÿtable: test_case_list
-dofile("M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\www.mh160.com\\profile.lua")
+dofile("M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\www.huhumh.com\\profile.lua")
 
 -- Step 2£∫÷¥––≤‚ ‘
 for case_name, case_data in pairs(test_case_list) do
