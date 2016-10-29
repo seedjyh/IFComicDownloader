@@ -10,21 +10,22 @@ function ComicUrlAnalyse(url)
 end
 
 function ComicPageAnalyse(comic_page_url, pagestr, extra_info)
+    print("entering ComicPageAnalyse")
     local result = "<result>"
 
     ----------------------------------------------------------------------------
     result = result .. "<comictitle>"
     ----------------------------------------------------------
-    local result_end_index=JumpStr(pagestr, 1, "<title>", 1)
+    local result_end_index=JumpStr(pagestr, 1, "<h1>", 1)
     if type(result_end_index) ~= "number" then
-        return nil, "JumpStr <title> failed"
+        return nil, "JumpStr <h1> failed"
     end
 
-    local comic_title = GetStr(pagestr, result_end_index, ",")
+    local comic_title = GetStr(pagestr, result_end_index, "<")
     if type(comic_title) ~= "string" then
         return nil, "GetStr until , failed"
     end
-    result = result .. comic_title
+    result = result .. Strip(comic_title)
     ----------------------------------------------------------
     result = result .. "</comictitle>"
     ----------------------------------------------------------------------------
@@ -33,14 +34,14 @@ function ComicPageAnalyse(comic_page_url, pagestr, extra_info)
     ----------------------------------------------------------------------------
     result = result .. "<volumeinfolist>"
     ----------------------------------------------------------
-    local page_start_index = JumpStr(pagestr, 1, "\"bi\"", 1)
+    local page_start_index = JumpStr(pagestr, 1, "\"cVolList\"", 1)
     if type(page_start_index) ~= "number" then
-        return nil, "No \"bi\", the beginning of Volume url list"
+        return nil, "No \"cVolList\", the beginning of Volume url list"
     end
 
-    local page_end_index = JumpStr(pagestr, page_start_index, "</ul>", 1)
+    local page_end_index = JumpStr(pagestr, page_start_index, "input", 1)
     if type(page_end_index) ~= "number" then
-        return nil, "Unknown format: no </ul> for end of volume list"
+        return nil, "Unknown format: no input for end of volume list"
     end
     
     local index_in_page = page_start_index
@@ -54,7 +55,7 @@ function ComicPageAnalyse(comic_page_url, pagestr, extra_info)
             break
         end
         
-        index_in_page = JumpStr(pagestr, index_in_page, "href=", 1)
+        index_in_page = JumpStr(pagestr, index_in_page, "href='", 1)
         if type(index_in_page) ~= "number" then
             break
         end
@@ -62,7 +63,7 @@ function ComicPageAnalyse(comic_page_url, pagestr, extra_info)
             break
         end
 
-        local relative_volume_url = GetStr(pagestr, index_in_page, " ")
+        local relative_volume_url = GetStr(pagestr, index_in_page, "'")
         if type(relative_volume_url) ~= "string" then
             return nil, "Unknown format: no   for <a href="
         end
@@ -98,7 +99,7 @@ function ComicPageGetComicTitle(analyse_result)
         return nil
     end
 
-    return GetStr(analyse_result, result_end_index, "<")
+    return TransUtf8ToAnsi(GetStr(analyse_result, result_end_index, "<"))
 end
 
 function ComicPageGetVolumeCount(analyse_result)
@@ -135,7 +136,7 @@ function ComicPageGetVolumeTitle(analyse_result, index)
 	if type(temp_start_index) ~= "number" then
 	    return nil, "Can\'t find <volumetitle>"
 	end
-	return GetStr(analyse_result, temp_start_index, "<")
+	return TransUtf8ToAnsi(GetStr(analyse_result, temp_start_index, "<"))
 end
 
 function ComicPageGetVolumeURL(analyse_result, index)

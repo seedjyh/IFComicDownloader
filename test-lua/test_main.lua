@@ -9,15 +9,23 @@
 -- 3. 调用想要测试的函数（不止一个，必须先Analyse再Get分析结果）
 ----------------------------------------------------------------------------------------------------
 
+function PrintLine()
+    print("***************************************************************************************")
+end
+
+PrintLine()
 -- Step 1：加载所有待测试或测试时会用到的lua脚本。
 -- Step 1.1：加载测试工具函数
 dofile("M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\test_tool.lua")
+PrintLine()
 -- Step 1.2：加载待测试的脚本
 LoadLuaFileList(GetAllLuaFilesInPath("M:\\GitHubRepositories\\IFComicDownloader\\script\\api\\"))
 LoadLuaFileList(GetAllLuaFilesInPath("M:\\GitHubRepositories\\IFComicDownloader\\script\\sites\\www.huhumh.com\\"))
+PrintLine()
 -- Step 1.3：加载table: test_case_list
 dofile("M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\www.huhumh.com\\profile.lua")
 
+PrintLine()
 -- Step 2：执行测试
 for case_name, case_data in pairs(test_case_list) do
     print('Starting test case: ' .. case_name)
@@ -32,6 +40,7 @@ for case_name, case_data in pairs(test_case_list) do
     end
     print('------------------------------------------------------------------------------------------')
 end
+PrintLine()
 
 -- END.
 

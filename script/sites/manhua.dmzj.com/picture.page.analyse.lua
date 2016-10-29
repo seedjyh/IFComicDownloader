@@ -16,11 +16,6 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
 	if type(pagestr) ~= "string" then
 		return nil, "error because pagestr is not string, but " .. type(pagestr)
 	end
-
-    local start_index = JumpStr(pagestr, 1, "var g_current_page = ", 1)
-    if type(start_index) ~= "number" then
-        return nil, "error when call JumpStr var g_current_page = "
-    end
     
     local picture_index_num, err = GetPageIndexFromURL(picture_page_url)
     if type(picture_index_num) ~= "number" then

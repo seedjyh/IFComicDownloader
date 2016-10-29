@@ -1,117 +1,300 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>ĞØ»³´óÖ¾,ĞØ»³´óÖ¾Âş»­_»¢»¢Âş»­Íø</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<link href="/css/cc.css" rel="stylesheet" type="text/css" />
-<meta name="Keywords" content="ĞØ»³´óÖ¾Âş»­,²Ö¿ÆÁÉ£¦Ğ¡ÁÖÍØ¼ºÂş»­,×÷Õß£º²Ö¿ÆÁÉ£¦Ğ¡ÁÖÍØ¼º ĞØ»³´óÖ¾ÔÚÏßÂş»­" />
-<meta name="" content="ĞØ»³´óÖ¾Âş»­ www.huhumh.com »¢»¢Âş»­" />
-<script language=javascript>
-var ComicID=hu3115;
-</script>
-<script type=text/JavaScript src="/jsc/htmlarea.js.htm"></script>
-<script language=JavaScript src="/jsc/book.js"></script>
+<head id="Head1"><title>
+	ç»ˆæœ«çš„åå®« æ¼«ç”» - è™è™æ¼«ç”»
+</title><meta name="description" content="huhumh.com" /><meta name="keywords" content="æ¼«ç”»,åœ¨çº¿æ¼«ç”»,å…è´¹æ¼«ç”»,æ—¥æœ¬æ¼«ç”»,è™è™æ¼«ç”»" /><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /><link rel="stylesheet" type="text/css" media="screen" href="/css/style.css" /><link rel="stylesheet" type="text/css" media="screen" href="/css/private.css" />
+    <script language="javascript" src="/script/ajaxClass.js"></script>
+    <script language="javascript" src="/script/cookie_comic.js"></script>
+    <script language="javascript" src="/script/SNSPush3Class.js"></script>
+    <script type="text/javascript" src="/js/slideshow.js"></script>
+    <script language="javascript">
+    function newRec()
+    {
+        var sID = document.getElementById("hdComicID").value;
+        location.href = "/comic/comicrec.aspx?ID=" + sID;
+    }
+    function addFav()
+    {
+        var sID = document.getElementById("hdComicID").value;
+        var sVIP = document.getElementById("hdVIPComic").value;
+        var url = "/ax/addFav.aspx?ComicID=" + sID + "&VIP=" + sVIP;   
+       // window.open(url);
+        var callback = addFav_callback;
+        var data = "";
+        Request.reSend(url,data,callback);
+    }
+    function addFav_callback(o)
+    {
+        if(o == null)
+        {
+            alert("æœªçŸ¥é”™è¯¯ï¼Œæ— æ³•æ”¶è—");
+            return;
+        }
+        var s = o.responseText;
+        alert(s);
+    }
+    
+    function window_onload()
+    {
+        
+        var slist = GetCookie("ViewCtTxt");
+        //alert(slist)
+	    var sHtm = "";
+	    for(i=0;i<slist.split("^").length;i++)
+	    {
+		    sHtm += getRListHtm(slist.split("^")[i]);	
+	    }
+	    document.getElementById("iComicReadList").innerHTML = sHtm;
+    	
+    }
+    function getRListHtm(s)
+    {
+	    return "<div><a href='"+ s.split("âŠ™")[1] +"'>"+ s.split("âŠ™")[0] + "</a>";
+    }
+    
+    function downComic()
+    {
+        var sID = document.getElementById("hdComicID").value;
+        var sVIP = document.getElementById("hdVIPComic").value;
+        var sUrl = "/comic/comicdown.aspx?id=" + sID;
+        if(sVIP == "Y")
+            sUrl += "&vip=Y";
+        window.open(sUrl);
+    }
+    
+    function doPing(c)
+    {
+        var sID = document.getElementById("hdComicID").value;
+        var sVIP = document.getElementById("hdVIPComic").value;
+        var url = "/ax/axRating.aspx?ComicID=" + sID + "&C=" + c + "&VIP="+ sVIP;   
+        
+       // window.open(url);
+        var callback = doPing_callback;
+        var data = "";
+        Request.reSend(url,data,callback);
+    }
+    function doPing_callback(o)
+    {
+        if(o == null)
+        {
+            alert("æœªçŸ¥é”™è¯¯");
+            return;
+        }
+        var s = o.responseText;
+        if(s == "Already")
+        {
+            document.getElementById("spRatingMsg").innerHTML = "å·²ç»è¯„ä»·è¿‡äº†";
+            return;
+        }
+                
+        document.getElementById("spRatingMsg").innerHTML = "è°¢è°¢ä½ çš„è¯„ä»·";
+    }
+    function me(t,s)
+    {
+        var smid = t.id;
+        smid = smid.replace("sm","")
+        
+        for(i=1;i<=5;i++)
+        {
+            if(i < smid)
+                document.getElementById("sm" + i).src = "/images/starl.gif";
+        }
+        
+        t.src = "/images/starl.gif";
+        document.getElementById("spRatingMsg").innerHTML = s;
+    }
+    function mt()
+    {
+        for(i=1;i<=5;i++)
+        {
+           document.getElementById("sm" + i).src = "/images/stara.gif";
+        }
+        document.getElementById("spRatingMsg").innerHTML = "";
+    }
+    function initRating()
+    {
+        var sHtm = "";
+        
+        sHtm += "<a href=\"\" onclick=\"doPing(2);return false;\"><img id='sm1' src='/images/stara.gif' onmousemove=\"me(this,'å¾ˆçƒ‚ 2åˆ†')\" onmouseout=\"mt()\"></a>";
+        sHtm += "<a href=\"\" onclick=\"doPing(4);return false;\"><img id='sm2' src='/images/stara.gif' onmousemove=\"me(this,'æ— èŠ 4åˆ†')\" onmouseout=\"mt()\"></a>";
+        sHtm += "<a href=\"\" onclick=\"doPing(6);return false;\"><img id='sm3' src='/images/stara.gif' onmousemove=\"me(this,'æ™®é€š 6åˆ†')\" onmouseout=\"mt()\"></a>";
+        sHtm += "<a href=\"\" onclick=\"doPing(8);return false;\"><img id='sm4' src='/images/stara.gif' onmousemove=\"me(this,'å¥½çœ‹ 8åˆ†')\" onmouseout=\"mt()\"></a>";
+        sHtm += "<a href=\"\" onclick=\"doPing(10);return false;\"><img id='sm5' src='/images/stara.gif' onmousemove=\"me(this,'æå“ 10åˆ†')\" onmouseout=\"mt()\"></a>";
+        //alert(sHtm)
+        document.getElementById("spRatingImg").innerHTML = sHtm;
+    }
+    </script>
+
 </head>
- 
 <body>
-<div id="container">
-  <div id="header">
-    <table width="100%" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="200" rowspan="2"><a href="/" title="»¢»¢Âş»­ÎªÄúÌá¹©Âş»­¡¢ÔÚÏßÂş»­¡¢×îĞÂÂş»­Ãâ·Ñ¹Û¿´"><img src="/images/logo.gif" alt="»¢»¢ÔÚÏßÂş»­" border="0" /></a></td>
-        <td height="30" align="right"><a href="/" class="link01">·µ»ØÊ×Ò³</a>  <a href="http://blmanhua.com" class="link03">BLÂş»­</a>       <a href="/hh/" class="link03">»¢»¢ÅÅĞĞ°ñ</a>     <a href="http://www.hhcool.com" class="link02">º¹º¹¿áÂş</a><img src="/images/new.gif" alt="ĞÂµÄÂş»­" />      <a href="http://www.hanhan8.cc" class="link02">º¹º¹Âş»­</a><img src="/images/new.gif" alt="ĞÂµÄÂş»­" /></td>
-</tr>
-      <tr>
-        <td align="right">°´×ÖÄ¸É¸Ñ¡£º <a href="/hhABC/A/" class="linka">A</a> <a href="/hhABC/B/" class="linka">B</a> <a href="/hhABC/C/" class="linka">C</a> <a href="/hhABC/D/" class="linka">D</a> <a href="/hhABC/E/" class="linka">E</a> <a href="/hhABC/F/" class="linka">F</a> <a href="/hhABC/G/" class="linka">G</a> <a href="/hhABC/H/" class="linka">H</a> <a href="/hhABC/I/" class="linka">I</a> <a href="/hhABC/J/" class="linka">J</a> <a href="/hhABC/K/" class="linka">K</a> <a href="/hhABC/L/" class="linka">L</a> <a href="/hhABC/M/" class="linka">M</a> <a href="/hhABC/N/" class="linka">N</a> <a href="/hhABC/O/" class="linka">O</a> <a href="/hhABC/P/" class="linka">P</a> <a href="/hhABC/Q/" class="linka">Q</a> <a href="/hhABC/R/" class="linka">R</a> <a href="/hhABC/S/" class="linka">S</a> <a href="/hhABC/T/" class="linka">T</a> <a href="/hhABC/U/" class="linka">U</a> <a href="/hhABC/V/" class="linka">V</a> <a href="/hhABC/W/" class="linka">W</a> <a href="/hhABC/X/" class="linka">X</a> <a href="/hhABC/Y/" class="linka">Y</a> <a href="/hhABC/Z/" class="linka">Z</a> <a href="/hhABC/1/" class="linka">9</a>  <a href="/top/" class="link01">ÈÈµãÅÅĞĞ</a> <a href="/comicupdate/" class="link01">×îĞÂ¸üĞÂ</a> <a href="/comicnew/" class="link01">×îĞÂÉÏ¼Ü</a></td>
-      </tr>
-    </table>
-  </div>
-  </div>
-  
-  <div id="container">
-    <div class="sid" id=book_01><script src=/jsc/book_960.js></script></div>
-  </div>
+    
 
-<div id="container">
-  <div id="menu">
-        <a href="/hhlist/1/" class="linkb">ÃÈÏµ</a> | <a href="/hhlist/2/" class="linkb">¸ãĞ¦</a> | <a href="/hhlist/3/" class="linkb">¸ñ¶·</a> | <a href="/hhlist/4/" class="linkb">¿Æ»Ã</a> | <a href="/hhlist/5/" class="linkb">¾çÇé</a> | <a href="/hhlist/6/" class="linkb">ÕìÌ½</a> | <a href="/hhlist/7/" class="linkb">¾º¼¼</a> | <a href="/hhlist/8/" class="linkb">Ä§·¨</a> | <a href="/hhlist/9/" class="linkb">Éñ¹í</a> | <a href="/hhlist/10/" class="linkb">Ğ£Ô°</a> | <a href="/hhlist/11/" class="linkb">¾ªÀõ</a> | <a href="/hhlist/12/" class="linkb">³øÒÕ</a> | <a href="/hhlist/13/" class="linkb">Î±Äï</a> | <a href="/hhlist/14/" class="linkb">Í¼Æ¬</a> | <a href="/hhlist/15/" class="linkb">Ã°ÏÕ</a> | <a href="/hhlist/19/" class="linkb">Ğ¡Ëµ</a> | <a href="/hhlist/20/" class="linkb">¸ÛÂş</a> | <a href="/hhlist/21/" class="linkb">µ¢ÃÀ</a> | <a href="/hhlist/22/" class="linkb">¾­µä</a> | <a href="/hhlist/23/" class="linkb">Å·ÃÀ</a> | <a href="/hhlist/24/" class="linkb">ÈÕÎÄ</a>| <a href="/hhlist/25/" class="linkb">ÎÂÇé</a></div>
-  
-</div>
-   
-<div id="container"> 
-  <div id="mainContent">
-    <div id="sidebar">
-    <!-- Baidu Button BEGIN -->
-    <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
-        <a class="bds_qzone"></a>
-        <a class="bds_tsina"></a>
-        <a class="bds_tqq"></a>
-        <a class="bds_copy"></a>
-        <span class="bds_more">¸ü¶à</span>
-		<a class="shareCount"></a>
+<div class="cHding">
+    <div class="cHBar">
+        <div class="cHBarTxt">
+          <a href="/">è¿”å›é¦–é¡µ</a> | <a target="_blank" title="çº¿ä¸Šé«˜é€Ÿæ¼«ç”»" href="http://www.somanhua.com">æ¼«ç”»å¤§å…¨</a> | <a target="_blank" title="blæ¼«ç”»" href="http://blman.net">BLæ¼«ç”»</a> | <a target="_blank" title="æ³¡æ³¡æ¼«ç”»" href="http://www.popomh.com">æ³¡æ³¡æ¼«ç”» </a> | <a href="/sitemap">ç½‘ç«™åœ°å›¾</a> | <a href="/rss.html">RSSè®¢é˜…</a>        </div>
+  </div>
+    <div class="cHYinYin">
+       æ¬¢è¿æ¥åˆ°è™è™æ¼«ç”»  [www.huhumh.com] 
     </div>
-<!-- Baidu Button END -->
-    <div class="sic"><script src=/jsc/book_250.js></script></div>
-    <div class="sia">×î½üÉÏ¼ÜÂş»­²¿</div>
-    <div class="aag"></ul><li><span ><font color="#ff0000">09-27</font></span><b>1 . </b><a href="/manhua/hu31104/" title="»éÇ°Áµ°®">»éÇ°Áµ°®</a></li><li><span ><font color="#ff0000">09-26</font></span><b>2 . </b><a href="/manhua/hu31103/" title="Ó°Ö®Ê«-ÑÇÀæÉ³ ¾ö¶·Ê«Æª">Ó°Ö®Ê«-ÑÇÀæÉ³ ¾ö¶·Ê«Æª</a></li><li><span ><font color="#ff0000">09-26</font></span><b>3 . </b><a href="/manhua/hu31102/" title="LEGACY">LEGACY</a></li><li><span ><font color="#ff0000">09-25</font></span><b>4 . </b><a href="/manhua/hu31101/" title="ÍÃ×Ó¼´ÊÇÕıÒå">ÍÃ×Ó¼´ÊÇÕıÒå</a></li><li><span ><font color="#ff0000">09-25</font></span><b>5 . </b><a href="/manhua/hu31100/" title="ÁÚ¼ÒµÄËû">ÁÚ¼ÒµÄËû</a></li><li><span ><font color="#ff0000">09-25</font></span><b>6 . </b><a href="/manhua/hu31099/" title="ĞÖµÜ`">ĞÖµÜ`</a></li><li><span ><font color="#ff0000">09-25</font></span><b>7 . </b><a href="/manhua/hu31098/" title="ÊñÔÆ²ØÁú¼ÇII">ÊñÔÆ²ØÁú¼ÇII</a></li><li><span ><font color="#ff0000">09-25</font></span><b>8 . </b><a href="/manhua/hu31097/" title="¸ÉÖ§´óÂÒ¶·">¸ÉÖ§´óÂÒ¶·</a></li><li><span ><font color="#ff0000">09-25</font></span><b>9 . </b><a href="/manhua/hu31096/" title="É¬¹È½ğÓã">É¬¹È½ğÓã</a></li><li><span ><font color="#ff0000">09-24</font></span><b>10 . </b><a href="/manhua/hu31095/" title="ÒÔÎªÎÒÊÇÓÄÁéÃÈÃÃÂğ£¿²ĞÄî£¡">ÒÔÎªÎÒÊÇÓÄÁéÃÈÃÃÂğ£¿²ĞÄî£¡</a></li></ul></div>
+</div>
+<div class="cHeader">
+    <div class="cHBg" id="iHBG">
+        <div class="cLogo">
+            <a href="/">
+        <img src="/images/logo.png" alt="è™è™æ¼«ç”»" border="0"></a> </div>
+<div class="cHNav">
+            <div>
+                <a href="/">é¦–é¡µ</a> <a href="/comic/"><span class="tuc">æ¼«ç”»ç›®å½•</span> </a>  <span><a href='/comic/class_1.html'>èŒç³»</a></span><span><a href='/comic/class_2.html'>æç¬‘</a></span><span><a href='/comic/class_3.html'>æ ¼æ–—</a></span><span><a href='/comic/class_4.html'>ç§‘å¹»</a></span><span><a href='/comic/class_5.html'>å‰§æƒ…</a></span><span><a href='/comic/class_6.html'>ä¾¦æ¢</a></span><span><a href='/comic/class_7.html'>ç«æŠ€</a></span><span><a href='/comic/class_8.html'>é­”æ³•</a></span><span><a href='/comic/class_9.html'>ç¥é¬¼</a></span><span><a href='/comic/class_10.html'>æ ¡å›­</a></span><span><a href='/comic/class_11.html'>æƒŠæ —</a></span><span><a href='/comic/class_12.html'>å¨è‰º</a></span><span><a href='/comic/class_13.html'>ä¼ªå¨˜</a></span><span><a href='/comic/class_15.html'>å†’é™©</a></span><span><a href='/comic/class_19.html'>å°è¯´</a></span><span><a href='/comic/class_20.html'>æ¸¯æ¼«</a></span><span><a href='/comic/class_21.html'>è€½ç¾</a></span><span><a href='/comic/class_22.html'>ç»å…¸</a></span><span><a href='/comic/class_23.html'>æ¬§ç¾</a></span><span><a href='/comic/class_24.html'>æ—¥æ–‡</a></span><span><a href='/comic/class_25.html'>äº²æƒ…</a></span></div>
+        </div>
+    </div>
+</div>
+<script language="javascript" src="/script/heraderact.js"></script>
+    <div id="container">
+        <div id="area">
+            <div id="bar">
+                <script language="javascript" src="/script/searchbar.js"></script>
+<div id="cart">
+    <h3>
+        å…¨ç«™å†…å®¹æœç´¢</h3>
+    <div>
+        <input type="text" class="fieldso" id="so" name="so" value="" size="20" onkeydown="SearchCheck()" />
+    </div>
+    <a href="http://dmeden.net/so" onclick="SearchGo();return false;" title="å…¨ç«™æœç´¢" id="checkout">å…¨ç«™æœç´¢</a>
 
-    <div class="sia">×îĞÂ¸üĞÂÂş»­¼¯</div>
-    <div class="bbg"></ul><li><span ><font color="#ff0000">09-27</font></span><b>1 . </b><a href="/manhua/hu27646/" title="Â½µÀ">Â½µÀ</a></li><li><span ><font color="#ff0000">09-27</font></span><b>2 . </b><a href="/manhua/hu30925/" title="ÀèÃ÷Ç°µÄ¸è">ÀèÃ÷Ç°µÄ¸è</a></li><li><span ><font color="#ff0000">09-27</font></span><b>3 . </b><a href="/manhua/hu31104/" title="»éÇ°Áµ°®">»éÇ°Áµ°®</a></li><li><span ><font color="#ff0000">09-27</font></span><b>4 . </b><a href="/manhua/hu30572/" title="Á¯-Toki-">Á¯-Toki-</a></li><li><span ><font color="#ff0000">09-27</font></span><b>5 . </b><a href="/manhua/hu7899/" title="ÎÒÃÇ´ó¼ÒµÄºÓºÏÇf">ÎÒÃÇ´ó¼ÒµÄºÓºÏÇf</a></li><li><span ><font color="#ff0000">09-27</font></span><b>6 . </b><a href="/manhua/hu25796/" title="ÓÂÕßËÀÁË£¡ÊÇÒòÎªÓÂÕßµô½øÁË×÷Îª´åÃñµÄÎÒÍÚµÄÏİÚåÀï">ÓÂÕßËÀÁË£¡ÊÇÒòÎªÓÂÕßµô½øÁË×÷Îª´åÃñµÄÎÒÍÚµÄÏİÚåÀï</a></li><li><span ><font color="#ff0000">09-27</font></span><b>7 . </b><a href="/manhua/hu31069/" title="ÑÇÂ³Å·ËÆºõ¼Ì³ĞÁËÀ¶Ñª">ÑÇÂ³Å·ËÆºõ¼Ì³ĞÁËÀ¶Ñª</a></li><li><span ><font color="#ff0000">09-27</font></span><b>8 . </b><a href="/manhua/hu21954/" title="ºÚ²®¾ôËù³è°®Ö®ĞÇ">ºÚ²®¾ôËù³è°®Ö®ĞÇ</a></li><li><span ><font color="#ff0000">09-27</font></span><b>9 . </b><a href="/manhua/hu24067/" title="¹«Ö÷²»ÔÚ·şÎñÇø">¹«Ö÷²»ÔÚ·şÎñÇø</a></li><li><span ><font color="#ff0000">09-27</font></span><b>10 . </b><a href="/manhua/hu29433/" title="¹íÃğÖ®ÈĞ">¹íÃğÖ®ÈĞ</a></li></ul></div>
+</div>
+<iframe width="260" height="30" frameborder="0" scrolling="no" src="/js/ssooff.htm"></iframe><br>
+<div id="information">
+
+ <h3 id="recent_products">æŒ‰é¦–æ‹¼éŸ³å­—æ¼«ç”»</h3>
+
+                    <a href="/comic/pinyin_a/index.html">A</a> <a href="/comic/pinyin_b/index.html">B</a>
+                    <a href="/comic/pinyin_c/index.html">C</a> <a href="/comic/pinyin_d/index.html">D</a>
+                    <a href="/comic/pinyin_e/index.html">E</a> <a href="/comic/pinyin_f/index.html">F</a>
+                    <a href="/comic/pinyin_g/index.html">G</a> <a href="/comic/pinyin_h/index.html">H</a>
+                    <a href="/comic/pinyin_i/index.html">I</a> <a href="/comic/pinyin_j/index.html">J</a>
+                    <a href="/comic/pinyin_k/index.html">K</a> <a href="/comic/pinyin_l/index.html">L</a>
+                    <a href="/comic/pinyin_m/index.html">M</a> <a href="/comic/pinyin_n/index.html">N</a>
+                    <a href="/comic/pinyin_o/index.html">O</a> <a href="/comic/pinyin_p/index.html">P</a>
+                    <a href="/comic/pinyin_q/index.html">Q</a> <a href="/comic/pinyin_r/index.html">R</a>
+                    <a href="/comic/pinyin_s/index.html">S</a> <a href="/comic/pinyin_t/index.html">T</a>
+                    <a href="/comic/pinyin_u/index.html">U</a> <a href="/comic/pinyin_v/index.html">V</a>
+                    <a href="/comic/pinyin_w/index.html">W</a> <a href="/comic/pinyin_x/index.html">X</a>
+                    <a href="/comic/pinyin_y/index.html">Y</a> <a href="/comic/pinyin_z/index.html">Z</a>
+                    <a href="/comic/pinyin_0-9/index.html">0-9</a> <a href="/comic/pinyin_other/index.html">å…¶ä»–</a>
+
+</div>
+
+                <br>
+                
+<div class="cc">
+    <div class="cBadge">
+        æœ€è¿‘æ›´æ–°æ¼«ç”»
+    </div>
+    <div class="cRecList">
+        <div><b>1</b><a href='/huhu27646.html'>é™†é“</a>38é›†(å·)</div><div><b>2</b><a href='/huhu31253.html'>å°‘å¥³ä¸æˆ˜è½¦ è‰¾ä¸½å¡ç¯‡</a>1é›†(å·)</div><div><b>3</b><a href='/huhu28529.html'>å©šåä¹‹æ‹</a>14é›†(å·)</div><div><b>4</b><a href='/huhu29031.html'>å¥¥å…¹ä¸è‰¾å°”è</a>15é›†(å·)</div><div><b>5</b><a href='/huhu24722.html'>ä¼ªæ‹åŒç›Ÿ</a>100é›†(å·)</div><div><b>6</b><a href='/huhu23167.html'>èµ¤èµ«è¡€ç‰©è¯­</a>90é›†(å·)</div><div><b>7</b><a href='/huhu24908.html'>çˆ±æ¬²çš„éƒ½å¸‚ä¸›æ—</a>74é›†(å·)</div><div><b>8</b><a href='/huhu24544.html'>Online</a>69é›†(å·)</div><div><b>9</b><a href='/huhu4651.html'>è“æµ·å°‘å¥³</a>70é›†(å·)</div><div><b>10</b><a href='/huhu4977.html'>å‡‰å®«æ˜¥æ—¥é…±çš„å¿§éƒ</a>63é›†(å·)</div>
+    </div>
+</div>
+<div class="cc">
+    <div class="cBadge">
+        æœ€æ–°åŠ å…¥æ¼«ç”»
+    </div>
+    <div class="cRecList">
+        <div><b>1</b><a href='/huhu31253.html'>å°‘å¥³ä¸æˆ˜è½¦ è‰¾ä¸½å¡ç¯‡</a>1é›†(å·)</div><div><b>2</b><a href='/huhu31252.html'>INGRESSï¼šTOKYO ANOMALY</a>1é›†(å·)</div><div><b>3</b><a href='/huhu31251.html'>INGRESSçš„æ—¥å¸¸-ç–éœ²ç»˜çš„æƒ…å†µ</a>1é›†(å·)</div><div><b>4</b><a href='/huhu31250.html'>ä¸Šå§ï¼Œå¤§å‰å‡›ï¼</a>3é›†(å·)</div><div><b>5</b><a href='/huhu31249.html'>ç‹ç‹¸å¤§äººä¸Šå¤§å­¦</a>1é›†(å·)</div><div><b>6</b><a href='/huhu31248.html'>ç©ºä¹‹å‡¯å› </a>1é›†(å·)</div><div><b>7</b><a href='/huhu31247.html'>ã•ã—ã™ã›ãçš„ã•ï¼ˆäº”æœˆé›¨ï¼‰ä¸ã™ï¼ˆå‡‰é£ï¼‰ãƒ¼ï¼</a>1é›†(å·)</div><div><b>8</b><a href='/huhu31246.html'>School Idol Days S</a>1é›†(å·)</div><div><b>9</b><a href='/huhu31245.html'>èƒ¡æ¸£å’Œæ°´æ‰‹æœ</a>1é›†(å·)</div><div><b>10</b><a href='/huhu31244.html'>å¿ƒåŠ¨æ—¶åˆ»Â·</a>1é›†(å·)</div>
+    </div>
+</div>
+
+                <div class="cc">
+                    <div class="cBadge">
+                        å–œæ¬¢çœ‹æœ¬æ¼«ç”»çš„ä¹Ÿå–œæ¬¢
+                    </div>
+                    <div class="cRecList">
+                        <div><b>1</b><a href='/huhu27540.html'>çµé­‚å¤ç”Ÿè€…SOUTH</a>11é›†(å·)</div><div><b>2</b><a href='/huhu4545.html'>æœºåŠ¨æˆ˜å£«é«˜è¾¾0079</a>12é›†(å·)</div><div><b>3</b><a href='/huhu8966.html'>å¤ä»‡è€…èµ·æº:å¹»è±¡</a>1é›†(å·)</div><div><b>4</b><a href='/huhu28805.html'>ATRAIL</a>8é›†(å·)</div><div><b>5</b><a href='/huhu4510.html'>RE-TAKE</a>4é›†(å·)</div><div><b>6</b><a href='/huhu3568.html'>äº¡çµå¹»å¢ƒ</a>57é›†(å·)</div><div><b>7</b><a href='/huhu2377.html'>åƒå¹´å¥³ç‹</a>5é›†(å·)</div><div><b>8</b><a href='/huhu8837.html'>è¶…çº§å°‘å¥³</a>11é›†(å·)</div><div><b>9</b><a href='/huhu22654.html'>Buddy Complexâ€”æˆ˜åœºcoupling</a>8é›†(å·)</div><div><b>10</b><a href='/huhu5135.html'>é«˜è¾¾åˆ›ä¸–</a>24é›†(å·)</div>
+                    </div>
+                </div>
+            </div>
+            <div id="list">
+                <h2 class="badge">
+                    è™è™æ¼«ç”» -
+                    åœ¨çº¿æ¼«ç”»
+                    -
+                    ç»ˆæœ«çš„åå®«
+                </h2>
+                <div class="product" id="permalink">
+                    <div id="about_style">
+                        <img src='http://pic.huo80.com/comicui/30134.JPG' width=165 height=225>
+                    </div>
+                    <div id="about_kit">
+                        <ul>
+                            <li>
+                                <h1>
+                                    ç»ˆæœ«çš„åå®«
+                                    <div style="width: 247px; margin-top: -5px; float: right; clear: both;">
+                                        <div id="SNSPushSection">
+                                        <div class="bdsharebuttonbox"><a class="bds_more" href="#" data-cmd="more"></a><a title="åˆ†äº«åˆ°å¾®ä¿¡" class="bds_weixin" href="#" data-cmd="weixin"></a><a title="åˆ†äº«åˆ°QQå¥½å‹" class="bds_sqq" href="#" data-cmd="sqq"></a><a title="åˆ†äº«åˆ°æ–°æµªå¾®åš" class="bds_tsina" href="#" data-cmd="tsina"></a><a title="åˆ†äº«åˆ°Facebook" class="bds_fbook" href="#" data-cmd="fbook"></a><a title="åˆ†äº«åˆ°Twitter" class="bds_twi" href="#" data-cmd="twi"></a><a title="åˆ†äº«åˆ°QQç©ºé—´" class="bds_qzone" href="#" data-cmd="qzone"></a></div>
+                                        </div>
+                                    </div>
+                                </h1>
+                            </li>
+                            <li><b>ä½œè€…:</b>å®µé‡ã‚³ã‚¿ãƒ­ãƒ¼ LINK</li>
+                            <li><b>çŠ¶æ€:</b>è¿è½½</li>
+                            <li><b>é›†æ•°:</b>11é›†(å·) (35730) </li>
+                            <li><b>æ›´æ–°:</b>2016/10/21 19:32:20</li>
+                            <li><b>æ”¶è—:</b>132äººæ”¶è—æœ¬æ¼«ç”»</li>
+                            <li><b>è¯„ä»·:</b><img src="/images/starl.gif"><span style="font-size: 18px; color: #ff3300;">9.9</span>åˆ†(114äººè¯„) <span id="spRatingImg"></span><span id="spRatingMsg">
+                                    </span>
+
+                                <script>initRating()</script>
+
+                            </li>
+                            <li><b title="ç»ˆæœ«çš„åå®«æ¼«ç”»ä»‹ç»">ç®€ä»‹</b>:æ‚£äº†ç½•è§ç–¾ç—…ç»†èƒç¡¬åŒ–ç—‡çš„ä¸»è§’æ°´åŸæ€œäººï¼Œå¿…é¡»æ¥å—ä¸ºæœŸäº”å¹´çš„å†·å†»ç¡çœ æ²»ç–—ã€‚æ²¡æƒ³åˆ°å½“ä»–é†’æ¥åé¢å¯¹çš„å´æ˜¯ä¸€ä¸ªé™Œç”Ÿçš„ä¸–ç•Œï¼Œåœ¨è¿™äº”å¹´é—´åœ°çƒä¸Šè¶…è¿‡ä¹æˆä¹çš„ç”·æ€§éƒ½å› ä¸ºæ„ŸæŸ“ç—…æ¯’è€Œæ­»äº¡ï¼Œå› æ­¤å…¨ä¸–ç•Œèƒ½å¤Ÿè‡ªç”±æ´»åŠ¨çš„ç”·æ€§åŒ…å«ä»–åœ¨å†…åªå‰©ä¸‹äº”äººã€‚ä¸ºäº†æ‹¯æ•‘ä¸–ç•Œé˜»æ­¢äººç±»ç­äº¡ï¼Œä¸Šå§ï¼Œé’å¹´ï¼Œç°åœ¨æ­£æ˜¯ä½ ç”¨è‚‰ä½“æ‹¯æ•‘ä¸–ç•Œçš„å¥½æœºä¼šï¼</li>
+                            <div id="dvAd9">
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="cInfoAct">
+                        <img src="/images/icons/menu_01.gif"><a href="#" onclick="downComic();return false">æ¼«ç”»ä¸–ç•Œ</a>
+                        <img src="/images/icons/menu_02.gif"><a href="#" onclick="addFav();return false;">æ”¶è—æ¼«ç”»</a>
+                        <img src="/images/icons/menu_03.gif"><a href="#" onclick="newRec();return false">æ¨èæ¼«ç”»</a>
+                        <img src="/images/icons/menu_04.gif"><a href='/huhu30134/rss.html'>RSSè®¢é˜…</a>
+                    </div>
+                    <ul>
+                        <li class="kit" id="product_profile_base_kit"><span class="name">
+                            ç»ˆæœ«çš„åå®«
+                            æ¼«ç”» ç›®å½•åˆ—è¡¨</span></li>
+                    </ul>
+                    <div class="cVolList">
+                        <div class='cVolTag'>å‘¨åˆŠæ‚å¿—æ¯å‘¨æ¯æœˆè¿è½½å•é›†</div><ul class='cVolUl'><li><a class='l_s' href='/hu266097/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 011é›†'>ç»ˆæœ«çš„åå®« 011é›†</a></li><li><a class='l_s' href='/hu264512/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 010é›†'>ç»ˆæœ«çš„åå®« 010é›†</a></li><li><a class='l_s' href='/hu261880/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 009é›†'>ç»ˆæœ«çš„åå®« 009é›†</a></li><li><a class='l_s' href='/hu260336/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 008é›†'>ç»ˆæœ«çš„åå®« 008é›†</a></li><li><a class='l_s' href='/hu258288/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 007é›†'>ç»ˆæœ«çš„åå®« 007é›†</a></li><li><a class='l_s' href='/hu256221/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 006é›†'>ç»ˆæœ«çš„åå®« 006é›†</a></li><li><a class='l_s' href='/hu253394/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 005é›†'>ç»ˆæœ«çš„åå®« 005é›†</a></li><li><a class='l_s' href='/hu251683/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 004é›†'>ç»ˆæœ«çš„åå®« 004é›†</a></li><li><a class='l_s' href='/hu249181/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 003é›†'>ç»ˆæœ«çš„åå®« 003é›†</a></li><li><a class='l_s' href='/hu244952/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 002é›†'>ç»ˆæœ«çš„åå®« 002é›†</a></li><li><a class='l_s' href='/hu243964/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« 001é›†'>ç»ˆæœ«çš„åå®« 001é›†</a></li></ul><div class='cVolTag'>æ¼«ç”»æ­£ç‰‡å¤–çš„å‰§æƒ…ä¹‹ç•ªå¤–ç¯‡</div><ul class='cVolUl'><li><a class='l_s' href='/hu255090/1.html?s=11' target='_blank' title='ç»ˆæœ«çš„åå®« ç•ªå¤–ç¯‡'>ç»ˆæœ«çš„åå®« ç•ªå¤–ç¯‡</a></li></ul>
+                    </div>
+                    <input name="hdComicID" type="hidden" id="hdComicID" value="30134" />
+                    <input name="hdVIPComic" type="hidden" id="hdVIPComic" />
+                    <div id="bottom_ads">
+                        <div style="margin: 0 auto; width: 650px">
+                            <div class="ad b300x250 l">
+
+
+                                <script type="text/javascript" src="/js/300-250a.js"></script>
+
+                            </div>
+                            <div class="ad b300x250 r">
+
+                                <script type="text/javascript" src="/js/300-250.js"></script>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!--<script>window_onload()</script>-->
+        <div id="foot">
+    <p id="copyright">è™è™æ¼«ç”» . 2017 <a href="/sitemap/">ç½‘ç«™åœ°å›¾</a>  E-mail: hhmanhua@outlook.com</p><script language="javascript" src="/js/stat.js"></script>
+
+</div>
 
     </div>
-    <div id="content">
-         <div class="replo">
-  <a href="/" class="lkgn">Ê×Ò³</a> >> ĞØ»³´óÖ¾ ¼¯Êı£º<font color="#339966">5</font>¼¯(¾í)  | ×´Ì¬£º[<font color="#C60A00">Íê½á</font>]      </div>
-         <div class="replc">
-           <table width="100%" border="0" cellspacing="0" cellpadding="2" >
-             <tr>
-               <td width="176" rowspan="2" valign="top"><img src="http://img.hhxiee.net/comicui/3115.jpg" alt="ĞØ»³´óÖ¾" $enname width="165" height="225" style="border: 2px solid #7D7C6A" /></td>
-               <td width="498" height="28" valign="top" ><b>ĞØ»³´óÖ¾ÄÚÈİ½éÉÜ ×÷Õß£º²Ö¿ÆÁÉ£¦Ğ¡ÁÖÍØ¼º»¢»¢</b></td>
-             </tr>
-             <tr>
-               <td height="197" valign="top" ><div class="2replh">ĞØ»³´óÖ¾ÏßÉÏÂş»­,ĞØ»³´óÖ¾½²µÄÊÇÖ÷½ÇÊÇÔÚÈıÁ÷´óÑ§¾Í¶ÁµÄÅ®´óÑ§Éú¡£»³ÖøÃÎÏëÓëÏ£ÍûÕ¹¿ªÇóÖ°»î¶¯¡£¿ÉÊÇÏÖÊµÊµÔÚÌ«¹ı²Ğ¿áÁË¡­&nbsp;ÔÚÕâ£³¸ö±¸¸Ğ´ìÕÛµÄÈËÃæÇ°£¬³öÏÖµÄÊÇ¸ú£±ÄêÇ°ºÜÃ÷ÏÔÍÑÌ¥»»¹ÇµÄÑ§æ¢¡­£¡»¢»¢Âş»­</div>
-</td>
-             </tr>
-           </table>
-      </div>
-<div class="ddg"></ul><li><span ><font color="#ff0000"></font></span><b>1 . </b><a href="/manhua/hu6323/" title="ÎŞ¸ÅÄîÉÙÅ®">ÎŞ¸ÅÄîÉÙÅ®</a></li><li><span ><font color="#ff0000"></font></span><b>2 . </b><a href="/manhua/hu25203/" title="Ô¸¾ıÎğËÀ">Ô¸¾ıÎğËÀ</a></li><li><span ><font color="#ff0000"></font></span><b>3 . </b><a href="/manhua/hu5834/" title="ÕæÒ¹ÖĞµÄKiss">ÕæÒ¹ÖĞµÄKiss</a></li><li><span ><font color="#ff0000"></font></span><b>4 . </b><a href="/manhua/hu25109/" title="ÆÈ½üµÄ×Óµ¯">ÆÈ½üµÄ×Óµ¯</a></li><li><span ><font color="#ff0000"></font></span><b>5 . </b><a href="/manhua/hu23674/" title="ºÚÉ«ºûµûÀ¼">ºÚÉ«ºûµûÀ¼</a></li><li><span ><font color="#ff0000"></font></span><b>6 . </b><a href="/manhua/hu9707/" title="·ÅÑ§ºó">·ÅÑ§ºó</a></li><li><span ><font color="#ff0000"></font></span><b>7 . </b><a href="/manhua/hu2223/" title="°®ÇéÀ´ÁË">°®ÇéÀ´ÁË</a></li><li><span ><font color="#ff0000"></font></span><b>8 . </b><a href="/manhua/hu24094/" title="Ä§»Ã¾Æ±­">Ä§»Ã¾Æ±­</a></li><li><span ><font color="#ff0000"></font></span><b>9 . </b><a href="/manhua/hu26643/" title="·ç»¨">·ç»¨</a></li><li><span ><font color="#ff0000"></font></span><b>10 . </b><a href="/manhua/hu29507/" title="Ò»¸öÈËºÃĞ¢Ë³">Ò»¸öÈËºÃĞ¢Ë³</a></li><li><span ><font color="#ff0000"></font></span><b>11 . </b><a href="/manhua/hu21224/" title="New Game!">New Game!</a></li><li><span ><font color="#ff0000"></font></span><b>12 . </b><a href="/manhua/hu29708/" title="¾øÃîÄĞÓÑ">¾øÃîÄĞÓÑ</a></li></ul></div>
-
-    <div class="replo">[ÏßÉÏÂş»­ÁĞ±í] [<a href="javascript:AddToFavorite();" class="lkgnb">ÊÕ²ØĞØ»³´óÖ¾</a>] Ï²»¶±¾Õ¾°ÑÇë¸æËß¸ü¶àÅóÓÑhttp://www.huhumh.com</div>
-<div class="reply">ËµÃ÷£º"¾í"ÎªÂş»­µ¥ĞĞ±¾"¼¯"ÎªÂş»­ÔÓÖ¾Á¬ÔØ,¾íÍ¬¼¯Ö®¼ä¾çÇéÊÇÁ¬½ÓÉÏµÄ¡£<a href="http://www.hanhan8.cc/comic/183115/"><strong>º¹º¹Âş»­Í¨µÀ</strong></a><img src="/images/new.gif" alt="ĞÂµÄÂş»­" /></div>
-      <div class="vol"><div><script src=/jsc/book_600.js></script></div><ul class="bi"><li><a href=/mh/hu3115/43238.htm?s=4 target=_blank>ĞØ»³´óÖ¾05¾í</a>&nbsp;<a href="javascript:ShowS(3115,43238,4)" class="Shows">[¼ÓËÙ]</a></li>
-<li><a href=/mh/hu3115/32251.htm?s=4 target=_blank>ĞØ»³´óÖ¾04¾í</a>&nbsp;<a href="javascript:ShowS(3115,32251,4)" class="Shows">[¼ÓËÙ]</a></li>
-<li><a href=/mh/hu3115/27548.htm?s=4 target=_blank>ĞØ»³´óÖ¾03¾í</a>&nbsp;<a href="javascript:ShowS(3115,27548,4)" class="Shows">[¼ÓËÙ]</a></li>
-<li><a href=/mh/hu3115/24877.htm?s=4 target=_blank>ĞØ»³´óÖ¾02¾í</a>&nbsp;<a href="javascript:ShowS(3115,24877,4)" class="Shows">[¼ÓËÙ]</a></li>
-<li><a href=/mh/hu3115/24876.htm?s=4 target=_blank>ĞØ»³´óÖ¾01¾í</a>&nbsp;<a href="javascript:ShowS(3115,24876,4)" class="Shows">[¼ÓËÙ]</a></li>
-</ul><div style="clear: both;"> </div>
-      </div>
-<div class="replo">[ĞØ»³´óÖ¾]Ïà¹ØÍÆ¼ö:   ÇëÄã¼Ç×¡ÍøÖ·http://www.huhumh.com (Ctrl+D)¾«²ÊÂş»­Â½Ğø¸üĞÂ</div>
-<div class="vol"><div id="SOHUCS" sid="3115"></div>
-</div>
-<div class="replo">[ĞØ»³´óÖ¾]ÈÈµãÍÆ¼ö:   ÇëÄã¼Ç×¡ÍøÖ·http://www.huhumh.com (Ctrl+D)¾«²ÊÂş»­Â½Ğø¸üĞÂ</div>
-<div class="vol"><script src=/jsc/book_666.js></script></div>
- </div>
-  </div>
-  </div>
-<div id="container">
-  <div id="footer">ĞØ»³´óÖ¾Âş»­,²Ö¿ÆÁÉ£¦Ğ¡ÁÖÍØ¼ºÂş»­À´×Ô»¥ÁªÍø£¬½ö¹©<a href="http://www.huhumh.com/manhua/hu3115/">ĞØ»³´óÖ¾Âş»­</a>ÔÚÏßä¯ÀÀ.<a href="/sitemap/">sitemap</a><br />
-    ÍøÕ¾¹ÜÀíÓÊÏä£ºhhmanhua@outlook.com<br>
-  <script src="/jsc/Copy.js"></script></div>
-<div style="display: none"><script src="/jsc/stat.js"></script></div>
-</div>
-<!-- ½«´Ë´úÂë·ÅÔÚÊÊµ±µÄÎ»ÖÃ£¬½¨ÒéÔÚbody½áÊøÇ° -->
-<script type="text/javascript" id="bdshare_js" data="type=tools&uid=630808" ></script>
-<script type="text/javascript" id="bdshell_js"></script>
-<script type="text/javascript">
-	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
-</script>
-<script type="text/javascript">
-    var wumiiPermaLink = "http://www.huhumh.com/manhua/hu3115/"; //ÇëÓÃ´úÂëÉú³ÉÎÄÕÂÓÀ¾ÃµÄÁ´½Ó
-    var wumiiTitle = "ĞØ»³´óÖ¾Âş»­"; //ÇëÓÃ´úÂëÉú³ÉÎÄÕÂ±êÌâ
-    var wumiiTags = "ĞØ»³´óÖ¾Âş»­,²Ö¿ÆÁÉ£¦Ğ¡ÁÖÍØ¼º,ĞØ»³´óÖ¾ÔÚÏßÂş»­,²Ö¿ÆÁÉ£¦Ğ¡ÁÖÍØ¼º"; //ÇëÓÃ´úÂëÉú³ÉÎÄÕÂ±êÇ©£¬ÒÔÓ¢ÎÄ¶ººÅ·Ö¸ô£¬Èç£º"±êÇ©1,±êÇ©2"
-    var wumiiSitePrefix = "http://www.huhumh.com/";
-    var wumiiParams = "&num=6&mode=2&pf=JAVASCRIPT";
-</script>
-<script type="text/javascript" src="http://widget.wumii.com/ext/relatedItemsWidget"></script>
 </body>
 </html>

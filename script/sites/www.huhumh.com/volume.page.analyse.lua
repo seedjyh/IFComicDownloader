@@ -13,33 +13,22 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
     local function_name = "VolumePageAnalyse(\"" .. volume_page_url .."\")"
     local result = "<result>"
     ----------------------------------------------------------------------------
-    -- getting volume title
-    local start_index = JumpStr(pagestr, 1, "class=b>", 1);
-    if type(start_index) ~= "number" then
-        return nil, function_name .. "failed when jumping class=b>"
-    end
     
-    start_index = JumpStr(pagestr, start_index, ">", 1)
-    if type(start_index) ~= "number" then
-        return nil, function_name .. "failed when jumping >"
+    volume_title, errmsg = GetVolumeTitle(pagestr)
+    if volume_title == nil then
+        return nil, function_name .. "failed because: " .. errmsg
     end
-    
-    local volume_title = GetStr(pagestr, start_index, "<")
-    if type(volume_title) ~= "string" then
-        return nil, function_name .. "failed when getting volume title"
-    end
-    
     result = result .. "<volumetitle>" .. volume_title .. "</volumetitle>"
  
     ----------------------------------------------------------   
     result = result .. "<pictureinfolist>"
-    -- getting picture count
-    local pic_url_table = GetPicUrlTableFromVolumePage(pagestr)
-    local picture_count_number = #pic_url_table
+    local picture_count_number, errmsg = GetPictureCount(pagestr)
+    if not picture_count_number then
+        return nil, "failed in getting picture count because: " .. errmsg
+    end
     
     for index = 1,picture_count_number do
-        local picture_url = volume_page_url .. "*v=" .. tostring(index)
-        result = result .. "<pictureinfo><pictureurl>" .. picture_url .. "</pictureurl></pictureinfo>"
+        result = result .. "<pictureinfo><pictureurl>" .. GeneratePictureURL(volume_page_url, index) .. "</pictureurl></pictureinfo>"
 	    index = index + 1
     end
 
@@ -49,6 +38,43 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
     result = result .. "</result>"
 
     return result
+end
+
+function GetVolumeTitle(pagestr)
+    local function_name = "GetVolumeTitle(pagestr)"
+    local start_index = JumpStr(pagestr, 1, "<head><title>", 1);
+    if type(start_index) ~= "number" then
+        return nil, function_name .. "failed when jumping class=b>"
+    end
+    
+    local now_title = GetStr(pagestr, start_index, "<")
+    if type(now_title) ~= "string" then
+        return nil, function_name .. "failed when getting now_title until <"
+    end
+    
+    now_title = string.match(now_title, "%s*(.-)%s*$")
+    now_title = string.sub(now_title, 1, -16)
+    return TransUtf8ToAnsi(now_title)
+end
+
+function GetPictureCount(pagestr)
+    local start_index = JumpStr(pagestr, 1, "hdPageCount", 1)
+    if not start_index then return nil, "No hdPageCount" end
+    start_index = JumpStr(pagestr, start_index, "value=\"", 1)
+    if not start_index then return nil, "value=\"" end
+    local count_str = GetStr(pagestr, start_index, "\"")
+    if not count_str then return "Failed when getting string until \"" end
+    return tonumber(count_str)
+end
+
+function GeneratePictureURL(volume_page_url, pic_index)
+    -- volume_page_url sample: http://www.huhumh.com/hu243964/1.html?s=11
+    -- pic_index starts from 1
+    local last_slash_index, _ = GetLastPos(volume_page_url, '/')
+    local url_start_part = string.sub(volume_page_url, 0, last_slash_index)
+    local question_mark_index = GetLastPos(volume_page_url, '?')
+    local url_last_part = string.sub(volume_page_url, question_mark_index)
+    return url_start_part .. tostring(pic_index) .. ".html" .. url_last_part
 end
 
 function VolumePageGetVolumeTitle(analyse_result)

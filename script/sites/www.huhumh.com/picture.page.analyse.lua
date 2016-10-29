@@ -20,59 +20,26 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
 		return nil, "error because pagestr is not string, but " .. type(pagestr)
 	end
 
-    -- step 1.1: 从URL获取picture_index（从1开始，表示页码）
-    local picture_index = GetPageIndexFromURL(picture_page_url)
-    if type(picture_index) ~= "number" then
-        return nil, "error when trying to get picture index from picture_page_url: " .. picture_page_url
-    end
+    -- step 1: 获取隐含图片文件URL的字符串
+    local start_index = JumpStr(pagestr, 1, "<img id=", 1)
+    if not start_index then return nil, "Failed in getting <img id=" end
     
-    -- step 1.2: 获取file_relative_url_table
-    start_index = JumpStr(pagestr, 1, 'PicListUrl = \"', 1)
-    if type(start_index) ~= "number" then
-        return nil, "Failed to find beginning of PicListUrl."
-    end
-    
-    local PicListUrl = GetStr(pagestr, start_index, "\"")
-    if type(PicListUrl) ~= "string" then
-        return nil, "Failed to get value of PicListUrl from pagestr"
-    end
+    start_index = JumpStr(pagestr, start_index, "name=\"", 1)
+    if not start_index then return nil, "Failed in jumping name=\"" end
 
-    local file_relative_url_table = unsuan(PicListUrl , "tazsicoewrn") -- 第二个参数来自http://www.huhumh.com/hh/ai.js
-    if type(file_relative_url_table) ~= "table" then
-        return nil, "unsuan failed"
-    end
+    local ciphertext = GetStr(pagestr, start_index, "\"")
+    if not ciphertext then return nil, "Failed in getting ciphertext(with file URL) until \"" end
     
-    -- step 1.3: 获取当前页面的file_relative_url
-    local file_relative_url = file_relative_url_table[picture_index]
-    if type(file_relative_url) ~= "string" then
-        return nil, "No expected file_relative_url for picture_index: " .. tostring(picture_index)
-    end
+    local file_relative_url = unsuan(ciphertext)
+    if not file_relative_url then return nil, "unsuan failed" end
+    
+    -- step 2: 获取服务器地址
+    local server_url_table, errmsg = GetServerURLTable(pagestr)
+    if not server_url_table then return nil, "Getting server url table failed because: " .. errmsg end
 
-    -- step 2.1: 从URL读取server_index（从1开始，表示服务器编号）
-    local start_index = JumpStr(picture_page_url, 1, "s=", 1)
-    if type(start_index) ~= "number" then
-        return nil, "error when call JumpStr s="
-    end
-    local server_index = GetStr(picture_page_url, start_index, "*")
-    if type(server_index) ~= "string" then
-        return nil, "error when trying to read until *"
-    end
-    server_index = tonumber(server_index)
-    if type(server_index) ~= "number" then
-        return nil, "error server_index is not number"
-    end
-    
-    -- step 2.2: 读取server_url_list
-    local server_url_list = LoadServerList('www.huhumh.com/hh/ai.js')
-    
-    -- step 2.3：获取当前使用的server_url
-    local server_url = server_url_list[server_index - 1]
-    if type(server_url) ~= "string" then
-        return nil, "No expected server_url for server_index: " .. tostring(server_index)
-    end
-    
-    -- step 3：组装file_url
-    local file_url = server_url .. file_relative_url
+    -- 从代码看似乎会有从pic-page-url的参数d获取服务器index的可能。不过没找到样例，暂时不管。
+    -- 注意server_url_table下标从1开始，而网页中的相应表的下标从0开始。
+    local file_url = server_url_table[1] .. file_relative_url
     
     --------------------------------------------------------------------
     result = result .. "<fileurl>"
@@ -88,64 +55,22 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
     return result
 end
 
-function GetFileURLFromChapterFun(pagestr)
-    -- get chapter id part
-    local start_index = JumpStr(pagestr, 1, "var cid=", 1)
-    if type(start_index) ~= "number" then
-        return nil, "Failed to jump var cid="
-    end
-    local chapter_id_part = GetStr(pagestr, start_index, ";")
-    if type(chapter_id_part) ~= "string" then
-        return nil, "Failed to get ChapterID prefix from: " .. pagestr
-    end
-
-    -- get key part
-    start_index = JumpStr(pagestr, 1, "var key=\\\'", 1)
-    if type(start_index) ~= "number" then
-        return nil, "Failed to jump var key=\\\'"
-    end
-    local key_part = GetStr(pagestr, start_index, "\\")
-    if type(key_part) ~= "string" then
-        return nil, "Failed to get Key from: " .. pagestr
-    end
-
-    -- get prefix part
-    start_index = JumpStr(pagestr, start_index, "var pix=\"", 1)
-    if type(start_index) ~= "number" then
-        return nil, "Failed to jump var pix=\""
-    end
-    local prefix_part = GetStr(pagestr, start_index, "\"")
-    if type(prefix_part) ~= "string" then
-        return nil, "Failed to get URL prefix from: " .. pagestr
-    end
-
-    -- get file part
-    start_index = JumpStr(pagestr, start_index, "var pvalue=[\"", 1)
-    if type(start_index) ~= "number" then
-        return nil, "Failed to jump var pvalue=[\""
-    end
-    local file_part = GetStr(pagestr, start_index, "\"")
-    if type(file_part) ~= "string" then
-        return nil, "Failed to get URL picture-part from: " .. pagestr
-    end
-    
-    return prefix_part .. file_part .. "?cid=" .. chapter_id_part .. "&key=" .. key_part
+function GetServerURLTable(pagestr)
+    local start_index = JumpStr(pagestr, 1, "hdDomain", 1)
+    if not start_index then return nil, "Jumping hdDomain failed" end
+    local start_index = JumpStr(pagestr, start_index, "value=\"", 1)
+    if not start_index then return nil, "Jumping value=\" failed" end
+    local server_url_str = GetStr(pagestr, start_index, "\"")
+    if not server_url_str then return nil, "Getting server url str until \" failed" end
+    return StringSplit(server_url_str, '|')
 end
 
+-- 此函数会被IFComicDownloader调用，不可忽略。
 function GetPageIndexFromURL(url)
-    start_index = JumpStr(url, 1, "v=", 1)
-    if type(start_index) ~= "number" then
-        return nil, "error when call JumpStr v="
-    end
-    local picture_index = GetStr(url, start_index, "*")
-    if type(picture_index) ~= "string" then
-        return nil, "error when trying to read until *"
-    end
-    picture_index = tonumber(picture_index)
-    if type(picture_index) ~= "number" then
-        return nil, "error picture_index is not number"
-    end
-    return picture_index
+    local start_index = GetLastPos(url, "/")
+    local page_index_str =  GetStr(url, start_index + 1, ".")
+    if not page_index_str then return "Getting page_index_str until . failed" end
+    return tonumber(page_index_str)
 end
 
 function FindFileUrl(analyse_result)
