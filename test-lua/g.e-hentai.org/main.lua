@@ -24,7 +24,7 @@ LoadLuaFileList(GetAllLuaFilesInPath('M:\\GitHubRepositories\\IFComicDownloader\
 dofile('M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\g.e-hentai.org\\web\\web.lua')
 --      2.1 - 执行待测试的函数
 --      Test Case
-result, errmsg = ComicUrlAnalyse('http://g.e-hentai.org/g/224263/e06fcdd082/', '', '')
+result, errmsg = ComicUrlAnalyse('http://g.e-hentai.org/g/224263/e06fcdd082/')
 if not result then
     print('failed, errmsg is ' .. errmsg)
 else
@@ -38,7 +38,7 @@ else
     end
 end
 --      Test Case
-result, errmsg = VolumeUrlAnalyse('http://g.e-hentai.org/g/224263/e06fcdd082/', '', '')
+result, errmsg = VolumeUrlAnalyse('http://g.e-hentai.org/g/224263/e06fcdd082/')
 if not result then
     print('failed, errmsg is ' .. errmsg)
 else
