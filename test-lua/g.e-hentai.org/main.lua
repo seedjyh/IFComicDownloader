@@ -23,7 +23,7 @@ LoadLuaFileList(GetAllLuaFilesInPath('M:\\GitHubRepositories\\IFComicDownloader\
 --      2.0 - 加载伪DownloadURL函数。
 dofile('M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\g.e-hentai.org\\web\\web.lua')
 --      2.1 - 执行待测试的函数
---      Test Case
+--      Test Case ------------------------------------------------------------------
 result, errmsg = ComicUrlAnalyse('http://g.e-hentai.org/g/224263/e06fcdd082/')
 if not result then
     print('failed, errmsg is ' .. errmsg)
@@ -37,8 +37,36 @@ else
         print('actual  =' .. result)
     end
 end
---      Test Case
+--      Test Case ------------------------------------------------------------------
 result, errmsg = VolumeUrlAnalyse('http://g.e-hentai.org/g/224263/e06fcdd082/')
+if not result then
+    print('failed, errmsg is ' .. errmsg)
+else
+    local expected_result = ''
+    if expected_result == result then
+        print('passed')
+    else
+        print('FAILED')
+        print('expected=' .. expected_result)
+        print('actual  =' .. result)
+    end
+end
+--      Test Case ------------------------------------------------------------------
+result, errmsg = ComicUrlAnalyse('http://g.e-hentai.org/g/520477/c799c6aa60/')
+if not result then
+    print('failed, errmsg is ' .. errmsg)
+else
+    local expected_result = ''
+    if expected_result == result then
+        print('passed')
+    else
+        print('FAILED')
+        print('expected=' .. expected_result)
+        print('actual  =' .. result)
+    end
+end
+--      Test Case ------------------------------------------------------------------
+result, errmsg = VolumeUrlAnalyse('http://g.e-hentai.org/g/520477/c799c6aa60/')
 if not result then
     print('failed, errmsg is ' .. errmsg)
 else

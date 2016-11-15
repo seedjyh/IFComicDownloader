@@ -16,6 +16,8 @@ s_map_url_to_page_file['http://g.e-hentai.org/g/224263/e06fcdd082/'] = s_page_pa
 s_map_url_to_page_file['http://g.e-hentai.org/g/224263/e06fcdd082/'] = s_page_path .. 'volume_page_home.html'
 s_map_url_to_page_file['http://g.e-hentai.org/g/224263/e06fcdd082/?p=1'] = s_page_path .. 'volume_page_extra_1.html'
 s_map_url_to_page_file['http://g.e-hentai.org/g/224263/e06fcdd082/?p=2'] = s_page_path .. 'volume_page_extra_2.html'
+s_map_url_to_page_file['http://g.e-hentai.org/g/520477/c799c6aa60/'] = s_page_path .. 'comic_2_page.html'
+s_map_url_to_page_file['http://g.e-hentai.org/g/520477/c799c6aa60/'] = s_page_path .. 'volume_2_.html'
 ----------------------------------------------------------------------------------
 
 -- 模拟下载一个网页。实际上是从page目录读文件。

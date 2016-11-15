@@ -55,11 +55,12 @@ function GetSubVolumeUrlList(pagestr)
         end
         local now_url = GetStr(pagestr, start_index, "\"")
         if not now_url then return nil, "Failed to get now_url" end
-        table.insert(result, now_url)
+        
+        -- 判重：如果这个SubVolumeURL就是table中的第2个URL，可以认为这个SubVolumeURL是“下一页”，因此跳过。
+        if result[1] ~= now_url then
+            table.insert(result, now_url)
+        end
     end
-    
-    -- 按照上面的算法，最后一个URL是“下一页”的URL，而“下一页”的URL必然是前面的URL系列中的一项，为了避免重复，要去掉这最后一项。
-    table.remove(result, #result)
     return result
 end
 
