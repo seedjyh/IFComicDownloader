@@ -25,49 +25,53 @@ function ComicPageAnalyse(comic_page_url, pagestr, extra_info)
     ----------------------------------------------------------------------------
     result = result .. "<volumeinfolist>"
     ----------------------------------------------------------
-    local page_start_index = JumpStr(pagestr, 1, "chapter-list", 1)
-    if type(page_start_index) ~= "number" then
-        return nil, "No chapter-list, the beginning of Volume url list"
-    end
-
-    local page_end_index = JumpStr(pagestr, page_start_index, "/div", 1)
-    if type(page_end_index) ~= "number" then
-        return nil, "Unknown format: no /div for end of volume list"
-    end
-    
-    local index_in_page = page_start_index
+    local page_start_index = 1
     while true do
-        -- get relative URL for volume
-        index_in_page = JumpStr(pagestr, index_in_page, "<a href=\"", 1)
-        if type(index_in_page) ~= "number" then
-            break
-        end
-        if index_in_page >= page_end_index then
+        page_start_index = JumpStr(pagestr, page_start_index, "chapter-list", 1)
+        if type(page_start_index) ~= "number" then
             break
         end
 
-        local volume_relative_url = GetStr(pagestr, index_in_page, "\"")
-        if type(volume_relative_url) ~= "string" then
-            return nil, "Unknown format: no \" for <a href=\""
+        local page_end_index = JumpStr(pagestr, page_start_index, "/div", 1)
+        if type(page_end_index) ~= "number" then
+            return nil, "Unknown format: no /div for end of volume list"
         end
         
-        -- get title for volume
-        index_in_page = JumpStr(pagestr, index_in_page, "<span>", 1)
-        if type(index_in_page) ~= "number" then
-            return nil, "Unknown format: no <span> for this volume"
+        local index_in_page = page_start_index
+        while true do
+            
+            -- get relative URL for volume
+            index_in_page = JumpStr(pagestr, index_in_page, "<a href=\"", 1)
+            if type(index_in_page) ~= "number" then
+                break
+            end
+            if index_in_page >= page_end_index then
+                break
+            end
+
+            local volume_relative_url = GetStr(pagestr, index_in_page, "\"")
+            if type(volume_relative_url) ~= "string" then
+                return nil, "Unknown format: no \" for <a href=\""
+            end
+            
+            -- get title for volume
+            index_in_page = JumpStr(pagestr, index_in_page, "<span>", 1)
+            if type(index_in_page) ~= "number" then
+                return nil, "Unknown format: no <span> for this volume"
+            end
+            
+            local volume_title = GetStr(pagestr, index_in_page, "<")
+            if type(volume_title) ~= "string" then
+                return nil, "Unknown format: no end \" for this volume\'s title"
+            end
+            
+            result = result .. "<volumeinfo>"
+            result = result .. "<volumetitle>" .. volume_title .. "</volumetitle>"
+            result = result .. "<volumeurl>" .. GetURLHost(comic_page_url) .. volume_relative_url .. "</volumeurl>"
+            result = result .. "</volumeinfo>"
         end
-        
-        local volume_title = GetStr(pagestr, index_in_page, "<")
-        if type(volume_title) ~= "string" then
-            return nil, "Unknown format: no end \" for this volume\'s title"
-        end
-        
-        result = result .. "<volumeinfo>"
-        result = result .. "<volumetitle>" .. TransUtf8ToAnsi(volume_title) .. "</volumetitle>"
-        result = result .. "<volumeurl>" .. GetURLHost(comic_page_url) .. volume_relative_url .. "</volumeurl>"
-        result = result .. "</volumeinfo>"
     end
-
+        
     ----------------------------------------------------------
     result = result .. "</volumeinfolist>"
     ----------------------------------------------------------------------------
@@ -129,7 +133,7 @@ function ComicPageGetVolumeTitle(analyse_result, index)
 	if type(temp_start_index) ~= "number" then
 	    return nil, "Can\'t find <volumetitle>"
 	end
-	return GetStr(analyse_result, temp_start_index, "<")
+	return TransUtf8ToAnsi(GetStr(analyse_result, temp_start_index, "<"))
 end
 
 function ComicPageGetVolumeURL(analyse_result, index)
