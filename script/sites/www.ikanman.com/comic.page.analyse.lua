@@ -70,6 +70,8 @@ function ComicPageAnalyse(comic_page_url, pagestr, extra_info)
             result = result .. "<volumeurl>" .. GetURLHost(comic_page_url) .. volume_relative_url .. "</volumeurl>"
             result = result .. "</volumeinfo>"
         end
+        
+        page_start_index = page_end_index + 1
     end
         
     ----------------------------------------------------------
