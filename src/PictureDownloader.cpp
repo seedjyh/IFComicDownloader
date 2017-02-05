@@ -28,6 +28,7 @@
 // Headers of current project
 #include "exception/UrlAnalyseFailedException.h"
 #include "exception/DownloadFailedException.h"
+#include "exception/CallLuaFunctionFailed.h"
 #include "ProgramArguments.h"
 
 void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownloadRootPath)
@@ -93,6 +94,7 @@ void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownlo
         try
         {
             DATAHOLDER_PTR data = downloader->Download(kFileURL, kURL, std::string(""));
+            CheckImageFileValidity(data);
             WriteFile(file_path.c_str(), data);
             break;
         }
@@ -161,4 +163,16 @@ Tstring PictureDownloader::GenerateLocalFilePath_NoComicTitleInImageFileName(
         NumberOperator::ItoA(picture_index, Tstring(_T("%06u"))) +
         kExtensionName;
     return kFilePath;
+}
+
+bool PictureDownloader::CheckImageFileValidity(const DATAHOLDER_PTR &kData)
+{
+    bool lua_result = false;
+    const char *kErrorMessage = NULL;
+    std::string local_data(kData->content(), kData->size());
+    if (!lua_state_->CallFunction("CheckImageFileValidity", "S>b", &local_data, &lua_result, &kErrorMessage))
+    {
+        throw CallLuaFunctionFailed("CheckImageFileValidity", std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
+    }
+    return lua_result;
 }

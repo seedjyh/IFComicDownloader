@@ -125,6 +125,12 @@ int LuaStateImpl::CallFunction(const char kFunctionName[], const char kArgumentT
         case 's':
             lua_pushstring(state_, va_arg(vl, const char*) );
             break;
+        case 'S':
+        {
+            const std::string *kS = va_arg(vl, const std::string*);
+            lua_pushlstring(state_, kS->c_str(), kS->size());
+            break;
+        }
         default:
             MY_PROCESS_ERROR(false);
         }
@@ -153,6 +159,12 @@ int LuaStateImpl::CallFunction(const char kFunctionName[], const char kArgumentT
             MY_PROCESS_ERROR(nRetCode);
 
             *va_arg(vl, int*) = (int)lua_tonumber(state_, result_index);
+            break;
+        case 'b':
+            nRetCode = lua_isboolean(state_, result_index);
+            MY_PROCESS_ERROR(nRetCode);
+
+            *va_arg(vl, bool*) = (bool)lua_toboolean(state_, result_index);
             break;
         case 's':
             nRetCode = lua_isstring(state_, result_index);

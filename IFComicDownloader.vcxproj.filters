@@ -395,5 +395,8 @@
     <ClInclude Include="src\IFCurlAdaptor\UrlDownloaderSimple.h">
       <Filter>src\IFCurlAdaptor</Filter>
     </ClInclude>
+    <ClInclude Include="src\exception\CallLuaFunctionFailed.h">
+      <Filter>src\exception</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

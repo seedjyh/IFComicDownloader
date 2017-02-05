@@ -59,6 +59,8 @@ private:
         int picture_index,
         const Tstring &kExtensionName // 扩展名前面有点（.）
     );
+    // 检查图片文件数据的有效性。有效返回true。
+    bool CheckImageFileValidity(const DATAHOLDER_PTR &kData);
 };
 
 #endif

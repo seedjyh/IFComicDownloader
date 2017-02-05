@@ -1,6 +1,7 @@
 ------------------------------------------------------------
 ---http://g.e-hentai.org/
 ------------------------------------------------------------
+-- 对外接口
 function PictureUrlAnalyse(url)
     local pagestr, err = DownloadURL(url, "", "")
 	if type(pagestr) ~= "string" then
@@ -9,6 +10,7 @@ function PictureUrlAnalyse(url)
 	return PicturePageAnalyse(url, pagestr, "")
 end
 
+-- 内部
 function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
     local result = "<result>"
 
@@ -42,6 +44,7 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
     return result
 end
 
+-- 对外接口
 function GetPageIndexFromURL(url)
     local start_index = JumpStr(url, 1, '-', 2)
     if type(start_index) ~= "number" then return nil, 'No minus sign in url' end
@@ -52,6 +55,7 @@ function GetPageIndexFromURL(url)
     return pic_index
 end
 
+-- 对外接口
 function FindFileUrl(analyse_result)
     local start_index = JumpStr(analyse_result, 1, "<fileurl>", 1)
     if type(start_index) ~= "number" then
@@ -65,6 +69,14 @@ function FindFileUrl(analyse_result)
     return file_url
 end
 
+-- 对外接口
+-- 参数：图片文件数据
+function CheckImageFileValidity(data)
+	print('enter: CheckImageFileValidity')
+	return (string.len(data) >= 128)
+end
+
+-- 内部
 function FindFileRefererUrl(analyse_result)
     local start_index = JumpStr(analyse_result, 1, "<refererurl>", 1)
     if type(start_index) ~= "number" then
