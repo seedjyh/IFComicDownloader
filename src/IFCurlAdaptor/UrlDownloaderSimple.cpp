@@ -63,6 +63,7 @@ DATAHOLDER_PTR UrlDownloaderSimple::Download(const string &kURL, const string &k
     my_curl_easy_setopt_(curl, CURLOPT_HEADERDATA, &header_package);
     my_curl_easy_setopt_(curl, CURLOPT_TIMEOUT, s_kDownloadWaitSecond);
     my_curl_easy_setopt_(curl, CURLOPT_ACCEPT_ENCODING, "gzip, deflate, sdch");
+    my_curl_easy_setopt_(curl, CURLOPT_SSL_VERIFYPEER, false);
     if (kRefererURL.size() > 0)
     {
         my_curl_easy_setopt_(curl, CURLOPT_REFERER, kRefererURL.c_str());
@@ -75,8 +76,10 @@ DATAHOLDER_PTR UrlDownloaderSimple::Download(const string &kURL, const string &k
         my_curl_easy_setopt_(curl, CURLOPT_COOKIE, kCookie.c_str());
     }
 
-    if (my_curl_easy_perform_(curl) != CURLE_OK)
+    CURLcode ret_code = my_curl_easy_perform_(curl);
+    if (ret_code != CURLE_OK)
     {
+        printf("Error: my_curl_easy_perform_ returns %d.\n", ret_code);
         throw DownloadFailedException(kURL, std::string("my_curl_easy_perform_ returned something else but not CURLE_OK"));
     }
 
