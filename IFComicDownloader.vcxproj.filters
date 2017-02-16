@@ -32,6 +32,24 @@
     <Filter Include="src\download_info_recorder">
       <UniqueIdentifier>{ae1e8353-da6e-4ac5-a77c-ba946353bb2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\log">
+      <UniqueIdentifier>{f0538b25-20b9-42c5-92bb-37c7b5d83035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\log\include">
+      <UniqueIdentifier>{13bccd61-578b-4a56-b183-7eeea4e82577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\log\src">
+      <UniqueIdentifier>{d7190a37-8026-4eea-bba1-76425c2b5c6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\os_api">
+      <UniqueIdentifier>{bbdcaf88-f8e2-4314-bb0d-ed48ef7ee69a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\os_api\include">
+      <UniqueIdentifier>{cb97501d-b957-41f8-b6b9-51cceb807de5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\os_api\src">
+      <UniqueIdentifier>{20444ab7-047a-4af2-8c25-d521021d97b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -183,6 +201,27 @@
     </ClCompile>
     <ClCompile Include="src\IFCurlAdaptor\UrlDownloaderSimple.cpp">
       <Filter>src\IFCurlAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\log\src\log.cpp">
+      <Filter>src\log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\log\src\Logger.cpp">
+      <Filter>src\log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\log\src\Testlog.cpp">
+      <Filter>src\log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\log\src\log_handle.cpp">
+      <Filter>src\log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\os_api\src\DateTime.cpp">
+      <Filter>src\os_api\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\os_api\src\DirectoryOperator.cpp">
+      <Filter>src\os_api\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\os_api\src\FileOperator.cpp">
+      <Filter>src\os_api\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +436,33 @@
     </ClInclude>
     <ClInclude Include="src\exception\CallLuaFunctionFailed.h">
       <Filter>src\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="src\log\include\log.h">
+      <Filter>src\log\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\log\include\enum_def.h">
+      <Filter>src\log\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\log\src\Logger.h">
+      <Filter>src\log\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\log\include\log_handle.h">
+      <Filter>src\log\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\os_api\include\data_types.h">
+      <Filter>src\os_api\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\os_api\include\DateTime.h">
+      <Filter>src\os_api\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\os_api\include\DirectoryOperator.h">
+      <Filter>src\os_api\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\os_api\include\FileOperator.h">
+      <Filter>src\os_api\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\os_api\include\functions.h">
+      <Filter>src\os_api\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
