@@ -72,7 +72,7 @@ end
 -- 对外接口
 -- 参数：图片文件数据
 function CheckImageFileValidity(data)
-	print('enter: CheckImageFileValidity')
+	print('enter: CheckImageFileValidity, size=' .. string.len(data))
 	return (string.len(data) >= 128)
 end
 

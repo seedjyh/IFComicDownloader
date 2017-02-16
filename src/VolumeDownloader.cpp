@@ -61,12 +61,12 @@ void VolumeDownloader::Download(const std::string &kURL, const Tstring &kDownloa
         {
             throw UrlAnalyseFailedException(kURL, std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
         }
-        const std::string kVolumeURL(kResult);
+        const std::string kPictureURL(kResult);
 
         PictureDownloader picture_downloader(lua_state_);
         picture_downloader.set_comic_title(comic_title_);
         picture_downloader.set_volume_title(kVolumeTitle);
-        picture_downloader.Download(kVolumeURL, kVolumePath);
+        picture_downloader.Download(kPictureURL, kVolumePath);
     }
     return;
 }

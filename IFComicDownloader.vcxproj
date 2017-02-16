@@ -192,6 +192,7 @@
     <ClInclude Include="src\DownloadRecordFile.h" />
     <ClInclude Include="src\exception\CallLuaFunctionFailed.h" />
     <ClInclude Include="src\exception\DownloadFailedException.h" />
+    <ClInclude Include="src\exception\InvalidImageFileException.h" />
     <ClInclude Include="src\exception\LoadLuaFileFailedException.h" />
     <ClInclude Include="src\exception\UnsupportedSiteException.h" />
     <ClInclude Include="src\exception\UrlAnalyseFailedException.h" />

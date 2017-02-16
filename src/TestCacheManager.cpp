@@ -122,7 +122,7 @@ static bool SameData(const DataHolder &kData1, const DataHolder &kData2)
     return true;
 }
 
-TEST(CacheManager, Fast_Add)
+TEST(CacheManager, Fast_Add_remove)
 {
     const Tstring kTestDirectoryPath(_T("test\\"));
     DirectoryHolder test_directory_holder(kTestDirectoryPath);
@@ -141,6 +141,13 @@ TEST(CacheManager, Fast_Add)
     ASSERT_TRUE(SameData(kCacheData_1, *CacheManager::Instance().Find(url_1)));
     ASSERT_TRUE(SameData(kCacheData_2, *CacheManager::Instance().Find(url_2)));
     ASSERT_TRUE(SameData(kCacheData_3, *CacheManager::Instance().Find(url_3)));
+
+    // test remove.
+    CacheManager::Instance().remove(url_2);
+    ASSERT_THROW(CacheManager::Instance().Find(url_2), NoSuchCacheException);
+    CacheManager::Instance().Add(url_2, kCacheData_2);
+    ASSERT_NO_THROW(CacheManager::Instance().Find(url_2));
+    ASSERT_TRUE(SameData(kCacheData_2, *CacheManager::Instance().Find(url_2)));
 }
 
 #endif

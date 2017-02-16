@@ -29,72 +29,76 @@
 #include "exception/UrlAnalyseFailedException.h"
 #include "exception/DownloadFailedException.h"
 #include "exception/CallLuaFunctionFailed.h"
+#include "exception/InvalidImageFileException.h"
 #include "ProgramArguments.h"
+#include "CacheManager.h"
 
 void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownloadRootPath)
 {
-    // getting file URL
-    const char *kResult = NULL;
-    const char *kErrorMessage = NULL;
-    if (!lua_state_->CallFunction("PictureUrlAnalyse", "s>s", kURL.c_str(), &kResult, &kErrorMessage))
+    while (1)
     {
-         throw UrlAnalyseFailedException(kURL, std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
-    }
-    const std::string kAnalyseResult(kResult);
+        // getting file URL
+        const char *kResult = NULL;
+        const char *kErrorMessage = NULL;
+        if (!lua_state_->CallFunction("PictureUrlAnalyse", "s>s", kURL.c_str(), &kResult, &kErrorMessage))
+        {
+             throw UrlAnalyseFailedException(kURL, std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
+        }
+        const std::string kAnalyseResult(kResult);
 
-    if (!lua_state_->CallFunction("FindFileUrl", "s>s", kAnalyseResult.c_str(), &kResult, &kErrorMessage))
-    {
-        throw UrlAnalyseFailedException(kURL, std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
-    }
-    const std::string kFileURL(kResult);
+        if (!lua_state_->CallFunction("FindFileUrl", "s>s", kAnalyseResult.c_str(), &kResult, &kErrorMessage))
+        {
+            throw UrlAnalyseFailedException(kURL, std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
+        }
+        const std::string kFileURL(kResult);
 
-    // getting file index (from 1)
-    int file_index = 0;
-    if (!lua_state_->CallFunction("GetPageIndexFromURL", "s>i", kURL.c_str(), &file_index, &kErrorMessage))
-    {
-        throw UrlAnalyseFailedException(kURL, std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
-    }
+        // getting file index (from 1)
+        int file_index = 0;
+        if (!lua_state_->CallFunction("GetPageIndexFromURL", "s>i", kURL.c_str(), &file_index, &kErrorMessage))
+        {
+            throw UrlAnalyseFailedException(kURL, std::string((kErrorMessage != NULL) ? kErrorMessage : ""));
+        }
 
-    //////////////////////////////////////////////////////////////////////////
-    // generate file path
-    Tstring file_path = GenerateLocalFilePath_FullImageFileName(
-        kDownloadRootPath,
-        comic_title_,
-        volume_title_,
-        file_index,
-        CodeTransformer::TransStringToTString(GetFileNameExtentionFromFileURL(kFileURL))
-    );
-    if (PathHandler::isTooLongToWrite(file_path))
-    {
-        file_path = GenerateLocalFilePath_NoComicTitleInImageFileName(
+        //////////////////////////////////////////////////////////////////////////
+        // generate file path
+        Tstring file_path = GenerateLocalFilePath_FullImageFileName(
             kDownloadRootPath,
             comic_title_,
             volume_title_,
             file_index,
             CodeTransformer::TransStringToTString(GetFileNameExtentionFromFileURL(kFileURL))
-            );
-    }
-    if (PathHandler::isTooLongToWrite(file_path))
-    {
-        printf("ERROR! Image path is too long to write.\n");
-        return;
-    }
-    //////////////////////////////////////////////////////////////////////////
+        );
+        if (PathHandler::isTooLongToWrite(file_path))
+        {
+            file_path = GenerateLocalFilePath_NoComicTitleInImageFileName(
+                kDownloadRootPath,
+                comic_title_,
+                volume_title_,
+                file_index,
+                CodeTransformer::TransStringToTString(GetFileNameExtentionFromFileURL(kFileURL))
+                );
+        }
+        if (PathHandler::isTooLongToWrite(file_path))
+        {
+            printf("ERROR! Image path is too long to write.\n");
+            return;
+        }
+        //////////////////////////////////////////////////////////////////////////
 
-    if (PathHandler::CheckFileExistance(file_path))
-    {
-        return;
-    }
-
-    while (1)
-    {
+        if (PathHandler::CheckFileExistance(file_path))
+        {
+            return;
+        }
         // download file
         UrlDownloaderFactory downloader_factory(ProgramArguments::Instance().curl_dll_path());
         URLDOWNLOADER_PTR downloader = downloader_factory.Create();
         try
         {
             DATAHOLDER_PTR data = downloader->Download(kFileURL, kURL, std::string(""));
-            CheckImageFileValidity(data);
+            if (!CheckImageFileValidity(data))
+            {
+                throw InvalidImageFileException(kFileURL, kURL);
+            }
             WriteFile(file_path.c_str(), data);
             break;
         }
@@ -102,6 +106,17 @@ void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownlo
         {
             printf("%s\n", e.message().c_str());
             printf("Download failed, retry... ");
+            // 这里本来应该根据具体站点的脚本函数needRefleshPicturePage返回值来决定：是否要清除PicturePage的内容（和cache），并重新下载PicturePage。
+            // 不过这里暂且直接清除cache并重新下载PicturePage。
+            CacheManager::Instance().remove(kURL);
+        }
+        catch (InvalidImageFileException &e)
+        {
+            printf("%s\n", e.message().c_str());
+            printf("Invalid image file, retry... ");
+            // 这里本来应该根据具体站点的脚本函数needRefleshPicturePage返回值来决定：是否要清除PicturePage的内容（和cache），并重新下载PicturePage。
+            // 不过这里暂且直接清除cache并重新下载PicturePage。
+            CacheManager::Instance().remove(kURL);
         }
     }
     

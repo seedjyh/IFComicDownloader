@@ -80,6 +80,19 @@ void CacheManager::Add(const std::string &kURL, const DataHolder &kPageData)
     return;
 }
 
+void CacheManager::remove(const std::string &kURL)
+{
+    CACHE_MAP::const_iterator ite = cache_items_.find(kURL);
+    if (ite == cache_items_.end())
+    {
+        return;
+    }
+    const std::string kValue = ite->second;
+    cache_value_set_.erase(kValue);
+    cache_items_.erase(kURL);
+    return;
+}
+
 CacheManager::CacheManager(const Tstring &kCacheDirectoryPath)
 :   kCacheDirectoryPath_(kCacheDirectoryPath),
     kCacheListFilePath_(kCacheDirectoryPath + _T("cache.index"))

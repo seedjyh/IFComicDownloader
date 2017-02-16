@@ -66,6 +66,10 @@ public:
     //  This function will generate a local-file-path, save @kPageData there,
     //      and add the url-path-pair to the tail of match-list file.
     void Add(const std::string &kURL, const DataHolder &kPageData);
+
+    //  Remove a cache item if it exists.
+    //  Even if there's no cache for this kURL, this method will not throw any exception.
+    void remove(const std::string &kURL);
 protected:
 private:
     CacheManager(const Tstring &kCacheDirectoryPath);

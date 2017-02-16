@@ -26,6 +26,7 @@
 #include "GlobalEnum.h"
 #include "ProgramArguments.h"
 #include "System.h"
+#include "log/include/log.h"
 
 static const std::string s_kVersion("0.0.0.1");
 
@@ -56,6 +57,7 @@ int main(int argc, char **argv)
     {
         try
         {
+            log_init("log/", eLogLevel_Debug);
             System system;
             system.Run();
         }

@@ -464,5 +464,8 @@
     <ClInclude Include="src\os_api\include\functions.h">
       <Filter>src\os_api\include</Filter>
     </ClInclude>
+    <ClInclude Include="src\exception\InvalidImageFileException.h">
+      <Filter>src\exception</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
