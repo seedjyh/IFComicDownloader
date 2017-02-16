@@ -64,7 +64,7 @@ std::string Logger::generateTargetFileUri()
     DateTime now;
     DateTime::setNow(now);
     char file_uri_buf[256] = "";
-    SNPRINTF(file_uri_buf, sizeof(file_uri_buf), "%svsbs_%s.log", root_path_.c_str(), now.toDateString().c_str());
+    SNPRINTF(file_uri_buf, sizeof(file_uri_buf), "%sifcd_%s.log", root_path_.c_str(), now.toDateString().c_str());
     MY_SET_TAIL_NULL(file_uri_buf);
     return std::string(file_uri_buf);
 }
