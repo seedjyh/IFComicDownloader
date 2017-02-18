@@ -1,3 +1,3 @@
 @echo off
-lua "M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\www.ikanman.com\\main.lua"
+lua "M:\\GitHubRepositories\\IFComicDownloader\\test-lua\\mh.fumanhua.net\\main.lua"
 pause
