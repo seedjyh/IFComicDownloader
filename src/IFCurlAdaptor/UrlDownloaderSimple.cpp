@@ -26,7 +26,7 @@
 #include "HeaderPackage.h"
 
 static const string s_kUserAgent("Mozilla/5.0 (Windows NT 5.1) LIBCURL/7.19.7.0");
-static size_t s_kDownloadWaitSecond = 60;
+static size_t s_kDownloadWaitSecond = 600;
 
 UrlDownloaderSimple::UrlDownloaderSimple(
     CurlEasyInit    my_curl_easy_init,
