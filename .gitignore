@@ -49,3 +49,4 @@
 
 # No Download Result
 /download/*
+/test-lua/run_test.bat
