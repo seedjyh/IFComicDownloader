@@ -23,6 +23,7 @@
 
 // Headers of current project
 #include "Logger.h"
+#include "../../os_api/include/DirectoryOperator.h"
 
 static Logger s_logger;
 
@@ -32,6 +33,7 @@ void log_init(const char kRootPath[], eLogLevel lowest_level)
     assert(kRootPath);
     s_logger.set_root_path(std::string(kRootPath));
     s_logger.set_lowest_level(lowest_level);
+    DirectoryOperator::createDirectory(std::string(kRootPath));
     return;
 }
 

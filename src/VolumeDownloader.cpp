@@ -25,9 +25,14 @@
 // Headers of current project
 #include "exception/UrlAnalyseFailedException.h"
 #include "PictureDownloader.h"
+#include "log/include/log.h"
+#include "log/include/log_handle.h"
 
 void VolumeDownloader::Download(const std::string &kURL, const Tstring &kDownloadRootPath)
 {
+    LOG_HANDLE log_handle;
+    log_handle_init(&log_handle);
+    log_info(&log_handle, "Start downloading a volume, URL=%s", kURL.c_str());
     std::cout << "\t" << kURL << std::endl;
     const char *kResult = NULL;
     const char *kErrorMessage = NULL;

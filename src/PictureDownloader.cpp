@@ -32,9 +32,14 @@
 #include "exception/InvalidImageFileException.h"
 #include "ProgramArguments.h"
 #include "CacheManager.h"
+#include "log/include/log.h"
+#include "log/include/log_handle.h"
 
 void PictureDownloader::Download(const std::string &kURL, const Tstring &kDownloadRootPath)
 {
+    LOG_HANDLE log_handle;
+    log_handle_init(&log_handle);
+    log_info(&log_handle, "Start downloading a picture, URL=%s", kURL.c_str());
     while (1)
     {
         // getting file URL

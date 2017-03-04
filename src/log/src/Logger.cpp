@@ -50,6 +50,7 @@ void Logger::log(const LOG_HANDLE *kHandle, eLogLevel level, const char kFormat[
     appendHandleData(fp, kHandle);
     fputc('|', fp);
     vfprintf(fp, kFormat, ap);
+    fputc('\n', fp);
     MY_FCLOSE(fp);
 
     if (isLogFileTooLarge(file_uri))

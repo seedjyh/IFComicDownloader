@@ -25,9 +25,14 @@
 #include "exception/UrlAnalyseFailedException.h"
 #include "VolumeDownloader.h"
 #include "DownloadRecordFile.h"
+#include "log/include/log.h"
+#include "log/include/log_handle.h"
 
 void ComicDownloader::Download(const std::string &kURL, const Tstring &kDownloadRootPath)
 {
+    LOG_HANDLE log_handle;
+    log_handle_init(&log_handle);
+    log_info(&log_handle, "Start downloading a comic, URL=%s, root path=%s", kURL.c_str(), CodeTransformer::TransTstringToString(kDownloadRootPath).c_str());
     std::cout << kURL << std::endl;
     const char *kResult = NULL;
     const char *kErrorMessage = NULL;
