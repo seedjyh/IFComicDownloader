@@ -19,7 +19,7 @@ function Analyse(url)
     return nil, "Unknown page type:" .. page_type .. " for url:" .. url
 end
 ------------------------------------------------------------
-site_mode = ".dmzj.com" -- .XXX.com
+site_mode = "manhua.dmzj.com" -- .XXX.com
 site_chinese_name = "¶¯ÂþÖ®¼ÒÂþ»­Íø" --XXXXX
 site_thread_count = 100 -- 1~100
 site_resource_CD  = 0 -- second

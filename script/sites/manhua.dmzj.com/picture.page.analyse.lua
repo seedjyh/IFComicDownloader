@@ -87,6 +87,14 @@ function FindFileUrl(analyse_result)
     return file_url
 end
 
+-- 对外接口
+-- 参数：图片文件数据
+function CheckImageFileValidity(data)
+	print('enter: CheckImageFileValidity')
+	return (string.len(data) >= 128)
+end
+
+-- 内部
 function FindFileRefererUrl(analyse_result)
     local start_index = JumpStr(analyse_result, 1, "<refererurl>", 1)
     if type(start_index) ~= "number" then
