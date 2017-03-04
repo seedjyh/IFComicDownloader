@@ -33,7 +33,7 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
         return nil, function_name .. "failed when jumping var DM5_IMAGE_COUNT="
     end
     local picture_count_str = GetStr(pagestr, start_index, ";")
-    if type(volume_title) ~= "string" then
+    if type(picture_count_str) ~= "string" then
         return nil, function_name .. "failed when getting picture count"
     end
     local picture_count_number = tonumber(picture_count_str)
