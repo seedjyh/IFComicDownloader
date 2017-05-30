@@ -1,5 +1,6 @@
 -- Get cipher text from volume page str
 function VolumePageAnalyse_GetCipherText(pagestr)
+    local function_name = "VolumePageAnalyse_GetCipherText"
     local start_index = JumpStr(pagestr, 1, "decryptDES('", 1);
     if type(start_index) ~= "number" then
         return nil, function_name .. "failed when jumping decryptDES('"
