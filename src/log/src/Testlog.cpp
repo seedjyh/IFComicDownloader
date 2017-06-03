@@ -89,11 +89,11 @@ TEST(log, level_test)
 
     // do log
     log_init(log_root_path.c_str(), eLogLevel_Info);
-    log_debug(&handle, "This is DEBUG: %s\n", "hello, debug");
-    log_info(&handle, "This is INFO: %s\n", "hello, info");
-    log_warning(&handle, "This is WARNING: %s\n", "hello, warning");
-    log_error(&handle, "This is ERROR: %s\n", "hello, error");
-    log_critical(&handle, "This is CRITICAL: %s\n", "hello, critical");
+    log_debug(&handle, "This is DEBUG: %s", "hello, debug");
+    log_info(&handle, "This is INFO: %s", "hello, info");
+    log_warning(&handle, "This is WARNING: %s", "hello, warning");
+    log_error(&handle, "This is ERROR: %s", "hello, error");
+    log_critical(&handle, "This is CRITICAL: %s", "hello, critical");
 
     std::list<std::string> file_list = DirectoryOperator::getFilesInDirectory(log_root_path);
     ASSERT_EQ(1, file_list.size());// 从打印的量看，应该有且仅有一个日志文件。
