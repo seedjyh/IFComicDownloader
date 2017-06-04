@@ -21,13 +21,22 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
     ----------------------------------------------------------
     result = result .. "<pictureinfolist>"
     -- getting picture count
-    local des_info_ciphertext = VolumePageAnalyse_GetCipherText(pagestr)
-    if type(des_info_ciphertext) ~= "string" then return nil, function_name .. "failed when getting des ciphertext" end
+	local info_json = ""
+    local des_info_ciphertext, err = VolumePageAnalyse_GetDesCipherText(pagestr)
+    if type(des_info_ciphertext) ~= "string" then
+		print('just eval p.a.c.k.e.d')
+		-- just eval p.a.c.k.e.d
+		local eval_str, err = VolumePageAnalyse_GetEvalStr(pagestr)
+		if type(eval_str) ~= "string" then return nil, "Get Eval Str failed." end
+		info_json = MyJavascriptEval(eval_str)
+	else
+		print('There\'s DES cipher to handle')
+		local des_info_plaintext = VolumePageAnalyse_decryptDES(des_info_ciphertext)
+		if type(des_info_plaintext) ~= "string" then return nil, "Decrypt failed" end
+		info_json = JavascriptEval(des_info_plaintext)
+	end
 
-    local des_info_plaintext = VolumePageAnalyse_decryptDES(des_info_ciphertext)
-    if type(des_info_plaintext) ~= "string" then return nil, "Decrypt failed" end
-    local info_json = JavascriptEval(des_info_plaintext)
-
+	print('after JavascriptEval', info_json)
     local picture_count_number = VolumePageAnalyse_GetPictureCountFromInfo(info_json)
     if type(picture_count_number) ~= "number" then
         return nil, function_name .. "failed when getting picture count"
@@ -48,6 +57,20 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
     result = result .. "</result>"
 
     return result
+end
+
+function VolumePageAnalyse_GetEvalStr(pagestr)
+	local start_index = JumpStr(pagestr, 1, "x6c\"](", 1)
+	if type(start_index) ~= "number" then
+        return nil, "failed when jumping x6c\"]("
+    end
+	local end_index = JumpStr(pagestr, start_index, ") </script>", 1)
+	if type(end_index) ~= "number" then
+        return nil, ") </script>"
+    end
+	end_index = end_index - string.len(") </script>")
+	local eval_str = string.sub(pagestr, start_index, end_index)
+	return eval_str
 end
 
 function VolumePageAnalyse_GetVolumeTitle(pagestr)
