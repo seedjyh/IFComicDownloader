@@ -55,8 +55,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>bin\</OutDir>
-    <IncludePath>src;M:\Libs\Python-3.6.0a3\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>M:\Libs\Python-3.6.0a3\PCbuild\win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>src;C:\Users\seedjyh\appdata\local\Programs\python\Python36-32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\seedjyh\appdata\local\Programs\python\Python36-32\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGoogleTest|Win32'">
     <LinkIncremental>true</LinkIncremental>

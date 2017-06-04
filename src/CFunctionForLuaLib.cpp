@@ -348,3 +348,15 @@ int CFunctionForLuaLib::DES_Decrypt_ECB_PKCS5(lua_State *state)
     lua_pushlstring(state, plaintext.content(), plaintext.size());
     return 1;
 }
+
+int CFunctionForLuaLib::LZString_decompresFromBase64(lua_State *state)
+{
+    int ret_code = false;
+    const char *kCipherText = lua_tostring(state, 1);
+    std::string cipher_text(kCipherText); // 密文，是base64字符串。
+    std::string plain_text; // 明文，UTF-8编码的字符串。
+
+    PythonFunction::LZString_decompresFromBase64(cipher_text, plain_text);
+    lua_pushstring(state, plain_text.c_str());
+    return 1;
+}

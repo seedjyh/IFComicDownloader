@@ -41,6 +41,7 @@ public:
     static int JavascriptEval(lua_State *state);
     static int Print(lua_State *state);
     static int DES_Decrypt_ECB_PKCS5(lua_State *state);
+    static int LZString_decompresFromBase64(lua_State *state);
 protected:
 private:
     CFunctionForLuaLib(){};
