@@ -1,17 +1,17 @@
-function JumpStr(pagestr, start_index, str_to_jump, jump_count, str_to_ignore) -- Èç¹ûÏÈÓöµ½str_to_ignore£¬ÔòÌø¹ıignore_strÔÙ½øĞĞÏÂÒ»²½ËÑË÷
+function JumpStr(pagestr, start_index, str_to_jump, jump_count, str_to_ignore) -- å¦‚æœå…ˆé‡åˆ°str_to_ignoreï¼Œåˆ™è·³è¿‡ignore_strå†è¿›è¡Œä¸‹ä¸€æ­¥æœç´¢
     local search_start_index = start_index
 
     for i=1, jump_count do
-        while true do -- ¿ÉÄÜÒªÌø¹ıÒ»¸ö»ò¶à¸öignore_str£¬Ã¿ÂÖwhile¶¼Ìø¹ıÒ»¸öignore_str
+        while true do -- å¯èƒ½è¦è·³è¿‡ä¸€ä¸ªæˆ–å¤šä¸ªignore_strï¼Œæ¯è½®whileéƒ½è·³è¿‡ä¸€ä¸ªignore_str
             local result_start_index, result_end_index = string.find(pagestr, str_to_jump, search_start_index, true)
             if type(result_end_index) ~= "number" then
                 return nil
             end
             
-            if type(str_to_ignore) == "string" then -- ½øÈëignore×Ö·û´®ËÑË÷Á÷³Ì
+            if type(str_to_ignore) == "string" then -- è¿›å…¥ignoreå­—ç¬¦ä¸²æœç´¢æµç¨‹
                 local ignore_start_index, ignore_end_index = string.find(pagestr, str_to_ignore, search_start_index, true)
-                if type(ignore_start_index) ~= "number" or  -- Ã»ÓĞÕÒµ½ignore×Ö·û´®
-                   ignore_start_index > result_start_index then -- ignore×Ö·û´®ÔÚÄ¿±ê×Ö·û´®Ö®ºó
+                if type(ignore_start_index) ~= "number" or  -- æ²¡æœ‰æ‰¾åˆ°ignoreå­—ç¬¦ä¸²
+                   ignore_start_index > result_start_index then -- ignoreå­—ç¬¦ä¸²åœ¨ç›®æ ‡å­—ç¬¦ä¸²ä¹‹å
                     search_start_index = result_end_index + 1
                     break
                 else
@@ -62,26 +62,26 @@ function GetURLHost(url)
     end
 end
 
---½«ASCIIÂëµÄÊı×Ö×ª³É×Ö·û
+--å°†ASCIIç çš„æ•°å­—è½¬æˆå­—ç¬¦
 function AscIICodeToChar(ascii_code)
     assert("number" == type(ascii_code) )
     return string.format("%c", ascii_code)
 end
 
---½«×Ö·û×ª³ÉASCIIÂëµÄÊı×Ö
+--å°†å­—ç¬¦è½¬æˆASCIIç çš„æ•°å­—
 function CharToAscIICode(char)
     assert("string" == type(char) )
     return tonumber(string.byte(char, 1, 1))
 end
 
---½«Ê®Áù½øÖÆµÄASCII×ª³É×Ö·û£¬Èç"67"×ª³É"g"(0x67)
+--å°†åå…­è¿›åˆ¶çš„ASCIIè½¬æˆå­—ç¬¦ï¼Œå¦‚"67"è½¬æˆ"g"(0x67)
 function HexAscIICodeToChar(hex_ascii)
     local hex_str    = "0x" .. hex_ascii
     local ascii_code = tonumber(hex_str)
     return AscIICodeToChar(ascii_code)
 end
 
---ÕÒµ½×îºó³öÏÖÄ³×Ó´®µÄÎ»ÖÃ
+--æ‰¾åˆ°æœ€åå‡ºç°æŸå­ä¸²çš„ä½ç½®
 function GetLastPos(str, substr)
     local result_begin = nil
     local result_end   = nil
@@ -102,7 +102,7 @@ function GetLastPos(str, substr)
     return result_begin, result_end
 end
 
---½«strÖĞ³öÏÖÔÚ×îºóµÄenderÖ®ºóµÄ×Ö·ûÈ¥µô
+--å°†strä¸­å‡ºç°åœ¨æœ€åçš„enderä¹‹åçš„å­—ç¬¦å»æ‰
 function CutTailAfterLastKey(str, ender)
     local last_begin = nil
     local last_end   = nil
@@ -116,7 +116,7 @@ function CutTailAfterLastKey(str, ender)
     return result
 end
 
---×é×°Ò»¸ö¾ø¶ÔURLºÍÒ»¸öÏà¶ÔURL
+--ç»„è£…ä¸€ä¸ªç»å¯¹URLå’Œä¸€ä¸ªç›¸å¯¹URL
 function BindURL(absoluted_url, related_url)
     if type(absoluted_url) ~= "string" then
         return nil, "BindURL failed because absoluted_url is not a string. Its type is " .. type(absoluted_url)
@@ -155,13 +155,13 @@ function BindURL(absoluted_url, related_url)
     return prefix .. suffix
 end
 
---È¡µÃÒ»¸öURL´Ó¿ªÍ·µ½×îºóÒ»¸ö'/'µÄÇ°×ºURL¡£
+--å–å¾—ä¸€ä¸ªURLä»å¼€å¤´åˆ°æœ€åä¸€ä¸ª'/'çš„å‰ç¼€URLã€‚
 function GetLongestHost(url)
     local _, end_index = GetLastPos(url, "/")
     return string.sub(url, 1, end_index)
 end
 
--- É¾³ıÒ»¸ö×Ö·û´®¿ªÍ·ºÍ½áÎ²µÄËùÓĞ²»¿É¼û×Ö·û£¨' ', '\t', '\r', '\n'£©
+-- åˆ é™¤ä¸€ä¸ªå­—ç¬¦ä¸²å¼€å¤´å’Œç»“å°¾çš„æ‰€æœ‰ä¸å¯è§å­—ç¬¦ï¼ˆ' ', '\t', '\r', '\n'ï¼‰
 function Strip(str)
     while true do
         begin_char = string.sub(str, 1, 1)
@@ -183,8 +183,8 @@ function Strip(str)
     return str
 end
 
--- ½«×Ö·û´®strÓÃ×Ö·û´®k»®·Ö£¬½«½á¹ûÒÔtable·½Ê½´«»Ø¡£
--- tableÖĞkeyÊÇ´Ó1¿ªÊ¼µÄÖ¤Êé£¬valueÊÇstrÖĞ±»»®·ÖºóµÄ×Ó´®¡£
+-- å°†å­—ç¬¦ä¸²strç”¨å­—ç¬¦ä¸²kåˆ’åˆ†ï¼Œå°†ç»“æœä»¥tableæ–¹å¼ä¼ å›ã€‚
+-- tableä¸­keyæ˜¯ä»1å¼€å§‹çš„æ­£æ•°ï¼Œvalueæ˜¯strä¸­è¢«åˆ’åˆ†åçš„å­ä¸²ã€‚
 function StringSplit(str, k)
     local now_count = 0
     local now_index = 1
