@@ -18,7 +18,7 @@
 // ...
 
 // C++ system headers
-// ...
+#include <string>
 
 // Headers from other projects
 // ...
@@ -33,6 +33,7 @@ class PythonFunction
 public:
     static int Add(int a, int b);
     static void DES_Decrypt_ECB_PKCS5(const DataHolder &kCiphertext, DataHolder &kKey, DataHolder &ret_plaintext);
+    static void LZString_decompresFromBase64(const std::string &kSrc, std::string &ret_result);
 protected:
 private:
     PythonFunction(){}

@@ -709,4 +709,11 @@ TEST(PythonFunction, DES_Decrypt_ECB_PKCS5)
     ASSERT_EQ(0, memcmp(kExpectedPlaintext, plaintext.content(), plaintext.size()));
 }
 
+TEST(PythonFunction, LZString_decompresFromBase64) {
+    const std::string kSrc("FYBw5gPhDuCmBGIIGYDsA2Kgabzewe2oQAsqyAnBAEwAMVAjJTRRAGYCWANrAM4TysAmEAG4BDAE4MqyCAGMAdiIC2sXiFYyIgEM1AzwaAzbUD4roCx5XguWVk6VLUKyBsgJJzmAe0k2uAFxEeArj2gAHgFcABYQIGKwQvaCFMgAHIS0VBBysAEeMbzszjIA1gD6MhogXExxlrTSzCLsXCpscqyhsIIg3mEQnHJAA===");
+    std::string result;
+    PythonFunction::LZString_decompresFromBase64(kSrc, result);
+    ASSERT_EQ(192, result.size());
+}
+
 #endif

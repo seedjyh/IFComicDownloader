@@ -55,14 +55,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>bin\</OutDir>
-    <IncludePath>src;C:\Python27\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Python27\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>src;M:\Libs\Python-3.6.0a3\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>M:\Libs\Python-3.6.0a3\PCbuild\win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGoogleTest|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>bin_gtest\</OutDir>
-    <LibraryPath>C:\Python27\libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>src;C:\Python27\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\seedjyh\appdata\local\Programs\python\Python36-32\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>src;C:\Users\seedjyh\appdata\local\Programs\python\Python36-32\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -80,7 +80,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zlibd.lib;lua_d.lib;Shlwapi.lib;python27_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;lua_d.lib;Shlwapi.lib;python36_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugGoogleTest|Win32'">
@@ -97,7 +97,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>gtestd.lib;lua_d.lib;Shlwapi.lib;zlibd.lib;python27_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gtestd.lib;lua_d.lib;Shlwapi.lib;zlibd.lib;python36_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

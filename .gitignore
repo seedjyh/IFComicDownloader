@@ -50,3 +50,6 @@
 # No Download Result
 /download/*
 /test-lua/run_test.bat
+/bin/log/*.log
+/log
+/bin_gtest
