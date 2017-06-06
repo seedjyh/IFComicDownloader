@@ -25,13 +25,22 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
     local pic_index = GetPageIndexFromURL(picture_page_url)
     if type(pic_index) ~= "number" then return nil, "GetPageIndexFromURL failed" end
     --------------------------------------------------------------------
-    -- DES cipher part
-    local des_info_ciphertext = VolumePageAnalyse_GetCipherText(pagestr)
-    if type(des_info_ciphertext) ~= "string" then return nil, "failed when getting des ciphertext" end
-    
-    local des_info_plaintext = VolumePageAnalyse_decryptDES(des_info_ciphertext)
-    if type(des_info_plaintext) ~= "string" then return nil, "Decrypt failed" end
-    local info_json = JavascriptEval(des_info_plaintext)
+	local info_json = ""
+    local des_info_ciphertext, err = VolumePageAnalyse_GetDesCipherText(pagestr)
+	local pic_file_host = ""
+    if type(des_info_ciphertext) ~= "string" then
+		-- just eval p.a.c.k.e.d
+		local eval_str, err = VolumePageAnalyse_GetEvalStr(pagestr)
+		if type(eval_str) ~= "string" then return nil, "Get Eval Str failed." end
+		info_json = MyJavascriptEval(eval_str)
+		pic_file_host = 'http://i.yogajx.com'
+	else
+		print('There\'s DES cipher to handle')
+		local des_info_plaintext = VolumePageAnalyse_decryptDES(des_info_ciphertext)
+		if type(des_info_plaintext) ~= "string" then return nil, "Decrypt failed" end
+		info_json = JavascriptEval(des_info_plaintext)
+		pic_file_host = 'http://idx0.hamreus.com:8080'
+	end
     
     local file_relative_url = VolumePageAnalyse_GetFileURL(info_json, pic_index)
     if type(file_relative_url) ~= "string" then
@@ -43,7 +52,7 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
         return nil, "failed when getting file relative path from ciphertext(json)"
     end
     --------------------------------------------------------------------
-    local file_url = 'http://idx0.hamreus.com:8080' .. file_relative_path .. file_relative_url
+    local file_url = pic_file_host .. file_relative_path .. file_relative_url
     --------------------------------------------------------------------
     result = result .. "<fileurl>"
     result = result .. file_url
@@ -123,6 +132,13 @@ function FindFileUrl(analyse_result)
         return nil, "error when call GetStr"
     end
     return file_url
+end
+
+-- 对外接口
+-- 参数：图片文件数据
+function CheckImageFileValidity(data)
+	print('enter: CheckImageFileValidity')
+	return (string.len(data) >= 128)
 end
 
 function FindFileRefererUrl(analyse_result)

@@ -398,33 +398,39 @@ int CodeTransformer::FormatUrltoUtf8(const string &kOriginalURL, string &ret_URL
     MY_PROCESS_ERROR(nRetCode);
     uUTF8StrLen = nRetCode;
 
-    ret_URL.clear();
-    for (int i = 0; i < (int)uUTF8StrLen ; i++)
-    {
-        if ( (szUTF8Str[i] >> 7) & 1) // single UTF-8
-        {
-            // multi UTF-8
-            ret_URL += '%';
-            ret_URL += IntToHex( (szUTF8Str[i] >> 4) & 15 );
-            ret_URL += IntToHex(szUTF8Str[i] & 15);
-            continue;
-        }
-
-        if (' ' == szUTF8Str[i])
-        {
-            ret_URL += '%';
-            ret_URL += IntToHex( (szUTF8Str[i] >> 4) & 15 );
-            ret_URL += IntToHex(szUTF8Str[i] & 15);
-            continue;
-        }
-
-        ret_URL += szUTF8Str[i];
-    }
+    ret_URL = FormatUtf8StrToUrl(std::string(szUTF8Str, uUTF8StrLen));
 
 Exit1:
     nResult = true;
 Exit0:
     return nResult;
+}
+
+std::string CodeTransformer::FormatUtf8StrToUrl(const string &kUtf8Str)
+{
+    std::string result;
+    for (size_t i = 0; i < kUtf8Str.size(); i++)
+    {
+        if ((kUtf8Str[i] >> 7) & 1) // single UTF-8
+        {
+            // multi UTF-8
+            result += '%';
+            result += IntToHex((kUtf8Str[i] >> 4) & 15);
+            result += IntToHex(kUtf8Str[i] & 15);
+            continue;
+        }
+
+        if (' ' == kUtf8Str[i])
+        {
+            result += '%';
+            result += IntToHex((kUtf8Str[i] >> 4) & 15);
+            result += IntToHex(kUtf8Str[i] & 15);
+            continue;
+        }
+
+        result += kUtf8Str[i];
+    }
+    return result;
 }
 
 int CodeTransformer::TransUtf8ToAnsi(const string &kOriginalURL, string &ret_URL) // TODO: URL => str

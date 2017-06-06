@@ -44,11 +44,8 @@ DATAHOLDER_PTR UrlDownloaderSimple::Download(const string &kURL, const string &k
     DataPackage data_package;
     HeaderPackage header_package;
 
-    string formated_url("");
-    string formated_ref_url("");
-
-    CodeTransformer::FormatUrltoUtf8(kURL, formated_url);
-    CodeTransformer::FormatUrltoUtf8(kRefererURL, formated_ref_url);
+    std::string formated_url = CodeTransformer::FormatUtf8StrToUrl(kURL);
+    string formated_ref_url  = CodeTransformer::FormatUtf8StrToUrl(kRefererURL);
 
     CURL *curl = my_curl_easy_init_();
     if (NULL == curl)

@@ -73,6 +73,7 @@ public:
     static std::string TransTstringToString(const Tstring &kSrc);
 
     static int FormatUrltoUtf8(const string &kOriginalURL, string &ret_URL);
+    static std::string FormatUtf8StrToUrl(const string &kUtf8Str);
 
     static int TransUtf8ToAnsi(const string &kOriginalStr, string &ansi_str);
 
