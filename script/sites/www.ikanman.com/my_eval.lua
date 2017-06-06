@@ -33,21 +33,21 @@
 -- 	)
 -- 	)
 function MyJavascriptEval(eval_str)
-	print('------enter MyJavascriptEval: eval_str', eval_str) -- eval_str: "function(p,a,c,k,e,d){...}('u t={...}||{};',62,77,'...',0,{})"
+	-- print('------enter MyJavascriptEval: eval_str', eval_str) -- eval_str: "function(p,a,c,k,e,d){...}('u t={...}||{};',62,77,'...',0,{})"
 	local module_str = getModule(eval_str)
-	print('------module', module_str)
+	-- print('------module', module_str)
 	
 	local key_str = getEncryptionKey(eval_str)
-	print('------key', key_str)
+	-- print('------key', key_str)
 	
 	local key_dict = StringSplit(LZString_decompresFromBase64(key_str), '|')
-	print('------dict', key_dict)
+	-- print('------dict', key_dict)
 	
 	local final_dict = tranformKeyDict(key_dict)
-	print('------final_dict', final_dict)
+	-- print('------final_dict', final_dict)
 	
 	local plain_str = replaceByFinalDict(module_str, final_dict)
-	print('------plain_str', plain_str)
+	-- print('------plain_str', plain_str)
 	return plain_str
 end
 
@@ -66,11 +66,6 @@ end
 
 -- 将模式串按照密钥字段替换，返回替换结果
 function replaceByFinalDict(module_str, final_dict)
-	print('module_str', module_str)
-	print('final_dict')
-	--for i,v in pairs(final_dict) do
-	--	print(i, v)
-	--end
 	local result = ''
 	while true do
 		local u,v = string.find(module_str, '%w+')

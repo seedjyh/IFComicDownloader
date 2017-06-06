@@ -1,0 +1,127 @@
+研究基于：http://www.ikanman.com/comic/8080/305136.html#p=1
+
+{
+    "bid":8080,
+    "bname":"深渊融接",
+    "bpic":"8080.jpg",
+    "cid":305136,
+    "cname":"第44回",
+    "files":[
+        "1_2026.jpg.webp",
+        "2_3755.jpg.webp",
+        "3_5041.jpg.webp",
+        "4_7085.jpg.webp",
+        "5_3917.jpg.webp",
+        "6_3634.jpg.webp",
+        "7_7991.jpg.webp",
+        "8_8044.jpg.webp",
+        "9_4126.jpg.webp",
+        "10_9601.jpg.webp",
+        "11_5464.jpg.webp",
+        "12_3151.jpg.webp",
+        "13_3489.jpg.webp",
+        "14_6905.jpg.webp",
+        "15_7825.jpg.webp",
+        "16_5125.jpg.webp",
+        "17_9800.jpg.webp",
+        "18_3335.png.webp",
+        "19_1367.jpg.webp",
+        "20_1813.jpg.webp",
+        "21_7563.jpg.webp",
+        "22_9193.jpg.webp",
+        "23_2962.jpg.webp",
+        "24_5746.jpg.webp",
+        "25_1015.jpg.webp",
+        "26_4914.jpg.webp",
+        "27_1632.jpg.webp",
+        "28_1191.jpg.webp",
+        "29_3408.jpg.webp",
+        "30_2937.jpg.webp",
+        "31_5626.png.webp",
+        "32_4626.png.webp",
+        "33_5185.jpg.webp",
+        "34_7833.png.webp",
+        "35_5673.jpg.webp",
+        "36_6036.jpg.webp",
+        "37_9557.jpg.webp",
+        "38_7316.jpg.webp",
+        "39_7016.jpg.webp",
+        "40_1404.jpg.webp",
+        "41_4294.jpg.webp",
+        "42_7023.jpg.webp",
+        "43_8472.jpg.webp",
+        "44_8406.jpg.webp",
+        "45_1137.jpg.webp"
+    ],
+    "finished":false,
+    "len":45,
+    "path":"/ps1/b/BiorgTrinity/第44回/",
+    "status":1,
+    "block_cc":"",
+    "nextId":0,
+    "prevId":301924
+}
+
+光解密还不够。
+core_798542D87E58C4C32F76F2F916ABC74F.js
+这个是www.ikanman.com的核心脚本，包括图片host的计算，URL的生成。
+
+var servs是所有服务器的列表，主要是要计算".yogajx.com"的前面部分。
+[
+    {
+        "name":"自动",
+        "hosts":[
+            {
+                "h":"i",
+                "w":1
+            }
+        ]
+    },
+    {
+        "name":"电信",
+        "hosts":[
+            {
+                "h":"dx",
+                "w":5
+            },
+            {
+                "h":"cf",
+                "w":5
+            },
+            {
+                "h":"i",
+                "w":10
+            }
+        ]
+    },
+    {
+        "name":"联通",
+        "hosts":[
+            {
+                "h":"lt",
+                "w":5
+            },
+            {
+                "h":"cf",
+                "w":5
+            },
+            {
+                "h":"i",
+                "w":10
+            }
+        ]
+    }
+]
+
+
+getHost function()
+	首先，累加hosts数组里每一项的"w"，综合计算为serv[i].w。
+	SMH.store.get("imgServ")
+		如果得到null，则curServ就是0
+		否则，得到的字符串转成整数，就是curServ。这个是在serv数组里的下标。
+	SMH.store.get("imgHost")
+		如果得到null，则随机curHost。
+		否则，得到的字符串转成整数，就是curHOst。这个是在serv[*].hosts数组里的下标。
+
+暂且固定采用"http://i.yogajx.com" + path + files[*]
+		

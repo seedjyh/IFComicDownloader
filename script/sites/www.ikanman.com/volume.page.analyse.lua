@@ -24,7 +24,6 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
 	local info_json = ""
     local des_info_ciphertext, err = VolumePageAnalyse_GetDesCipherText(pagestr)
     if type(des_info_ciphertext) ~= "string" then
-		print('just eval p.a.c.k.e.d')
 		-- just eval p.a.c.k.e.d
 		local eval_str, err = VolumePageAnalyse_GetEvalStr(pagestr)
 		if type(eval_str) ~= "string" then return nil, "Get Eval Str failed." end
@@ -36,8 +35,8 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
 		info_json = JavascriptEval(des_info_plaintext)
 	end
 
-	print('after JavascriptEval', info_json)
-    local picture_count_number = VolumePageAnalyse_GetPictureCountFromInfo(info_json)
+	-- print('after JavascriptEval', info_json)
+    local picture_count_number = VolumePageAnalyse_GetPictureCountFromInfo(info_json) -- VolumePageAnalyse_GetPictureCountFromInfo这个函数定义在my_eval.lua，但是对于p.a.c.k.e.d也是通用的（参见《研究进展.txt》的开头一大段，里面有len属性）。
     if type(picture_count_number) ~= "number" then
         return nil, function_name .. "failed when getting picture count"
     end
