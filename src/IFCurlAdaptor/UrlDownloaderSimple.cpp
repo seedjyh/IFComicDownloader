@@ -53,7 +53,7 @@ DATAHOLDER_PTR UrlDownloaderSimple::Download(const string &kURL, const string &k
         throw DownloadFailedException(kURL, std::string("my_curl_easy_init_ returned NULL"));
     }
 
-    my_curl_easy_setopt_(curl, CURLOPT_URL, kURL.c_str());
+    my_curl_easy_setopt_(curl, CURLOPT_URL, formated_url.c_str());
     my_curl_easy_setopt_(curl, CURLOPT_WRITEFUNCTION, &DataPackage::process_data);
     my_curl_easy_setopt_(curl, CURLOPT_WRITEDATA, &data_package);
     my_curl_easy_setopt_(curl, CURLOPT_HEADERFUNCTION, &HeaderPackage::process_header);
@@ -61,9 +61,9 @@ DATAHOLDER_PTR UrlDownloaderSimple::Download(const string &kURL, const string &k
     my_curl_easy_setopt_(curl, CURLOPT_TIMEOUT, s_kDownloadWaitSecond);
     my_curl_easy_setopt_(curl, CURLOPT_ACCEPT_ENCODING, "gzip, deflate, sdch");
     my_curl_easy_setopt_(curl, CURLOPT_SSL_VERIFYPEER, false);
-    if (kRefererURL.size() > 0)
+    if (formated_ref_url.size() > 0)
     {
-        my_curl_easy_setopt_(curl, CURLOPT_REFERER, kRefererURL.c_str());
+        my_curl_easy_setopt_(curl, CURLOPT_REFERER, formated_ref_url.c_str());
     }
 
     my_curl_easy_setopt_(curl, CURLOPT_USERAGENT, s_kUserAgent.c_str());
