@@ -32,6 +32,19 @@ std::string JavascriptTool::Eval(const std::string &kSrc)
     return Deconfuse(confused_data, confuse_base, dictionary);
 }
 
+unsigned int prevBackslashCount(const char *p) {
+    unsigned int count = 0;
+    for (int i = 1;; i++){
+        char now_ch = *(p - i);
+        if (now_ch == '\\') {
+            count++;
+        }
+        else {
+            return count;
+        }
+    }
+}
+
 static std::string JumpAndGet(const char *kSrc, const char *kJumpedText, int jump_count, const char *kEndText, int &ret_read_count)
 {
     std::string result;
@@ -45,13 +58,22 @@ static std::string JumpAndGet(const char *kSrc, const char *kJumpedText, int jum
         }
     }
     kHead += strlen(kJumpedText);
-    const char *kTail = strstr(kHead, kEndText);
-    if (NULL == kTail)
+    const char *kTail = kHead;
+    while (1)
     {
-        throw 1; // format error
+        kTail = strstr(kTail, kEndText);
+        if (NULL == kTail)
+        {
+            throw 1; // format error
+        }
+        if (prevBackslashCount(kTail) % 2 == 1)
+        {
+            kTail += strlen(kEndText);
+            continue;
+        }
+        ret_read_count = kTail + strlen(kEndText) - kSrc;
+        return std::string(kHead, kTail - kHead);
     }
-    ret_read_count = kTail + strlen(kEndText) - kSrc;
-    return std::string(kHead, kTail - kHead);
 }
 
 void JavascriptTool::ParseConfusionFunction(const std::string &kSrc, std::string &ret_confused_data, std::string &ret_confuse_base, std::string &ret_dictionary)
