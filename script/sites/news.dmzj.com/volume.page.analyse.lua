@@ -27,7 +27,14 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
 
 	local pic_count = 0
 	while true do
-		start_index = JumpStr(pagestr, start_index, "<img src=\"", 1)
+		start_index = JumpStr(pagestr, start_index, "<img ", 1)
+		if type(start_index) ~= "number" then
+			break
+		end
+		if start_index >= end_index then
+			break
+		end
+		start_index = JumpStr(pagestr, start_index, "src=\"", 1)
 		if type(start_index) ~= "number" then
 			break
 		end

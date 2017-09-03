@@ -27,9 +27,13 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
         return nil, function_name .. "failed when jumping news_content_con"
     end
 	
-	start_index = JumpStr(pagestr, start_index, "<img src=\"", picture_index_num)
+	start_index = JumpStr(pagestr, start_index, "<img ", picture_index_num)
 	if type(start_index) ~= "number" then
-		return nil, "failed to locate target <img src=\""
+		return nil, "failed to locate target <img "
+	end
+	start_index = JumpStr(pagestr, start_index, "src=\"", 1)
+	if type(start_index) ~= "number" then
+		return nil, "failed to locate target src=\""
 	end
 	
 	local file_url = GetStr(pagestr, start_index, "\"")
