@@ -138,7 +138,8 @@ end
 -- 参数：图片文件数据
 function CheckImageFileValidity(data)
 	print('enter: CheckImageFileValidity')
-	return (string.len(data) >= 100) and (data[0] ~= '<')
+	-- return (string.len(data) >= 100) and (data[0] ~= '<')
+	return true
 end
 
 function FindFileRefererUrl(analyse_result)
