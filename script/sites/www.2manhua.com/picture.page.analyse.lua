@@ -90,7 +90,7 @@ end
 -- 参数：图片文件数据
 function CheckImageFileValidity(data)
 	print('enter: CheckImageFileValidity')
-	return (string.len(data) >= 128)
+	return (string.len(data) >= 0)
 end
 
 -- 内部
