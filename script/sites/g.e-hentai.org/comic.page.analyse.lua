@@ -38,11 +38,6 @@ function ComicPageAnalyse(comic_page_url, pagestr, extra_info)
 end
 
 function ComicPageAnalyse_GetComicTilte(pagestr)
-    local start_index = JumpStr(pagestr, 1, "<h1 id=\"gn\">", 1)
-    if type(start_index) ~= "number" then return nil, "Jumping <h1 id=\"gn\">failed." end
-    local english_result = GetStr(pagestr, start_index, "<")
-    if type(english_result) ~= "string" then return nil, "Getting until < failed." end
-    
     local start_index = JumpStr(pagestr, 1, "<h1 id=\"gj\">", 1)
     if type(start_index) ~= "number" then return nil, "Jumping <h1 id=\"gj\">failed." end
     local japanese_result = GetStr(pagestr, start_index, "<")
