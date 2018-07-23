@@ -24,6 +24,7 @@
 // Headers of current project
 #include "DataPackage.h"
 #include "HeaderPackage.h"
+#include "../ProgramArguments.h"
 
 static const string s_kUserAgent("Mozilla/5.0 (Windows NT 5.1) LIBCURL/7.19.7.0");
 static size_t s_kDownloadWaitSecond = 600;
@@ -54,12 +55,16 @@ DATAHOLDER_PTR UrlDownloaderSimple::Download(const string &kURL, const string &k
     }
 
     my_curl_easy_setopt_(curl, CURLOPT_URL, formated_url.c_str());
+	if (ProgramArguments::Instance().proxy_url().size() > 0)
+	{
+		my_curl_easy_setopt_(curl, CURLOPT_PROXY, ProgramArguments::Instance().proxy_url().c_str());
+	}
     my_curl_easy_setopt_(curl, CURLOPT_WRITEFUNCTION, &DataPackage::process_data);
     my_curl_easy_setopt_(curl, CURLOPT_WRITEDATA, &data_package);
     my_curl_easy_setopt_(curl, CURLOPT_HEADERFUNCTION, &HeaderPackage::process_header);
     my_curl_easy_setopt_(curl, CURLOPT_HEADERDATA, &header_package);
     my_curl_easy_setopt_(curl, CURLOPT_TIMEOUT, s_kDownloadWaitSecond);
-    my_curl_easy_setopt_(curl, CURLOPT_ACCEPT_ENCODING, "gzip, deflate, sdch");
+    my_curl_easy_setopt_(curl, CURLOPT_ACCEPT_ENCODING, "deflate, sdch");
     my_curl_easy_setopt_(curl, CURLOPT_SSL_VERIFYPEER, false);
     if (formated_ref_url.size() > 0)
     {

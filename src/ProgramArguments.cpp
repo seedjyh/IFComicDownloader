@@ -80,7 +80,16 @@ void ProgramArguments::Initialize(int argc, const char * const *argv)
     else
     {
         throw std::string("No URL, program will exit.");
-    }
+	}
+
+	if (option_map.count("proxy"))
+	{
+		proxy_url_ = option_map["proxy"].as<std::string>();
+	}
+	else
+	{
+		proxy_url_ = "";
+	}
 
     if (option_map.count("download-path"))
     {
@@ -136,6 +145,7 @@ ProgramArguments::ProgramArguments()
         ("version,v", "print version of VXI")
         ("analyse,a", "just analyse the page")
         ("url,u", boost::program_options::value<std::string>(), "target URL to download and analyse.")
+		("proxy,p", boost::program_options::value<std::string>(), "proxy used in downloading, such as \"127.0.0.1:1212\"")
         ("download-path,d", boost::program_options::value<std::string>(), "root path for saving downloaded files")
         ("script-path,s", boost::program_options::value<std::string>(), "the root path of lua script")
         ("cache-path,c", boost::program_options::value<std::string>(), "the root path of cache system, including cache list file and all temporary files")

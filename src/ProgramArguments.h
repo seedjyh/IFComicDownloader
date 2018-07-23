@@ -38,6 +38,7 @@ class ProgramArguments
 
     eProgramActionType action_type_;
     std::string target_url_;
+	std::string proxy_url_;
     Tstring download_path_;
     Tstring script_path_;
     Tstring cache_path_;
@@ -48,8 +49,9 @@ public:
     void Initialize(int argc, const char * const *argv);
     std::string GetArgumentHelp() const;
 
-    eProgramActionType action_type() const { return action_type_; }
-    const std::string& target_url() const { return target_url_; }
+	eProgramActionType action_type() const { return action_type_; }
+	const std::string& target_url() const { return target_url_; }
+	const std::string& proxy_url() const { return proxy_url_; }
     const Tstring& download_path() const { return download_path_; }
     const Tstring& script_path() const { return script_path_; }
     const Tstring& cache_path() const { return cache_path_; }
