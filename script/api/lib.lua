@@ -54,7 +54,7 @@ function GetURLHost(url)
     end
     prefix_length = string.len("http://")
     if string.len(url) > prefix_length then
-        slash_index, _ = string.find(url, "/", prefix_length + 1, true)
+        slash_index, _ = string.find(url, "/", prefix_length + 2, true)
         if type(slash_index) ~= "number" then
             return url
         end
