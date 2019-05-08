@@ -1,6 +1,9 @@
 # IFComicDownloader
 一个命令行界面，可下载国内各在线漫画网站的图片到本地的程序（亦可通过脚本随意扩展支持更多国内外网站）。
 
+# 协议
+[![996.ICU](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+
 # 基本使用方法
 用命令行进入IFComicDownloader.exe所在目录，然后运行
 ```
