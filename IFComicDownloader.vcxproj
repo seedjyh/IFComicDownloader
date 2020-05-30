@@ -121,12 +121,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>bin\</OutDir>
-    <IncludePath>src;C:\Users\jyh\AppData\Local\Programs\Python\Python37-32\include;K:\Libs\lua-master\src;K:\Libs\boost_1_60_0;K:\Libs\curl-7.46.0\include\;K:\Libs\zlib-1.2.8;K:\Libs\zlib-1.2.8\build;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\jyh\AppData\Local\Programs\Python\Python37-32\libs;K:\Libs\zlib-1.2.8\build\Debug;K:\Libs\lua-master\Debug;K:\Libs\boost_1_60_0\stage\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>src;C:\Users\jyh\AppData\Local\Programs\Python\Python38-32\include;K:\Libs\lua-master\src;K:\Libs\boost_1_60_0;K:\Libs\curl-7.46.0\include\;K:\Libs\zlib-1.2.8;K:\Libs\zlib-1.2.8\build;$(IncludePath)</IncludePath>
+    <LibraryPath>K:\Libs\zlib-1.2.8\build\Debug;K:\Libs\lua-master\Debug;K:\Libs\boost_1_60_0\stage\lib;C:\Users\jyh\AppData\Local\Programs\Python\Python38-32\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>src;C:\Users\jyh\AppData\Local\Programs\Python\Python37\include;K:\Libs\lua-master\src;K:\Libs\boost_1_60_0;K:\Libs\curl-7.46.0\include\;K:\Libs\zlib-1.2.8;K:\Libs\zlib-1.2.8\build;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\jyh\AppData\Local\Programs\Python\Python37\libs;K:\Libs\zlib-1.2.8\build\Debug;K:\Libs\lua-master\Debug;K:\Libs\boost_1_60_0\stage\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>src;C:\Users\jyh\AppData\Local\Programs\Python\Python38\include;K:\Libs\lua-master\src;K:\Libs\boost_1_60_0;K:\Libs\curl-7.46.0\include\;K:\Libs\zlib-1.2.8;K:\Libs\zlib-1.2.8\build;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\jyh\AppData\Local\Programs\Python\Python38\libs;K:\Libs\zlib-1.2.8\build\Debug;K:\Libs\lua-master\Debug;K:\Libs\boost_1_60_0\stage\lib;$(LibraryPath)</LibraryPath>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='x64|Win32'">
