@@ -2,7 +2,7 @@
 ---http://g.e-hentai.org/
 ------------------------------------------------------------
 function ComicUrlAnalyse(url)
-    local pagestr, err = DownloadURL(url, "", "")
+    local pagestr, err = DownloadURL(url, "", "nw=1")
 	if type(pagestr) ~= "string" then
 		return nil, "DownloadURL " .. url .. " failed\nbecasuse:\n" .. err
 	end
