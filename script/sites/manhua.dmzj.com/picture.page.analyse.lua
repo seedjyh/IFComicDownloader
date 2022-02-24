@@ -57,9 +57,9 @@ function PicturePageAnalyse(picture_page_url, pagestr, extra_info)
 end
 
 function GetPageIndexFromURL(url)
-	local index = GetLastPos(url, "-")
+	local index = GetLastPos(url, "=")
 	if type(index) ~= "number" then
-		return nil, "Can\'t find \'-\' from url " .. url
+		return nil, "Can\'t find \'=\' from url " .. url
 	end
 	local page_index_str = GetStr(url, index + 1, ".")
 	if type(page_index_str) ~= "string" then

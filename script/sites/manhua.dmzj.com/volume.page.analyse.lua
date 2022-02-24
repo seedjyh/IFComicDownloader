@@ -43,7 +43,7 @@ function VolumePageAnalyse(volume_page_url, pagestr, extra_info)
     local picture_url_root = CutTailAfterLastKey(volume_page_url, ".")
     picture_url_root = string.sub(picture_url_root, 1, string.len(picture_url_root) - string.len("."))
     while index <= picture_count_number do
-        local picture_url = picture_url_root .. "-" .. tostring(index) .. ".shtml"
+        local picture_url = volume_page_url .. "#@page=" .. tostring(index)
         result = result .. "<pictureinfo><pictureurl>" .. picture_url .. "</pictureurl></pictureinfo>"
 	    index = index + 1
     end
