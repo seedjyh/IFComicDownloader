@@ -41,6 +41,20 @@ end
 
 -- 从首个VolumePage分析出所有SubVolumePage的URL。
 function GetSubVolumeUrlList(pagestr)
+    -- 有些漫画页数过多，subVolume会显示为 <	1	2	3	4	5	6	7	...	14	>
+    -- 此时需要程序直接生成所有subVolume的URL。
+    -- 判断依据是页面是否有 "Jump to page"
+    local start_index = JumpStr(pagestr, 1, "Jump to page", 1)
+    if not start_index then
+        -- 如果没有，则按照常规方式从页面获取subVolume的URL
+        return GetSubVolumeUrlListFromPage(pagestr)
+    else
+        return GenerateSubVolumeUrlListFromParameter(pagestr)
+    end
+end
+
+-- 从首个VolumePage的页面本身分析出所有SubVolumePage的URL。
+function GetSubVolumeUrlListFromPage(pagestr)
     local start_index = JumpStr(pagestr, 1, "ptt", 1)
     if not start_index then return nil, "No ptt" end
     
@@ -60,6 +74,30 @@ function GetSubVolumeUrlList(pagestr)
         if result[1] ~= now_url then
             table.insert(result, now_url)
         end
+    end
+    return result
+end
+
+-- 从参数生成SubVolumePage的URL
+function GenerateSubVolumeUrlListFromParameter(pagestr)
+-- var page=prompt('Jump to page: (1-14)', 2); if(page != null) document.location='https://e-hentai.org/g/2176137/404c3909d0/?p='+Math.min(13, Math.max(0, page - 1))+''">...</td>
+    local start_index = JumpStr(pagestr, 1, "Jump to page: (", 1)
+    -- 最初的页码
+    local first_page_str = GetStr(pagestr, start_index, "-")
+    local first_page_id = tonumber(first_page_str)
+    -- 最后的页码
+    start_index = JumpStr(pagestr, start_index, "-", 1)
+    local last_page_str = GetStr(pagestr, start_index, ")")
+    local last_page_id = tonumber(last_page_str)
+    -- url模板
+    start_index = JumpStr(pagestr, start_index, "location=\'", 1)
+    local url = GetStr(pagestr, start_index, "\'")
+    -- 开始生成
+    local result = {}
+    local page_id = first_page_id - 1
+    while page_id < last_page_id do
+        table.insert(result, url .. tostring(page_id))
+        page_id = page_id + 1
     end
     return result
 end
